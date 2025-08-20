@@ -24,9 +24,9 @@ export default function Hero() {
             </div>
 
             {/* Content Container */}
-            <div className='hero-content relative z-10 flex flex-col items-center text-center text-white px-4 sm:px-6 lg:px-8'>
+            <div className='hero-content relative z-10 flex flex-col items-center text-white px-4 sm:px-6 lg:px-8'>
                 {/* Main Title */}
-                <div className='flex flex-col items-center'>
+                <div className='flex flex-col w-full max-w-[607px]'>
                     <h1 className='hero-title-main text-white mb-2'>
                         Equip Your Team with
                         <br />
@@ -38,7 +38,7 @@ export default function Hero() {
                 </div>
 
                 {/* Subtitle */}
-                <h2 className='hero-subtitle text-white mt-4 mb-8'>
+                <h2 className='hero-subtitle text-white mt-4 mb-8 w-full max-w-[607px]'>
                     The Choice of Africa's Leading Organizations
                 </h2>
 
@@ -62,7 +62,7 @@ export default function Hero() {
                     font-size: 50px;
                     line-height: 110%;
                     letter-spacing: 0%;
-                    text-align: center;
+                    text-align: left;  /* Changed from center to left */
                     max-width: 607px;
                     margin-bottom: 20px;
                 }
@@ -71,10 +71,10 @@ export default function Hero() {
                     font-family: "Monotype Corsiva, cursive";
                     font-weight: 400;
                     font-style: italic;
-                    font-size: 70px;
+                    font-size: 55px;  /* Reduced from 70px to match width better */
                     line-height: 100%;
                     letter-spacing: 0%;
-                    text-align: center;
+                    text-align: left;  /* Changed from center to left */
                 }
 
                 .hero-subtitle {
@@ -82,7 +82,7 @@ export default function Hero() {
                     font-size: 20px;
                     line-height: 120%;
                     letter-spacing: 0%;
-                    text-align: center;
+                    text-align: left;  /* Changed from center to left */
                     max-width: 607px;
                     margin-bottom: 30px;
                 }
@@ -94,7 +94,6 @@ export default function Hero() {
                 }
 
                 .button-text {
-                    font-family: "Montserrat, sans-serif";
                     font-weight: 600;
                     font-size: 15px;
                     line-height: 100%;
@@ -125,7 +124,7 @@ export default function Hero() {
                     }
 
                     .hero-title-italic {
-                        font-size: 56px;
+                        font-size: 44px;  /* Reduced proportionally */
                     }
 
                     .hero-subtitle {
@@ -156,10 +155,12 @@ export default function Hero() {
                         line-height: 120%;
                         margin-bottom: 14px;
                         max-width: 100%;
+                        text-align: center;  /* Center on mobile for better UX */
                     }
 
                     .hero-title-italic {
                         font-size: 44px;
+                        text-align: center;  /* Center on mobile for better UX */
                     }
 
                     .hero-subtitle {
@@ -167,6 +168,7 @@ export default function Hero() {
                         line-height: 130%;
                         margin-bottom: 20px;
                         max-width: 100%;
+                        text-align: center;  /* Center on mobile for better UX */
                     }
 
                     .hero-button {
@@ -190,16 +192,19 @@ export default function Hero() {
                         font-size: 28px;
                         line-height: 125%;
                         margin-bottom: 12px;
+                        text-align: center;
                     }
 
                     .hero-title-italic {
                         font-size: 38px;
+                        text-align: center;
                     }
 
                     .hero-subtitle {
                         font-size: 15px;
                         line-height: 135%;
                         margin-bottom: 18px;
+                        text-align: center;
                     }
 
                     .hero-button {
@@ -223,16 +228,19 @@ export default function Hero() {
                         font-size: 24px;
                         line-height: 130%;
                         margin-bottom: 10px;
+                        text-align: center;
                     }
 
                     .hero-title-italic {
                         font-size: 34px;
+                        text-align: center;
                     }
 
                     .hero-subtitle {
                         font-size: 14px;
                         line-height: 140%;
                         margin-bottom: 16px;
+                        text-align: center;
                     }
 
                     .hero-button {
@@ -254,15 +262,18 @@ export default function Hero() {
                     .hero-title-main {
                         font-size: 28px;
                         margin-bottom: 8px;
+                        text-align: center;
                     }
 
                     .hero-title-italic {
                         font-size: 38px;
+                        text-align: center;
                     }
 
                     .hero-subtitle {
                         font-size: 14px;
                         margin-bottom: 15px;
+                        text-align: center;
                     }
 
                     .hero-button {
