@@ -1,0 +1,245 @@
+.body {
+  min-height: 100vh;
+}
+.hero {
+  color: #fff;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("./assets/heroImage.jpg");
+  height: 30rem;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30rem;
+  background-color: rgba(0, 0, 0, 0.4); /* Darker for better contrast */
+  z-index: 1;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-family: "Monotype Corsiva";
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 60px;
+  /* line-height: 61px; */
+  text-align: center;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.hero h3 {
+  /* Equip Your Team with Future-Ready AI Skills */
+
+  font-family: "Monotype Corsiva";
+  font-style: italic;
+  font-weight: 300;
+  font-size: 40px;
+  text-align: center;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.hero button {
+  padding: 14px 42px;
+  border: none;
+
+  background: #ffffff;
+  border-radius: 50px;
+}
+
+.trustees {
+  /* Frame 18 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* padding: 133px 385px; */
+  gap: 5rem;
+  height: 25rem;
+
+  background: #faffef;
+}
+
+.trusteesIntro {
+  /* Recognized by 50+ Leading Brands Worldwide */
+  display: flex;
+  flex-direction: column;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 35px;
+  text-align: center;
+
+  color: #000000;
+}
+
+.trusteesIntro > span {
+  /* Recognized by 50+ Leading Brands Worldwide */
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 43px;
+  text-align: center;
+
+  background: linear-gradient(90deg, #000000 0%, #ffbb15 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.trustees div {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-size: 1.2rem;
+}
+
+.udemy,
+.aiCert {
+  display: flex;
+  align-items: center;
+}
+
+.programsBody {
+  margin-top: 5rem;
+  display: flex;
+  /* background-color: #faffef; */
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.programsBody h2 {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 35px;
+  text-align: center;
+
+  /* Inside auto layout */
+}
+
+.programsBody h2 span {
+  color: #ffbb15;
+}
+
+.programsBody .courses {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+}
+.programsBody .programs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 20rem;
+  /* height: 10rem; */
+}
+.programsBody .courses img {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+}
+
+.programsBody .courses button {
+  /* Outlined Btn */
+
+  padding: 17px 72px;
+  color: #ffbb15;
+  background-color: transparent;
+  border: 1px solid #ffbb15;
+  border-radius: 5px;
+  transition: all 600ms ease;
+}
+
+.programsBody .courses button:hover {
+  background-color: #ffbb15;
+  color: #ffffff;
+}
+
+.empowerment {
+  /* Frame 29 */
+
+  /* Auto layout */
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 45rem;
+  justify-content: center;
+  /* padding: 156px 111px; */
+
+  background: linear-gradient(308.37deg, #ffbb15 0.62%, #000000 66.75%);
+}
+
+.empowerment > div {
+  /* Frame 29 */
+
+  /* Auto layout */
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 90%;
+  height: 70%;
+  justify-content: center;
+
+  background: #ffffff;
+  border-radius: 20px;
+}
+.empowerment img {
+  width: 26rem;
+  object-fit: cover;
+  height: 80%;
+}
+
+.empowermentTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+@media (max-width: 768px) {
+  .hero,
+  .hero::before {
+    height: 25rem;
+  }
+  .hero h1 {
+    font-size: 36px;
+  }
+  .hero h3 {
+    font-size: 24px;
+  }
+}
