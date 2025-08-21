@@ -3,8 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 78px;
-  padding: 0 32px;
+  height: 65px;
+  padding: 0 52px;
   border-bottom: 1px solid #e5e7eb;
   position: relative;
   z-index: 1000;
@@ -63,7 +63,7 @@
 .login_btn {
   border: none;
   width: 164px;
-  height: 52px;
+  height: 48px;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
@@ -251,7 +251,7 @@
 /* Small Mobile Styles */
 @media (max-width: 480px) {
   .navbar {
-    padding: 0 12px;
+    padding: 0 16px;
   }
   
   .logo_img {
