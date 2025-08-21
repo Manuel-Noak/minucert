@@ -1,0 +1,78 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  padding: 1.8rem;
+  z-index: 100;
+  border: 1px solid rgba(216, 255, 133, 0.05);
+}
+/* NavBar */
+
+.navbar .logo {
+  position: relative;
+  margin-right: 10px;
+  font-size: 22px;
+  font-weight: 400;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.logo span {
+  font-weight: 700;
+  color: #ffbb15;
+  /* line-height: 27px; */
+}
+
+.logo small {
+  position: absolute;
+  top: 6px;
+  font-size: 5px;
+}
+/* MinuCert */
+
+.nav_links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 48px;
+}
+
+.navbar button {
+  padding: 15px 49px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #ffbb15;
+  border-radius: 10px;
+  border: none;
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 690px) {
+  .navbar {
+    padding: 6px;
+    padding-right: 20px;
+    padding-top: 1rem;
+    /* justify-content: space-around; */
+    gap: 10px;
+  }
+  .navbar .logo {
+    font-size: 16px;
+  }
+
+  .navbar button {
+    padding: 8px 18px;
+    font-size: 10px;
+  }
+  .nav_links {
+    gap: 8px;
+    font-size: 12px;
+  }
+}
