@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import Image from "next/image";
-=======
 "use client";
 import { useState } from "react";
->>>>>>> origin/main
 import styles from "./signin.module.css";
 export default function Signin() {
   const [password, setPassword] = useState("");
