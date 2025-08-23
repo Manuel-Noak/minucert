@@ -11,7 +11,7 @@ export default function Footer() {
         <div className={styles.footerLinksInfo}>
           <h3>Useful Links</h3>
           <Link href={"/"}>Home</Link>
-          <Link href={"/aiCertification"}>Certification</Link>
+          <Link href={"/certifications/aiCertification"}>Certification</Link>
         </div>
         <div>
           <h3>Certification Policies</h3>

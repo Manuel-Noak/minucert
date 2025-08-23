@@ -29,6 +29,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   gap: clamp(1.5rem, 3vw, 3rem);
 }
 
@@ -56,6 +57,9 @@
     gap: 2rem;
     padding: 2rem 1rem;
   }
+  .trustees div img {
+    width: 40px;
+  }
 
   .trusteesIntro {
     font-size: clamp(1.1rem, 4vw, 1.4rem);
@@ -63,9 +67,5 @@
 
   .trustees div {
     gap: 1.5rem;
-  }
-
-  .trustees div img {
-    width: 40px;
   }
 }

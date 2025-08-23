@@ -9,25 +9,51 @@ export const CoursesInfo = [
   {
     src: aiExecutive,
     title: "AI+ Executive ",
+    id: 294,
   },
   {
     src: aiSales,
     title: "AI+ Sales ",
+    id: 1069,
   },
   {
     src: aiSecurity,
-    title: "AI+ Security ",
+    title: "AI+ Security Compliance",
+    id: 14793,
   },
   {
     src: aiCloud,
     title: "AI+ Cloud ",
+    id: 1117,
   },
   {
     src: aiDevelopment,
     title: "AI+ Development ",
+    id: 296,
   },
   {
     src: aiMarketing,
     title: "AI+ Marketing",
+    id: 1071,
+  },
+  {
+    src: aiCloud,
+    title: "AI+ Customer Service",
+    id: 1073,
+  },
+  {
+    src: aiSecurity,
+    title: "AI+ Security Level 1",
+    id: 14790,
+  },
+  {
+    src: aiExecutive,
+    title: "AI+ Government",
+    id: 2518,
+  },
+  {
+    src: aiDevelopment,
+    title: "AI+ Healthcare",
+    id: 2520,
   },
 ];
