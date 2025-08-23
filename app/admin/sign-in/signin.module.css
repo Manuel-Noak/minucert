@@ -12,7 +12,7 @@
   font-weight: 600;
   font-size: 2rem;
   color: #fff;
-  background: url("../assets/heroImage.jpg") center/cover no-repeat;
+  background: url("/heroImage.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;

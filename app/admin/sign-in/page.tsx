@@ -1,5 +1,4 @@
 import Image from "next/image";
-import heroImage from "../assets/heroImage.jpg";
 import styles from "./signin.module.css";
 export default function Signin() {
   return (
