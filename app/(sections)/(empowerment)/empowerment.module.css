@@ -1,0 +1,99 @@
+.empowerment {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 1rem;
+  background: linear-gradient(308.37deg, #ffbb15 0.62%, #000000 66.75%);
+}
+
+.empowerment > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  align-items: center;
+}
+
+.empowerment h3 {
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  font-weight: 600;
+}
+
+.empowerment h2 {
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.empowerment img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  justify-self: center;
+}
+
+.empowerment button {
+  padding: 0.9rem 3rem;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-weight: 600;
+  background: #ffbb15;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.empowerment button:hover {
+  background: #e0a814;
+  transform: translateY(-2px);
+}
+
+.empowermentTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .empowerment > div {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .empowermentTitle {
+    text-align: center;
+    align-items: center;
+  }
+
+  .empowerment img {
+    max-width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .empowerment {
+    padding: 2rem 1rem;
+  }
+
+  .empowerment > div {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .empowerment button {
+    width: 100%;
+    padding: 1rem;
+  }
+}

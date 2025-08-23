@@ -1,0 +1,71 @@
+.footer {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0.5rem;
+  background: #faffef;
+  border-top: 1px solid #e0e0e0;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Logo */
+.footer img {
+  width: 140px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Footer links container */
+.footerLinks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+/* Headings */
+.footerLinks h3 {
+  color: #ffbb15;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+/* Links */
+.footerLinksInfo,
+.footerLinks div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footerLinks a,
+.footerLinks p {
+  color: #333;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footerLinks a:hover,
+.footerLinks p:hover {
+  color: #ffbb15;
+  cursor: pointer;
+}
+
+/* Divider */
+.footerAlright::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: #ddd;
+  margin: 1rem 0;
+}
+
+/* Copyright */
+.footerAlright {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+}

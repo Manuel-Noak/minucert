@@ -1,0 +1,248 @@
+/* ================================
+   Navbar Container
+================================ */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: clamp(60px, 8vh, 70px);
+  padding: 0 clamp(16px, 5vw, 52px);
+  border-bottom: 1px solid #e5e7eb;
+  position: relative;
+  z-index: 1000;
+}
+
+/* ================================
+   Logo
+================================ */
+.logo {
+  display: flex;
+  align-items: center;
+  z-index: 1001;
+}
+
+.logo_img {
+  width: clamp(90px, 15vw, 125px);
+  height: auto;
+}
+
+/* ================================
+   Desktop Navigation
+================================ */
+.nav_links {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 32px);
+}
+
+.nav_link,
+.nav_link_dropdown {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  font-size: clamp(14px, 1.5vw, 16px);
+  font-weight: 500;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.nav_link_dropdown {
+  cursor: pointer;
+  position: relative;
+}
+
+.nav_link:hover,
+.nav_link_dropdown:hover {
+  opacity: 0.8;
+}
+
+.subLinks {
+  position: absolute;
+  background-color: #fff;
+  padding: 13px;
+  margin-top: 2px;
+  box-shadow: 1px 1px 2px #333;
+  z-index: 2;
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.dropdown_icon {
+  width: 10px;
+  height: 6px;
+  color: currentColor;
+}
+
+/* ================================
+   Desktop Login Button
+================================ */
+.login_btn {
+  border: none;
+  width: clamp(120px, 12vw, 164px);
+  height: 48px;
+  border-radius: 8px;
+  font-size: clamp(14px, 1.5vw, 16px);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* ================================
+   Hamburger Button (Mobile only)
+================================ */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  transition: transform 0.3s ease;
+}
+
+.hamburger_line {
+  width: 24px;
+  height: 2px;
+  background-color: #374151;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger.active .hamburger_line:first-child {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active .hamburger_line:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.hamburger.active .hamburger_line:last-child {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* ================================
+   Mobile Menu Overlay + Drawer
+================================ */
+.mobile_menu_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 999;
+}
+
+.mobile_menu_overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile_menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: clamp(240px, 80vw, 320px);
+  height: 100vh;
+  background-color: white;
+  padding: 100px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.mobile_menu_overlay.active .mobile_menu {
+  transform: translateX(0);
+}
+
+.mobile_nav_links {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mobile_nav_link,
+.mobile_nav_link_dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: clamp(15px, 2vw, 18px);
+  font-weight: 500;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+  transition: color 0.2s ease;
+}
+
+.mobile_nav_link:last-child,
+.mobile_nav_link_dropdown:last-child {
+  border-bottom: none;
+}
+
+.mobile_nav_link:hover,
+.mobile_nav_link_dropdown:hover {
+  opacity: 0.8;
+}
+
+.mobile_login_btn {
+  border: none;
+  width: 100%;
+  height: 52px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: auto;
+}
+
+/* ================================
+   Media Queries
+================================ */
+
+/* Tablet: Slightly tighter spacing */
+@media (max-width: 1024px) {
+  .nav_links {
+    gap: 24px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav_links,
+  .login_btn {
+    display: none; /* Hide desktop menu */
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .mobile_menu {
+    width: 100vw;
+    padding: 80px 20px 20px;
+  }
+
+  .mobile_nav_links {
+    gap: 20px;
+  }
+}

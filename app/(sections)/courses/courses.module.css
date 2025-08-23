@@ -1,0 +1,76 @@
+.programs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.programs:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* Course image */
+.programs img {
+  width: 100%;
+  height: clamp(8rem, 25vw, 12rem);
+  object-fit: cover;
+  display: block;
+}
+
+/* Buttons */
+.programs button {
+  margin: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  color: #ffbb15;
+  background: transparent;
+  border: 2px solid #ffbb15;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.programs button:hover {
+  background: #ffbb15;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .programs {
+    gap: 1.25rem;
+  }
+
+  .programs img {
+    height: clamp(9rem, 30vw, 10rem);
+  }
+
+  .programs button {
+    align-self: center;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .programs {
+    gap: 1rem;
+  }
+
+  .programs img {
+    height: clamp(7rem, 35vw, 8rem);
+  }
+
+  .programs button {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+  }
+}
