@@ -94,6 +94,11 @@
   box-sizing: border-box;
 }
 
+.mainContent h2 {
+  font-weight: 700;
+  font-size: 23px;
+}
+
 .signInTitle {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;

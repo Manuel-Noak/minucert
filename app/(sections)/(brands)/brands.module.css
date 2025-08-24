@@ -102,14 +102,20 @@
 
 /* Mobile */
 @media (max-width: 600px) {
-    .trustees {
-        gap: 2rem;
-        padding: 60px 20px;
-    }
+  .trustees {
+    gap: 2rem;
+    padding: 60px 20px;
+  }
+  .trustees div img {
+    width: 40px;
+  }
+  .trustees div {
+    gap: 1.5rem;
+  }
 
-    .trusteesIntro {
-        font-size: clamp(1.1rem, 4vw, 1.4rem);
-    }
+  .trusteesIntro {
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+  }
 
     .brandsContainer {
         gap: clamp(0.3rem, 1vw, 1rem); /* Much smaller gaps on mobile */
@@ -124,4 +130,5 @@
         max-height: 25px;
         max-width: 60px; /* Smaller max-width on mobile */
     }
+  
 }

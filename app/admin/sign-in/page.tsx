@@ -1,10 +1,32 @@
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import heroImage from "../assets/img/heroImage.jpg";
 import back_arrow from "../../assets/img/Admin/back_arrow.png";
 import styles from "./signin.module.css";
 
 export default function Signin() {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  // const logAdminIn = async () => {
+  //   if (password.trim().length < 1 || email.trim().length < 1) {
+  //     return;
+  //   }
+
+  //   try {
+  //     const res = await fetch("/api/admin", {
+  //       method: "POST",
+  //       body: JSON.stringify({ email, password }),
+  //     });
+
+  //     const data = await res.json();
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.log(error?.message);
+  //   }
+  // };
+
     const handleSignin = () => {
         // Navigate to admin dashboard using window.location
         window.location.href = "/admin/dashboard";
@@ -42,6 +64,8 @@ export default function Signin() {
                             type='email'
                             id='email'
                             className={styles.textField}
+                            value={email}
+          onChange={(evt) => setEmail(evt.target.value)}
                             placeholder='Enter email'
                             required
                         />
@@ -55,12 +79,15 @@ export default function Signin() {
                             type='password'
                             id='password'
                             className={styles.textField}
+                            value={password}
+          onChange={(evt) => setPassword(evt.target.value)}
                             placeholder='••••••••'
                             required
                         />
                     </div>
 
                     <button
+                    // onClick={logAdminIn}
                         onClick={handleSignin}
                         className={styles.loginButton}
                     >
