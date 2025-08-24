@@ -1,99 +1,242 @@
+/* empowerment.module.css */
 .empowerment {
-  margin-top: 3rem;
+  width: 100%;
+  max-width: 1728px;
+  height: 1074px;
+  background: linear-gradient(308.37deg, 
+    #FFBB15 0.62%, 
+    #000000 66.75%);
+  padding: 156px 111px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.empowermentContainer {
+  width: 100%;
+  max-width: 1506px;
+  height: 762px;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Left side - Female figure image */
+.empowermentImage {
+  width: 609px;
+  height: 762px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.imageElement {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+/* Right side - Content */
+.empowermentContent {
+  flex: 1;
+  padding: 80px 60px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 4rem 1rem;
-  background: linear-gradient(308.37deg, #ffbb15 0.62%, #000000 66.75%);
+  justify-content: flex-start;
 }
 
-.empowerment > div {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  width: 100%;
-  max-width: 1200px;
-  background: #fff;
-  border-radius: 20px;
-  padding: 2rem;
-  align-items: center;
+.textContent {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 220px;
 }
 
-.empowerment h3 {
-  font-size: clamp(0.9rem, 2vw, 1.2rem);
-  font-weight: 600;
-}
-
-.empowerment h2 {
-  font-size: clamp(1.2rem, 2.5vw, 2rem);
-  font-weight: 700;
-  line-height: 1.3;
-}
-
-.empowerment img {
-  width: 100%;
-  max-width: 420px;
-  height: auto;
-  border-radius: 12px;
-  object-fit: cover;
-  justify-self: center;
-}
-
-.empowerment button {
-  padding: 0.9rem 3rem;
-  font-size: clamp(0.9rem, 1vw, 1rem);
-  font-weight: 600;
-  background: #ffbb15;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.empowerment button:hover {
-  background: #e0a814;
-  transform: translateY(-2px);
+.empowermentLabel {
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 100%;
+  text-transform: uppercase;
+  color: #000000;
+  width: 623px;
+  margin: 80px 0 20px 0;
 }
 
 .empowermentTitle {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1.5rem;
-  text-align: left;
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 100%;
+  color: #000000;
+  max-width: 623px;
 }
 
-/* Tablet */
-@media (max-width: 900px) {
-  .empowerment > div {
-    grid-template-columns: 1fr;
-    text-align: center;
-    padding: 1.5rem;
+.programButton {
+  width: 263px;
+  height: 52px;
+  background-color: #FFBB15;
+  border: none;
+  border-radius: 50px;
+  padding: 17px 72px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 100%;
+  color: #000000;
+  transition: all 0.3s ease;
+}
+
+.programButton:hover {
+  background-color: #E0A814;
+  transform: translateY(-2px);
+}
+
+/* Tablet Styles (768px - 1024px) */
+@media (max-width: 1024px) {
+  .empowerment {
+    height: auto;
+    min-height: 600px;
+    padding: 80px 40px;
+  }
+
+  .empowermentContainer {
+    height: auto;
+    min-height: 500px;
+    flex-direction: column;
+  }
+
+  .empowermentImage {
+    width: 100%;
+    height: 300px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .imageElement {
+    border-radius: 20px 20px 0 0;
+  }
+
+  .empowermentContent {
+    padding: 40px 50px 50px 50px;
+  }
+
+  .textContent {
+    margin-bottom: 40px;
+  }
+
+  .empowermentLabel {
+    font-size: 18px;
+    width: 100%;
+    margin: 0 0 15px 0;
   }
 
   .empowermentTitle {
-    text-align: center;
-    align-items: center;
+    font-size: 28px;
+    max-width: 100%;
+    line-height: 110%;
   }
 
-  .empowerment img {
-    max-width: 100%;
+  .programButton {
+    width: 220px;
+    height: 48px;
+    font-size: 14px;
+    padding: 15px 50px;
   }
 }
 
-/* Mobile */
-@media (max-width: 600px) {
+/* Mobile Styles (up to 767px) */
+@media (max-width: 767px) {
   .empowerment {
-    padding: 2rem 1rem;
+    height: auto;
+    min-height: 500px;
+    padding: 40px 20px;
   }
 
-  .empowerment > div {
-    padding: 1rem;
-    gap: 1.5rem;
+  .empowermentContainer {
+    height: auto;
+    min-height: 400px;
+    border-radius: 15px;
+    flex-direction: column;
   }
 
-  .empowerment button {
+  .empowermentImage {
     width: 100%;
-    padding: 1rem;
+    height: 250px;
+    border-radius: 15px 15px 0 0;
+  }
+
+  .imageElement {
+    border-radius: 15px 15px 0 0;
+  }
+
+  .empowermentContent {
+    padding: 30px 25px 40px 25px;
+  }
+
+  .textContent {
+    margin-bottom: 30px;
+  }
+
+  .empowermentLabel {
+    font-size: 16px;
+    width: 100%;
+    margin: 0 0 12px 0;
+  }
+
+  .empowermentTitle {
+    font-size: 24px;
+    max-width: 100%;
+    line-height: 115%;
+  }
+
+  .programButton {
+    width: 100%;
+    max-width: 200px;
+    height: 44px;
+    font-size: 14px;
+    padding: 14px 30px;
+    align-self: flex-start;
+  }
+}
+
+/* Small Mobile Styles (up to 480px) */
+@media (max-width: 480px) {
+  .empowerment {
+    padding: 30px 15px;
+  }
+
+  .empowermentContainer {
+    border-radius: 12px;
+  }
+
+  .empowermentImage {
+    height: 220px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .imageElement {
+    border-radius: 12px 12px 0 0;
+  }
+
+  .empowermentContent {
+    padding: 25px 20px 35px 20px;
+  }
+
+  .empowermentLabel {
+    font-size: 14px;
+    margin: 0 0 10px 0;
+  }
+
+  .empowermentTitle {
+    font-size: 20px;
+    line-height: 120%;
+  }
+
+  .programButton {
+    width: 100%;
+    max-width: 180px;
+    height: 42px;
+    font-size: 13px;
+    padding: 13px 25px;
   }
 }
