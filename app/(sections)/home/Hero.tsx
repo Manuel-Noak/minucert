@@ -50,10 +50,9 @@ export default function Hero() {
         </button>
       </div>
 
-      {/* Exact responsive styles preserved */}
+      {/* Adjusted responsive styles with content moved down */}
       <style jsx>{`
         .hero-content {
-          margin-top: -120px;
           max-width: 90%;
           text-align: left;
         }
@@ -108,14 +107,14 @@ export default function Hero() {
         @media (min-width: 1400px) {
           .hero-content {
             max-width: 1200px;
-            margin-top: -80px;
+            margin-top: 60px; /* Changed from -80px to +60px */
           }
         }
 
         /* Tablet and Large Mobile */
         @media (max-width: 1024px) {
           .hero-content {
-            margin-top: -80px;
+            margin-top: 40px; /* Changed from -80px to +40px */
             max-width: 95%;
             padding: 0 20px;
           }
@@ -149,7 +148,7 @@ export default function Hero() {
         /* Mobile */
         @media (max-width: 768px) {
           .hero-content {
-            margin-top: -60px;
+            margin-top: 50px; /* Changed from -60px to +50px */
             padding: 0 16px;
             text-align: center;
             align-items: center;
@@ -189,7 +188,7 @@ export default function Hero() {
         /* Small Mobile */
         @media (max-width: 480px) {
           .hero-content {
-            margin-top: -40px;
+            margin-top: 40px; /* Changed from -40px to +40px */
             padding: 0 12px;
           }
 
@@ -225,7 +224,7 @@ export default function Hero() {
         /* Very Small Mobile */
         @media (max-width: 360px) {
           .hero-content {
-            margin-top: -20px;
+            margin-top: 30px; /* Changed from -20px to +30px */
             padding: 0 10px;
           }
 
@@ -261,7 +260,7 @@ export default function Hero() {
         /* Landscape orientation for mobile */
         @media (max-width: 768px) and (orientation: landscape) {
           .hero-content {
-            margin-top: -20px;
+            margin-top: 20px; /* Changed from -20px to +20px */
           }
 
           .hero-title-main {

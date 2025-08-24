@@ -4,50 +4,99 @@
   justify-content: center;
   align-items: center;
   gap: 4rem;
-  padding: 4rem 1rem;
+  padding: 133px 385px;
+  width: 100%;
+  max-width: 1728px;
+  margin: 0 auto;
   background: #faffef;
   text-align: center;
 }
 
 .trusteesIntro {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 500;
+  font-size: clamp(1.4rem, 2.5vw, 35px);
   color: #000;
   max-width: 700px;
-  line-height: 1.4;
+  line-height: 100%;
+  margin: 0;
 }
 
 .trusteesIntro > span {
-  font-weight: 700;
-  background: linear-gradient(90deg, #000 0%, #ffbb15 100%);
+  font-weight: 500;
+  background: linear-gradient(90deg, #000 -20%, #ffbb15 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.trustees div {
+.brandsContainer {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* Prevent wrapping */
   justify-content: center;
   align-items: center;
-  gap: clamp(1.5rem, 3vw, 3rem);
+  gap: clamp(0.8rem, 2vw, 2rem); /* Smaller responsive gap */
+  width: 100%;
+  max-width: 100%;
+  /* Remove overflow-x: auto */
 }
 
-.trustees div img {
-  width: 90px;
-  height: auto;
+.brandLogoWrapper {
+  height: 40px; /* Further reduced height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 1; /* Allow some shrinking */
+  min-width: 50px; /* Minimum width to prevent squishing */
+}
+
+.brandLogo {
   object-fit: contain;
   transition: transform 0.3s ease;
+  filter: grayscale(0.8);
+  opacity: 0.8;
+  max-height: 40px; /* Match wrapper height */
+  width: auto;
+  max-width: 100px; /* Add max-width constraint */
 }
 
-.trustees div img:hover {
+.brandLogo:hover {
   transform: scale(1.1);
+  filter: grayscale(0);
+  opacity: 1;
 }
 
 /* Tablet */
+@media (max-width: 1200px) {
+  .trustees {
+    padding: 80px 60px;
+    gap: 3rem;
+  }
+
+  .brandLogoWrapper {
+    height: 40px;
+    min-width: 50px;
+  }
+
+  .brandLogo {
+    max-height: 40px;
+  }
+
+  .brandsContainer {
+    gap: clamp(0.8rem, 2vw, 2rem);
+  }
+}
+
 @media (max-width: 900px) {
   .trusteesIntro {
     font-size: clamp(1.2rem, 2vw, 1.6rem);
+  }
+
+  .brandLogoWrapper {
+    height: 35px;
+    min-width: 45px;
+  }
+
+  .brandLogo {
+    max-height: 35px;
   }
 }
 
@@ -55,7 +104,10 @@
 @media (max-width: 600px) {
   .trustees {
     gap: 2rem;
-    padding: 2rem 1rem;
+    padding: 60px 20px;
+  }
+  .trustees div {
+    gap: 1.5rem;
   }
   .trustees div img {
     width: 40px;
@@ -65,7 +117,17 @@
     font-size: clamp(1.1rem, 4vw, 1.4rem);
   }
 
-  .trustees div {
-    gap: 1.5rem;
+  .brandsContainer {
+    gap: clamp(0.3rem, 1vw, 1rem); /* Much smaller gaps on mobile */
+  }
+
+  .brandLogoWrapper {
+    height: 25px; /* Smaller on mobile */
+    min-width: 30px;
+  }
+
+  .brandLogo {
+    max-height: 25px;
+    max-width: 60px; /* Smaller max-width on mobile */
   }
 }

@@ -2,9 +2,9 @@ import { CoursesInfo } from "./(components)/(common)/data";
 import Navbar from "./(components)/(navbar)/navbar";
 import Brands from "./(sections)/(brands)/brands";
 import Empowerment from "./(sections)/(empowerment)/empowerment";
-import Courses from "./(sections)/courses/courses";
 import Hero from "./(sections)/home/Hero";
-import styles from "./page.module.css";
+import ShapeYourFuture from "./(sections)/shape-your-future/shape_your_future";
+import Someprograms from "./(sections)/someprograms/someprograms";
 
 function Home() {
   return (
@@ -16,31 +16,9 @@ function Home() {
       <Hero />
 
       <Brands />
+      <ShapeYourFuture />
 
-      <section className={styles.programsBody}>
-        <h2>
-          <span>Some</span> Programs
-        </h2>
-        <p>
-          Empowering growth through AI innovation and global industry
-          transformation
-        </p>
-        <div className={styles.courses}>
-          {CoursesInfo.map((courses, index) => {
-            if (index > 3) {
-              return;
-            }
-            return (
-              <Courses
-                id={courses.id}
-                src={courses.src}
-                title={courses.title}
-                key={courses.title}
-              />
-            );
-          })}
-        </div>
-      </section>
+      <Someprograms />
       <Empowerment />
     </>
   );

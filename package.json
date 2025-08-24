@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "lucide-react": "^0.541.0",
     "dotenv": "^17.2.1",
     "drizzle-orm": "^0.44.4",
     "mysql2": "^3.14.3",

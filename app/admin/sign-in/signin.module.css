@@ -1,35 +1,97 @@
-/* Base layout */
+/* signin.module.css - Enhanced Responsive Design */
+
 .signinBody {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   min-height: 100vh;
-  gap: 2rem;
   font-family: "Montserrat", sans-serif;
 }
 
-/* Left-side logo/hero */
-.logo {
-  font-weight: 600;
-  font-size: 2rem;
-  color: #fff;
-  background: url("../../assets/img/Home/hero_bg_img.jpg") center/cover
-    no-repeat;
+/* Left Section - Hero Image */
+.heroSection {
+  position: relative;
+  width: 782px;
+  height: 100vh;
+  background: url("/assets/heroImage.jpg") center/cover no-repeat;
+  opacity: 1;
+  flex-shrink: 0;
+}
+
+.heroOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 2rem;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Right-side form container */
-.mainContent {
-  max-width: 400px;
-  width: 100%;
-  margin: auto;
+.welcomeText {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 2.5rem;
+  color: white;
+  text-align: center;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Right Section - Form */
+.formSection {
+  flex: 1;
+  background: #ffffff;
+  position: relative;
+  padding: 32px 72px;
+  height: 100vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 2rem;
+  min-width: 0; /* Prevents flex item from overflowing */
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-left: -40px;
+  padding: 8px; /* Add padding for better touch targets */
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.backButton:hover {
+  background-color: rgba(255, 187, 21, 0.1);
+}
+
+.backArrow {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.backText {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #ffbb15;
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  max-width: 550px;
+  margin: 0 auto;
+  flex: 1;
+  justify-content: center;
+  padding: 20px 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .mainContent h2 {
@@ -37,75 +99,433 @@
   font-size: 23px;
 }
 
-/* Inputs */
-.mainContent input {
-  padding: 0.75rem 1rem;
-  width: 100%;
-  background: #f3f3f3;
-  border: 1.5px solid rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  font-size: 1rem;
-  outline: none;
-  transition: border 0.2s ease;
+.mainContent h2 {
+  font-weight: 700;
+  font-size: 23px;
 }
 
-.mainContent input:focus {
-  border-color: #ffbb15;
-  box-shadow: 0 0 0 3px rgba(255, 187, 21, 0.3);
-}
-
-/* Button */
-.mainContent button {
-  align-self: flex-end;
-  background: #ffbb15;
-  color: #000;
-  border-radius: 50px;
-  margin-top: 1.5rem;
+.signInTitle {
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
-  padding: 0.75rem 1.5rem;
+  font-size: 35px;
+  line-height: 1.1;
+  color: #000000;
+  margin: 0 0 24px 0;
+}
+
+.subtitle {
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.3;
+  color: #000000;
+  margin: 0 0 30px 0;
+}
+
+.minuCert {
+  font-family: "Monotype Corsiva", cursive;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 30px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.inputGroup {
+  margin-bottom: 22px;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  font-weight: 400;
+  font-size: 20px;
+  color: #000000;
+  margin-bottom: 8px;
+}
+
+.textField {
+  width: 100%;
+  height: 68px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background: #d9d9d9;
+  padding: 0 16px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  color: #000000;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.textField:focus {
+  border-color: #ffbb15;
+}
+
+.textField::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.loginButton {
+  width: 188px;
+  height: 52px;
+  background: #ffbb15;
   border: none;
+  border-radius: 50px;
+  padding: 17px 72px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: #000000;
   cursor: pointer;
-  transition: background 0.3s ease;
+  margin-left: auto;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
-.mainContent button:hover {
+.loginButton:hover {
   background: #e6a80f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(255, 187, 21, 0.3);
 }
 
-/* Responsive adjustments */
+.loginButton:active {
+  transform: translateY(0);
+}
+
+/* Tablet Landscape - 1200px and below */
+@media (max-width: 1200px) {
+  .heroSection {
+    width: 45%;
+  }
+
+  .formSection {
+    padding: 32px 48px;
+  }
+
+  .formContent {
+    max-width: 450px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+}
+
+/* Tablet Portrait - 900px and below */
 @media (max-width: 900px) {
   .signinBody {
-    grid-template-columns: 1fr;
-    padding: 1rem;
+    flex-direction: column;
   }
 
-  .logo {
-    display: none;
-  }
-
-  .mainContent {
-    max-width: 500px;
+  .heroSection {
     width: 100%;
-    padding: 1.5rem;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    height: 40vh;
+    min-height: 250px;
+    max-height: 350px;
+  }
+
+  .welcomeText {
+    font-size: 2rem;
+  }
+
+  .formSection {
+    padding: 24px 32px;
+    height: 60vh;
+    min-height: calc(100vh - 350px);
+  }
+
+  .backButton {
+    margin-left: -16px;
+    margin-bottom: 16px;
+  }
+
+  .formContent {
+    max-width: 100%;
+    padding: 16px 0;
+  }
+
+  .signInTitle {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    margin-bottom: 28px;
+  }
+
+  .minuCert {
+    font-size: 26px;
+  }
+
+  .loginButton {
+    margin-left: auto;
+    margin-right: 0;
   }
 }
 
+/* Mobile Large - 640px and below */
+@media (max-width: 640px) {
+  .formSection {
+    padding: 20px 24px;
+  }
+
+  .backButton {
+    margin-left: -12px;
+  }
+
+  .signInTitle {
+    font-size: 26px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .textField {
+    height: 60px;
+    font-size: 18px;
+    padding: 0 14px;
+  }
+
+  .label {
+    font-size: 18px;
+  }
+
+  .loginButton {
+    width: 160px;
+    height: 48px;
+    font-size: 14px;
+    padding: 12px 24px;
+  }
+}
+
+/* Mobile Medium - 500px and below */
 @media (max-width: 500px) {
-  .mainContent {
-    padding: 1rem;
+  .heroSection {
+    height: 35vh;
+    min-height: 220px;
+    max-height: 280px;
   }
 
-  .mainContent input {
-    font-size: 0.95rem;
-    padding: 0.65rem 0.9rem;
+  .welcomeText {
+    font-size: 1.75rem;
   }
 
-  .mainContent button {
+  .formSection {
+    height: 65vh;
+    min-height: calc(100vh - 280px);
+    padding: 16px 20px;
+  }
+
+  .backButton {
+    margin-left: -8px;
+    margin-bottom: 12px;
+  }
+
+  .backArrow {
+    width: 18px;
+    height: 18px;
+  }
+
+  .backText {
+    font-size: 14px;
+  }
+
+  .signInTitle {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    margin-bottom: 24px;
+    line-height: 1.4;
+  }
+
+  .minuCert {
+    font-size: 22px;
+  }
+
+  .textField {
+    height: 56px;
+    font-size: 16px;
+    padding: 0 12px;
+  }
+
+  .label {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .loginButton {
     width: 100%;
-    align-self: stretch;
-    text-align: center;
+    max-width: 200px;
+    margin: 20px auto 0 auto;
+    align-self: center;
+  }
+
+  .inputGroup {
+    margin-bottom: 20px;
+  }
+}
+
+/* Mobile Small - 375px and below */
+@media (max-width: 375px) {
+  .heroSection {
+    height: 30vh;
+    min-height: 200px;
+  }
+
+  .welcomeText {
+    font-size: 1.5rem;
+    padding: 0 10px;
+  }
+
+  .formSection {
+    padding: 14px 16px;
+  }
+
+  .signInTitle {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .minuCert {
+    font-size: 20px;
+  }
+
+  .textField {
+    height: 52px;
+    font-size: 15px;
+  }
+
+  .label {
+    font-size: 15px;
+  }
+}
+
+/* Landscape Mobile Phones */
+@media (max-height: 600px) and (orientation: landscape) {
+  .signinBody {
+    flex-direction: row;
+  }
+
+  .heroSection {
+    width: 40%;
+    height: 100vh;
+  }
+
+  .formSection {
+    height: 100vh;
+    padding: 16px 24px;
+  }
+
+  .formContent {
+    padding: 8px 0;
+    justify-content: flex-start;
+  }
+
+  .signInTitle {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .inputGroup {
+    margin-bottom: 16px;
+  }
+
+  .textField {
+    height: 44px;
+    font-size: 14px;
+  }
+
+  .label {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .loginButton {
+    height: 40px;
+    font-size: 13px;
+    margin-top: 16px;
+    width: 140px;
+  }
+}
+
+/* Very Short Screens */
+@media (max-height: 500px) {
+  .formContent {
+    justify-content: flex-start;
+    padding: 4px 0;
+  }
+
+  .signInTitle {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .inputGroup {
+    margin-bottom: 12px;
+  }
+
+  .textField {
+    height: 40px;
+  }
+
+  .loginButton {
+    height: 36px;
+    margin-top: 12px;
+  }
+}
+
+/* High DPI / Retina Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .backArrow {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Accessibility improvements for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .loginButton {
+    transition: background-color 0.1s ease;
+  }
+
+  .loginButton:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .textField {
+    transition: border-color 0.1s ease;
+  }
+
+  .backButton {
+    transition: background-color 0.1s ease;
   }
 }

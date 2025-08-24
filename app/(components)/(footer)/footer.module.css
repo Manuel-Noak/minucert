@@ -1,71 +1,514 @@
 .footer {
-  margin-top: 10px;
+  background: #FAFFEF;
+  padding: 84px 110px;
+  font-family: "Montserrat", sans-serif;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 1rem 0.5rem;
-  background: #faffef;
-  border-top: 1px solid #e0e0e0;
-  font-family: "Montserrat", sans-serif;
+  gap: 40px;
 }
 
-/* Logo */
-.footer img {
-  width: 140px;
-  height: auto;
+/* Section 1: Top Section - Logo and Social Icons */
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 254.63px;
+  height: 55px;
   object-fit: contain;
 }
 
-/* Footer links container */
+.socialIcons {
+  display: flex;
+  gap: 15px;
+}
+
+.socialIcon {
+  width: 52.62px;
+  height: 52.62px;
+  border: 1px solid #FFBB15;
+  cursor: pointer;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  padding: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.socialIcon:hover {
+  background-color: rgba(255, 187, 21, 0.1);
+}
+
+.socialIcon img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Section 2: Middle Section - Links and Subscribe */
+.middleSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+
 .footerLinks {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
+  display: flex;
+  gap: 100px;
+  flex: 1;
 }
 
-/* Headings */
-.footerLinks h3 {
-  color: #ffbb15;
-  font-size: 1.1rem;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
-}
-
-/* Links */
-.footerLinksInfo,
-.footerLinks div {
+.usefulLinks,
+.certificationPolicies {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 8px;
+  flex: 1;
 }
 
-.footerLinks a,
-.footerLinks p {
-  color: #333;
-  font-size: 0.95rem;
+.usefulLinks h3,
+.certificationPolicies h3,
+.subscribeSection h3 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 100%;
+  color: #FFBB15;
+  margin-bottom: 12px;
+}
+
+.usefulLinks a,
+.certificationPolicies p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  color: #000000BF;
   text-decoration: none;
+  cursor: pointer;
   transition: color 0.3s ease;
 }
 
-.footerLinks a:hover,
-.footerLinks p:hover {
-  color: #ffbb15;
-  cursor: pointer;
+.usefulLinks a:hover,
+.certificationPolicies p:hover {
+  color: #FFBB15;
 }
 
-/* Divider */
-.footerAlright::before {
-  content: "";
-  display: block;
+.subscribeSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  max-width: 360px;
+  margin-left: auto;
+}
+
+.subscribeText {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 130%;
+  color: #000000BF;
+  margin-bottom: 16px;
+  max-width: 360px;
+  word-wrap: break-word;
+}
+
+.subscribeContainer {
+  position: relative;
+  display: inline-block;
+  width: 293px;
+}
+
+.subscribeInput {
   width: 100%;
-  height: 1px;
-  background: #ddd;
-  margin: 1rem 0;
+  height: 52px;
+  border-radius: 10px;
+  background: #D9D9D9;
+  border: none;
+  padding-left: 16px;
+  padding-right: 67px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: #000000;
+  outline: none;
+  box-sizing: border-box;
 }
 
-/* Copyright */
-.footerAlright {
+.subscribeInput::placeholder {
+  color: #666666;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+}
+
+.sendButton {
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  width: 63px;
+  height: 52px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background: #FFBB15;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sendButton:hover {
+  background: #e6a614;
+}
+
+.sendButton img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* Section 3: Bottom Section - Copyright */
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.divider {
+  width: calc(100% - 20px);
+  height: 1px;
+  background: #CCCCCC;
+  margin: 0 auto;
+}
+
+.copyright {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 100%;
   text-align: center;
-  font-size: 0.9rem;
-  color: #666;
+  color: #000000BF;
+  margin: 0;
+  margin-top: 10px;
+}
+
+/* Enhanced Responsive Design */
+
+/* Tablet - Large (1024px to 1199px) */
+@media (max-width: 1199px) {
+  .footer {
+    padding: 70px 60px;
+  }
+  
+  .footerLinks {
+    gap: 80px;
+  }
+  
+  .logo {
+    width: 220px;
+    height: 48px;
+  }
+  
+  .socialIcon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .socialIcon img {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Tablet - Medium (768px to 1023px) */
+@media (max-width: 1023px) {
+  .footer {
+    padding: 60px 40px;
+    gap: 35px;
+  }
+  
+  .middleSection {
+    margin-top: 40px;
+    margin-bottom: 25px;
+  }
+  
+  .footerLinks {
+    gap: 60px;
+  }
+  
+  .usefulLinks a,
+  .certificationPolicies p,
+  .subscribeText {
+    font-size: 18px;
+  }
+  
+  .subscribeContainer {
+    width: 280px;
+  }
+  
+  .subscribeInput {
+    height: 48px;
+    font-size: 13px;
+  }
+  
+  .sendButton {
+    width: 58px;
+    height: 48px;
+  }
+  
+  .sendButton img {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Mobile - Large (481px to 767px) */
+@media (max-width: 767px) {
+  .footer {
+    padding: 50px 30px;
+    gap: 30px;
+  }
+  
+  .topSection {
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 200px;
+    height: 43px;
+  }
+  
+  .socialIcons {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .socialIcon {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .socialIcon img {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .middleSection {
+    flex-direction: column;
+    gap: 35px;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+  
+  .footerLinks {
+    flex-direction: column;
+    gap: 35px;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .usefulLinks,
+  .certificationPolicies {
+    width: 100%;
+    max-width: 300px;
+    align-items: center;
+  }
+  
+  .usefulLinks h3,
+  .certificationPolicies h3,
+  .subscribeSection h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  .usefulLinks a,
+  .certificationPolicies p {
+    font-size: 16px;
+    line-height: 120%;
+  }
+  
+  .subscribeSection {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    margin-left: 0;
+  }
+  
+  .subscribeText {
+    font-size: 16px;
+    line-height: 140%;
+    text-align: center;
+    br {
+      display: none;
+    }
+  }
+  
+  .subscribeContainer {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  
+  .subscribeInput {
+    height: 48px;
+    font-size: 14px;
+    padding-right: 55px;
+  }
+  
+  .sendButton {
+    width: 55px;
+    height: 48px;
+  }
+  
+  .divider {
+    width: calc(100% - 20px);
+  }
+  
+  .copyright {
+    font-size: 14px;
+    line-height: 120%;
+    padding: 0 10px;
+  }
+}
+
+/* Mobile - Small (320px to 480px) */
+@media (max-width: 480px) {
+  .footer {
+    padding: 40px 20px;
+    gap: 25px;
+  }
+  
+  .topSection {
+    gap: 20px;
+  }
+  
+  .logo {
+    width: 180px;
+    height: 39px;
+  }
+  
+  .socialIcons {
+    gap: 10px;
+  }
+  
+  .socialIcon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .socialIcon img {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .middleSection {
+    gap: 30px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+  }
+  
+  .footerLinks {
+    gap: 30px;
+  }
+  
+  .usefulLinks,
+  .certificationPolicies {
+    max-width: 280px;
+  }
+  
+  .usefulLinks h3,
+  .certificationPolicies h3,
+  .subscribeSection h3 {
+    font-size: 15px;
+  }
+  
+  .usefulLinks a,
+  .certificationPolicies p {
+    font-size: 15px;
+  }
+  
+  .subscribeSection {
+    max-width: 280px;
+  }
+  
+  .subscribeText {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  
+  .subscribeContainer {
+    max-width: 260px;
+  }
+  
+  .subscribeInput {
+    height: 44px;
+    font-size: 13px;
+    padding-left: 14px;
+    padding-right: 50px;
+  }
+  
+  .sendButton {
+    width: 50px;
+    height: 44px;
+  }
+  
+  .sendButton img {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .copyright {
+    font-size: 13px;
+    padding: 0 5px;
+  }
+}
+
+/* Extra small devices (under 320px) */
+@media (max-width: 319px) {
+  .footer {
+    padding: 30px 15px;
+  }
+  
+  .logo {
+    width: 160px;
+    height: 35px;
+  }
+  
+  .socialIcon {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .socialIcon img {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .subscribeContainer {
+    max-width: 240px;
+  }
+  
+  .copyright {
+    font-size: 12px;
+  }
 }
