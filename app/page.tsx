@@ -16,10 +16,9 @@ function Home() {
       <Hero />
 
       <Brands />
-      <ShapeYourFuture/>
+      <ShapeYourFuture />
 
-      
-      <Someprograms/>
+      <Someprograms />
       <Empowerment />
     </>
   );
