@@ -1,59 +1,32 @@
-import React from "react";
-import aiExecutive from "@/app/assets/img/aiExecutive.jpg";
-import aiCloud from "@/app/assets/img/aiCloud.jpg";
-import aiDevelopment from "@/app/assets/img/aiDevelopment.jpg";
-import aiMarketing from "@/app/assets/img/aiMarketing.jpg";
-import aiSales from "@/app/assets/img/aiSales.jpg";
-import aiSecurity from "@/app/assets/img/aiSecurity.jpg";
+"use client";
 import styles from "./aiCert.module.css";
 import Courses from "@/app/(sections)/courses/courses";
 import Navbar from "@/app/(components)/(navbar)/navbar";
+import { CoursesInfo } from "@/app/(components)/(common)/data";
+import { useState } from "react";
 
-const images = [
-  {
-    src: aiExecutive,
-    title: "AI+ Executive ",
-  },
-  {
-    src: aiSales,
-    title: "AI+ Sales ",
-  },
-  {
-    src: aiSecurity,
-    title: "AI+ Security ",
-  },
-  {
-    src: aiCloud,
-    title: "AI+ Cloud ",
-  },
-  {
-    src: aiDevelopment,
-    title: "AI+ Development ",
-  },
-  {
-    src: aiMarketing,
-    title: "AI+ Marketing",
-  },
-  {
-    src: aiSales,
-    title: "AI+ Project Manger",
-  },
-  {
-    src: aiExecutive,
-    title: "AI+ Ethical Hacking",
-  },
-  {
-    src: aiCloud,
-    title: "AI+ Prompt Engineering",
-  },
-];
 export default function AiCertification() {
+  const numberOfContentPerPage = 7;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const lastIndex = numberOfContentPerPage * currentPage;
+  const firstIndex = lastIndex / numberOfContentPerPage;
+
+  const dataView = CoursesInfo.slice(firstIndex, lastIndex);
+
+  const totalPage = Math.ceil(CoursesInfo.length / numberOfContentPerPage);
+
   return (
     <>
       <Navbar />
       <div className={styles.courses}>
-        {images.map((image) => (
-          <Courses src={image.src} title={image.title} key={image.title} />
+        {dataView.map((image) => (
+          <Courses
+            id={image.id}
+            src={image.src}
+            title={image.title}
+            key={image.title}
+          />
         ))}
       </div>
     </>

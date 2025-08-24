@@ -26,13 +26,19 @@ function Home() {
           transformation
         </p>
         <div className={styles.courses}>
-          {CoursesInfo.map((courses) => (
-            <Courses
-              src={courses.src}
-              title={courses.title}
-              key={courses.title}
-            />
-          ))}
+          {CoursesInfo.map((courses, index) => {
+            if (index > 3) {
+              return;
+            }
+            return (
+              <Courses
+                id={courses.id}
+                src={courses.src}
+                title={courses.title}
+                key={courses.title}
+              />
+            );
+          })}
         </div>
       </section>
       <Empowerment />

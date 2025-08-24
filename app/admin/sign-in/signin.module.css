@@ -12,7 +12,8 @@
   font-weight: 600;
   font-size: 2rem;
   color: #fff;
-  background: url("../assets/heroImage.jpg") center/cover no-repeat;
+  background: url("../../assets/img/Home/hero_bg_img.jpg") center/cover
+    no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,6 +30,11 @@
   flex-direction: column;
   gap: 1rem;
   padding: 2rem;
+}
+
+.mainContent h2 {
+  font-weight: 700;
+  font-size: 23px;
 }
 
 /* Inputs */
@@ -78,7 +84,7 @@
   }
 
   .mainContent {
-    max-width: 100%;
+    max-width: 500px;
     width: 100%;
     padding: 1.5rem;
     background: #fff;
