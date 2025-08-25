@@ -1,0 +1,682 @@
+.checkoutSection {
+  width: 100vw;
+  min-height: 100vh;
+  margin-top: 100px;
+  margin-left: calc(-50vw + 50%);
+  background: #FFFFFF;
+  padding: 0;
+}
+
+.headerSection {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px 20px 0;
+}
+
+.checkoutTitle {
+  font-weight: 600;
+  font-size: 50px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #000000;
+  margin: 0;
+}
+
+.checkoutContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.billingSection {
+  margin-bottom: 60px;
+}
+
+.billingTitle {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000;
+  margin: 0 0 30px 0;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldLabel {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+.textField {
+  width: 100%;
+  max-width: 550px;
+  height: 68px;
+  border-radius: 10px;
+  border: 2px solid #0000004D;
+  background: #D9D9D9;
+  padding: 0 15px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #000000;
+  outline: none;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.textField::placeholder {
+  color: #000000;
+  opacity: 0.6;
+}
+
+.textField:focus,
+.fieldActive {
+  border-color: #FFBB15 !important;
+}
+
+.orderNotesField {
+  display: flex;
+  flex-direction: column;
+}
+
+.orderNotesTextarea {
+  width: 100%;
+  max-width: 1160px;
+  height: 191px;
+  border-radius: 10px;
+  border: 2px solid #0000004D;
+  background: #D9D9D9;
+  padding: 15px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #000000;
+  outline: none;
+  resize: none;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.orderNotesTextarea::placeholder {
+  color: #000000;
+  opacity: 0.6;
+}
+
+.orderNotesTextarea:focus {
+  border-color: #FFBB15;
+}
+
+.orderSummarySection {
+  background: #FAFFEF;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 60px 0;
+  margin-bottom: 100px;
+}
+
+.orderSummaryContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.orderSummaryTitle {
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: start;
+  color: #000000;
+  margin: 0 0 40px 0;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.subtotalText,
+.subtotalPrice {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #001A32;
+}
+
+.totalText,
+.totalPrice {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #001A32;
+}
+
+.dividerLine {
+  width: 100%;
+  max-width: 1160px;
+  height: 0px;
+  border: 1px solid #0000004D;
+  margin: 40px 0;
+}
+
+.cardDetailsTitle {
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: start;
+  color: #000000;
+  margin: 0 0 40px 0;
+}
+
+.cardField {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.cardNumberField {
+  width: 100%;
+  max-width: 1160px;
+  height: 68px;
+  border-radius: 10px;
+  border: 2px solid #0000004D;
+  background: #D9D9D9;
+  padding: 0 15px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #000000;
+  outline: none;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.cardNumberField::placeholder {
+  color: #000000;
+  opacity: 0.6;
+}
+
+.cardNumberField:focus {
+  border-color: #FFBB15;
+}
+
+.cardRowFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.cardHalfField {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHalfInput {
+  width: 100%;
+  max-width: 550px;
+  height: 68px;
+  border-radius: 10px;
+  border: 2px solid #0000004D;
+  background: #D9D9D9;
+  padding: 0 15px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #000000;
+  outline: none;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.cardHalfInput::placeholder {
+  color: #000000;
+  opacity: 0.6;
+}
+
+.cardHalfInput:focus {
+  border-color: #FFBB15;
+}
+
+.disclaimerText {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: #000000;
+  margin: 30px 0;
+  max-width: 1107px;
+}
+
+.completeCheckoutButton {
+  width: 100%;
+  max-width: 550px;
+  height: 52px;
+  border-radius: 5px;
+  border: 1px solid #FFBB15;
+  background: #FFBB15;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.completeCheckoutButton:hover {
+  background: #E6A813;
+  border-color: #E6A813;
+}
+
+.buttonText {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000;
+}
+
+/* Tablet Responsive Design (1200px and below) */
+@media (max-width: 1200px) {
+  .checkoutSection {
+    margin-top: 80px;
+  }
+  
+  .checkoutContent,
+  .orderSummaryContent {
+    padding: 0 40px;
+  }
+  
+  .checkoutTitle {
+    font-size: 42px;
+  }
+  
+  .billingTitle,
+  .orderSummaryTitle,
+  .cardDetailsTitle {
+    font-size: 32px;
+  }
+  
+  .formGrid {
+    gap: 25px;
+  }
+  
+  .cardRowFields {
+    gap: 25px;
+  }
+  
+  .orderSummarySection {
+    padding: 50px 0;
+    margin-bottom: 80px;
+  }
+}
+
+/* Small Tablet (992px and below) */
+@media (max-width: 992px) {
+  .checkoutSection {
+    margin-top: 80px;
+  }
+
+  .checkoutTitle {
+    font-size: 38px;
+  }
+  
+  .billingTitle,
+  .orderSummaryTitle,
+  .cardDetailsTitle {
+    font-size: 30px;
+    margin-bottom: 25px;
+  }
+  
+  .formGrid,
+  .cardRowFields {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .fieldLabel {
+    font-size: 18px;
+  }
+  
+  .textField,
+  .cardNumberField,
+  .cardHalfInput {
+    height: 60px;
+    font-size: 15px;
+  }
+  
+  .orderNotesTextarea {
+    height: 160px;
+    font-size: 15px;
+  }
+  
+  .subtotalText,
+  .subtotalPrice,
+  .totalText,
+  .totalPrice {
+    font-size: 18px;
+  }
+  
+  .disclaimerText {
+    font-size: 18px;
+    line-height: 130%;
+  }
+  
+  .completeCheckoutButton {
+    max-width: 100%;
+    height: 56px;
+  }
+  
+  .buttonText {
+    font-size: 16px;
+  }
+}
+
+/* Mobile Large (768px and below) */
+@media (max-width: 768px) {
+  .checkoutSection {
+    margin-top: 80px;
+  }
+  
+  .headerSection {
+    padding: 20px 15px 0;
+    margin-bottom: 30px;
+  }
+  
+  .checkoutTitle {
+    font-size: 32px;
+  }
+  
+  .checkoutContent,
+  .orderSummaryContent {
+    padding: 0 20px;
+  }
+  
+  .billingSection {
+    margin-bottom: 40px;
+  }
+  
+  .billingTitle,
+  .orderSummaryTitle,
+  .cardDetailsTitle {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+  
+  .formGrid {
+    gap: 18px;
+    margin-bottom: 25px;
+  }
+  
+  .fieldLabel {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .textField,
+  .cardNumberField,
+  .cardHalfInput {
+    height: 56px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+  
+  .orderNotesTextarea {
+    height: 140px;
+    padding: 12px;
+    font-size: 14px;
+  }
+  
+  .orderSummarySection {
+    padding: 40px 0;
+    margin-bottom: 60px;
+  }
+  
+  .priceRow {
+    margin-bottom: 15px;
+  }
+  
+  .subtotalText,
+  .subtotalPrice,
+  .totalText,
+  .totalPrice {
+    font-size: 16px;
+  }
+  
+  .dividerLine {
+    margin: 30px 0;
+  }
+  
+  .cardRowFields {
+    gap: 18px;
+    margin-bottom: 25px;
+  }
+  
+  .cardField {
+    margin-bottom: 25px;
+  }
+  
+  .disclaimerText {
+    font-size: 16px;
+    line-height: 140%;
+    margin: 25px 0;
+  }
+  
+  .completeCheckoutButton {
+    height: 52px;
+  }
+  
+  .buttonText {
+    font-size: 15px;
+  }
+}
+
+/* Mobile Medium (576px and below) */
+@media (max-width: 576px) {
+  .checkoutSection {
+    margin-top: 80px;
+  }
+  
+  .headerSection {
+    padding: 15px 10px 0;
+    margin-bottom: 25px;
+  }
+  
+  .checkoutTitle {
+    font-size: 28px;
+  }
+  
+  .checkoutContent,
+  .orderSummaryContent {
+    padding: 0 15px;
+  }
+  
+  .billingTitle,
+  .orderSummaryTitle,
+  .cardDetailsTitle {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+  
+  .formGrid {
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .fieldLabel {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+  
+  .textField,
+  .cardNumberField,
+  .cardHalfInput {
+    height: 50px;
+    padding: 0 10px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+  
+  .orderNotesTextarea {
+    height: 120px;
+    padding: 10px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+  
+  .orderSummarySection {
+    padding: 30px 0;
+    margin-bottom: 40px;
+  }
+  
+  .priceRow {
+    margin-bottom: 12px;
+  }
+  
+  .subtotalText,
+  .subtotalPrice,
+  .totalText,
+  .totalPrice {
+    font-size: 15px;
+  }
+  
+  .dividerLine {
+    margin: 25px 0;
+  }
+  
+  .cardRowFields {
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .cardField {
+    margin-bottom: 20px;
+  }
+  
+  .disclaimerText {
+    font-size: 14px;
+    line-height: 150%;
+    margin: 20px 0;
+  }
+  
+  .completeCheckoutButton {
+    height: 48px;
+    border-radius: 8px;
+  }
+  
+  .buttonText {
+    font-size: 14px;
+  }
+}
+
+/* Mobile Small (480px and below) */
+@media (max-width: 480px) {
+  .checkoutTitle {
+    font-size: 24px;
+  }
+  
+  .billingTitle,
+  .orderSummaryTitle,
+  .cardDetailsTitle {
+    font-size: 20px;
+  }
+  
+  .fieldLabel {
+    font-size: 14px;
+  }
+  
+  .textField,
+  .cardNumberField,
+  .cardHalfInput {
+    height: 46px;
+    font-size: 12px;
+  }
+  
+  .orderNotesTextarea {
+    height: 100px;
+    font-size: 12px;
+  }
+  
+  .subtotalText,
+  .subtotalPrice,
+  .totalText,
+  .totalPrice {
+    font-size: 14px;
+  }
+  
+  .disclaimerText {
+    font-size: 13px;
+  }
+  
+  .completeCheckoutButton {
+    height: 44px;
+  }
+  
+  .buttonText {
+    font-size: 13px;
+  }
+}
+
+/* Very Small Mobile (360px and below) */
+@media (max-width: 360px) {
+  .checkoutContent,
+  .orderSummaryContent {
+    padding: 0 10px;
+  }
+  
+  .checkoutTitle {
+    font-size: 22px;
+  }
+  
+  .billingTitle,
+  .orderSummaryTitle,
+  .cardDetailsTitle {
+    font-size: 18px;
+  }
+  
+  .formGrid {
+    gap: 12px;
+  }
+  
+  .cardRowFields {
+    gap: 12px;
+  }
+  
+  .textField,
+  .cardNumberField,
+  .cardHalfInput {
+    height: 44px;
+    padding: 0 8px;
+  }
+  
+  .orderNotesTextarea {
+    height: 90px;
+    padding: 8px;
+  }
+  
+  .completeCheckoutButton {
+    height: 42px;
+  }
+}

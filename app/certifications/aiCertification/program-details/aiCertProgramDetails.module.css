@@ -1,0 +1,567 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Header Section Styles */
+.headerSection {
+  background: #FAFFEF;
+  min-height: 688px;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 12px 16px;
+  width: fit-content;
+  position: relative;
+  z-index: 10;
+  margin-bottom: 10px;
+  margin-top: 60px;
+  border-radius: 5px;
+}
+
+.backArrow {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.backText {
+  font-family: Source, serif-pro;
+  font-weight: 600;
+  font-size: 20px;
+  color: #000000;
+  line-height: 1;
+  /* Make text more visible */
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.backButton:hover .backArrow {
+  transform: translateX(-2px);
+  transition: transform 0.2s ease;
+}
+
+.backButton:hover .backText {
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.headerContent {
+  display: flex;
+  gap: 40px;
+  flex: 1;
+  align-items: flex-start;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.programImageContainer {
+  flex-shrink: 0;
+}
+
+.programImage {
+  width: 898px;
+  height: 520px;
+  border-radius: 10px;
+  border: 1px solid #00000080;
+  object-fit: cover;
+}
+
+.programInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 60px;
+  min-height: 0;
+}
+
+.programTitle {
+  /* font-family: Montserrat, sans-serif; */
+  font-weight: 600;
+  font-size: 50px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000;
+  margin: 0;
+}
+
+.durationContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.durationLabel {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #FFBB15;
+  /* width: 235px; */
+  height: 24px;
+}
+
+.durationValue {
+  /* font-family: Montserrat, sans-serif; */
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #0A211F;
+  /* width: 80px; */
+  height: 24px;
+}
+
+.descriptionContainer {
+  /* margin-top: 30px; */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  /* font-family: Montserrat, sans-serif; */
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #0A211F;
+  /* margin: 0 0 15px 0; */
+  flex-grow: 1;
+}
+
+.readMoreContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.readMoreText {
+  /* font-family: Montserrat, sans-serif; */
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #FFBB15;
+  /* width: 113px; */
+  height: 24px;
+}
+
+.readMoreArrow {
+  color: #FFBB15;
+  font-size: 30px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  transform: rotate(90deg);
+  transform-origin: center center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.readMoreArrow.rotated {
+  transform: rotate(270deg);
+}
+
+.buyNowButton {
+  width: 215px;
+  height: 52px;
+  border-radius: 5px;
+  border: 1px solid #FFBB15;
+  background: #FFBB15;
+  padding: 17px 72px;
+  /* gap: 10px; */
+  /* margin-top: 30px; */
+  margin-bottom: 20px;
+  cursor: pointer;
+  /* font-family: Montserrat, sans-serif; */
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #0A211F;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.buyNowButton:hover {
+  background: #e6a614;
+  border-color: #e6a614;
+}
+
+/* Section Styles - Updated to align with header content */
+.section {
+  background-color: white;
+  width: 100%;
+  padding: 30px 0;
+}
+
+.sectionContent {
+  /* Match the header content positioning */
+  padding: 0 56px; /* 40px base + 16px from headerContent padding */
+  max-width: none; /* Remove max-width constraint */
+  margin: 0; /* Remove auto centering */
+}
+
+.sectionTitle {
+  /* font-family: Montserrat, sans-serif; */
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000;
+  margin: 0 0 20px 0;
+}
+
+/* Prerequisites and Modules Lists */
+.bulletList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-left: 30px;
+}
+
+.listItem {
+  font-family: Montserrat, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: #0A211F;
+  margin-bottom: 15px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.listItem::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #0A211F;
+  font-weight: bold;
+}
+
+/* Materials Section */
+.materialsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  margin-left: 30px;
+}
+
+.materialItem {
+  font-family: Montserrat, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #0A211F;
+}
+
+/* Learning Outcomes Grid */
+.learningGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 60px;
+  margin-left: 30px;
+}
+
+.learningItem {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.learningTitle {
+  font-family: Montserrat, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #0A211F;
+  margin: 0;
+}
+
+.learningDescription {
+  font-family: Montserrat, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: #0A211F80;
+  margin: 0;
+  max-width: 778px;
+}
+
+/* Tools Section - Desktop Layout (unchanged) */
+.toolsContainer {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.toolItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  flex: 0 0 auto;
+  margin-bottom: 60px;
+}
+
+.toolIconContainer {
+  width: 105px;
+  height: 105px;
+  border-radius: 17.5px;
+  background: #FEE50280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.toolIcon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.toolName {
+  /* font-family: Montserrat, sans-serif; */
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000;
+  text-align: left;
+  margin: 0; /* Remove any margins */
+  padding: 0; /* Remove any padding */
+  width: auto; /* Let it size naturally */
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .headerContent {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .programImage {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+  }
+  
+  .programTitle {
+    font-size: 40px;
+  }
+  
+  .learningGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .sectionContent {
+    padding: 0 40px; /* Adjust for mobile */
+  }
+}
+
+/* Tablet responsiveness for tools section (769px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .toolsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    justify-items: center;
+    align-items: start;
+  }
+  
+  .toolItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .toolName {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerSection {
+    height: auto;
+    padding: 20px;
+  }
+  
+  .sectionContent {
+    padding: 0 20px;
+  }
+  
+  .programTitle {
+    font-size: 32px;
+    text-align: center;
+  }
+  
+  .durationContainer {
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  
+  .durationLabel,
+  .durationValue {
+    font-size: 18px;
+  }
+  
+  .description {
+    font-size: 16px;
+    line-height: 140%;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .readMoreContainer {
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    align-items: center;
+  }
+  
+  .readMoreText {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+  
+  .readMoreArrow {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .buyNowButton {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto 20px auto;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 16px 20px;
+    height: auto;
+  }
+  
+  .listItem,
+  .materialItem,
+  .learningTitle,
+  .learningDescription {
+    font-size: 18px;
+  }
+  
+  /* Mobile responsiveness for tools section - 2x2 Grid */
+  .toolsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 20px;
+    justify-items: center;
+    align-items: start;
+    margin-left: 0;
+  }
+  
+  .toolItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .toolIconContainer {
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
+  }
+  
+  .toolIcon {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .toolName {
+    font-size: 18px;
+    white-space: normal;
+    text-align: center;
+    line-height: 110%;
+  }
+}
+
+/* Small mobile screens (up to 480px) */
+@media (max-width: 480px) {
+  .programTitle {
+    font-size: 28px;
+  }
+  
+  .durationLabel,
+  .durationValue {
+    font-size: 16px;
+  }
+  
+  .description {
+    font-size: 15px;
+    line-height: 145%;
+  }
+  
+  .readMoreText {
+    font-size: 15px;
+    line-height: 1.2;
+  }
+  
+  .readMoreArrow {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .buyNowButton {
+    font-size: 15px;
+    padding: 14px 20px;
+  }
+  
+  .toolsContainer {
+    gap: 25px 15px;
+  }
+  
+  .toolIconContainer {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+  }
+  
+  .toolIcon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .toolName {
+    font-size: 16px;
+  }
+}
