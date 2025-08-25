@@ -183,7 +183,7 @@ export default function Navbar({
                   color: isActivePage("/certifications/aiCertification") ? activeTextColor : textColor 
                 }}
                 href={"/certifications/aiCertification"}
-                onClick={() => setHideSubLink(true)}
+                // onClick={() => setHideSubLink(true)}
               >
                 AI Certification
               </Link>

@@ -4,22 +4,29 @@ import Courses from "@/app/(sections)/courses/courses";
 import Navbar from "@/app/(components)/(navbar)/navbar";
 import { CoursesInfo } from "@/app/(components)/(common)/data";
 import { useState } from "react";
+import ProgramsSection from "./ProgramsSection";
 
 export default function AiCertification() {
-  const numberOfContentPerPage = 7;
-  const [currentPage, setCurrentPage] = useState(1);
+  // const numberOfContentPerPage = 7;
+  // const [currentPage, setCurrentPage] = useState(1);
 
-  const lastIndex = numberOfContentPerPage * currentPage;
-  const firstIndex = lastIndex / numberOfContentPerPage;
+  // const lastIndex = numberOfContentPerPage * currentPage;
+  // const firstIndex = lastIndex / numberOfContentPerPage;
 
-  const dataView = CoursesInfo.slice(firstIndex, lastIndex);
+  // const dataView = CoursesInfo.slice(firstIndex, lastIndex);
 
-  const totalPage = Math.ceil(CoursesInfo.length / numberOfContentPerPage);
+  // const totalPage = Math.ceil(CoursesInfo.length / numberOfContentPerPage);
 
   return (
     <>
-      <Navbar />
-      <div className={styles.courses}>
+    {/* Navbar */}
+      <Navbar 
+      backgroundColor="#FAFFEF"
+      />
+
+      {/* Program Section */}
+      <ProgramsSection/>
+      {/* <div className={styles.courses}>
         {dataView.map((image) => (
           <Courses
             id={image.id}
@@ -28,7 +35,7 @@ export default function AiCertification() {
             key={image.title}
           />
         ))}
-      </div>
+      </div> */}
     </>
   );
 }
