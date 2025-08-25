@@ -11,7 +11,7 @@
   position: relative;
   width: 782px;
   height: 100vh;
-  background: url("../../assets/img/heroImage.jpg") center/cover no-repeat;
+  background: url("/assets/heroImage.jpg") center/cover no-repeat;
   opacity: 1;
   flex-shrink: 0;
 }

@@ -52,6 +52,8 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 220px;
+}
+
 .empowerment img {
   width: 80%;
   max-width: 420px;
