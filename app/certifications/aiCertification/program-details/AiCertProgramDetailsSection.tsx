@@ -1,19 +1,44 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { CoursesInfo } from "@/app/(components)/(common)/data";
+import Image, { StaticImageData } from "next/image";
+
+import React, { useEffect, useState } from "react";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import black_back_arrow from "../../../../public/assets/black_back_arrow.png";
 import program_img from "@/app/assets/img/aiCloud.jpg";
 
-// Images icons
-import github_icon from "@/app/assets/img/ProgramDetails/github_icon.png";
-import lobe_icon from "@/app/assets/img/ProgramDetails/lobe_icon.png";
-import H20ai_icon from "@/app/assets/img/ProgramDetails/H20.ai_icon.png";
-import snorkel_icon from "@/app/assets/img/ProgramDetails/snorkel_icon.png";
-
 // Styles
 import styles from "./aiCertProgramDetails.module.css";
+
+interface CourseDetail {
+  title: { rendered: string };
+  acf: {
+    certification_duration: string;
+    about_certification: string;
+    prerequisites: string;
+    certification_modules: {
+      certification_module_title: string;
+      certification_module_description: string;
+    }[];
+    fields_v5: {
+      "self-study-materials_data": {
+        name: string;
+        description: string;
+      }[];
+    };
+    what_will_you_learn: {
+      learn_sections: {
+        learn_name: string;
+        learn_text: string;
+      }[];
+    };
+    tools_data: {
+      tool_image: string;
+      name: string;
+    }[];
+  };
+}
 
 export default function AiProgramDetailsSection() {
   const router = useRouter();
@@ -27,104 +52,152 @@ export default function AiProgramDetailsSection() {
     setIsDescriptionExpanded(!isDescriptionExpanded);
   };
 
-  const prerequisites = [
-    "A basic understanding of mathematics, programming, and AI/ML concepts.",
-    "Proficiency in data structures and computer science fundamentals.",
-    "Familiarity with AI application workflows and project management strategies.",
-    "A willingness to engage in practical workshops and implement real-world AI models."
-  ];
+  const params = useSearchParams();
+  const page = params.get("id")?.toString();
+  const [detailData, setDetailData] = useState<CourseDetail | null>();
+  const [courseImage, setCourseImage] = useState<StaticImageData | null>();
 
-  const modules = [
-    "Introduction to Artificial Intelligence (AI) in Project Management",
-    "AI Tools for Project Management",
-    "Data-Driven Decision Making",
-    "AI for Enhancing Team Collaboration and Productivity",
-    "Ethical Considerations and Bias in AI",
-    "Implementing AI in Projects",
-    "Future of AI in Project Management"
-  ];
+  useEffect(() => {
+    if (page) {
+      fetch(`https://www.aicerts.ai/wp-json/wp/v2/courses/${page}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setDetailData(data);
+        })
+        .catch((err) => console.log(err.message));
 
-  const materials = [
-    "Videos",
-    "Podcasts",
-    "Audiobooks",
-    "E-Books",
-    "Hands-on",
-    "Module Wise Quizzes"
-  ];
-
-  const learningOutcomes = [
-    {
-      title: "AI Integration in Project Management",
-      description: "Master the integration of AI tools in project planning, scheduling, and delivery to improve operational efficiency."
-    },
-    {
-      title: "Data-Driven Decision Making",
-      description: "Develop expertise in AI-powered data analysis to enhance decision-making processes and optimize project outcomes."
-    },
-    {
-      title: "Improved Team Collaboration and Productivity",
-      description: "Harness AI-driven tools for team communication, knowledge sharing, and task management to boost productivity."
-    },
-    {
-      title: "Communication and Stakeholder Management",
-      description: "Enhance stakeholder collaboration through AI-optimized communication platforms, ensuring project alignment and buy-in."
+      setCourseImage(
+        CoursesInfo.find((course) => course.id === Number.parseInt(page))?.src
+      );
     }
-  ];
+  }, [page]);
 
-  const tools = [
-    { name: "GitHub Copilot", icon: github_icon },
-    { name: "Lobe", icon: lobe_icon },
-    { name: "H2O.ai", icon: H20ai_icon },
-    { name: "Snorkel", icon: snorkel_icon }
-  ];
+  // Helper function to strip HTML tags
+  const stripHtml = (html: string) => {
+    const tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+  };
 
-  const fullDescription = "The AI+ Project Manager™ Certification equips project managers and IT professionals with advanced expertise in Artificial Intelligence (AI)-powered project management solutions. This comprehensive course delves into the integration of AI systems for real-time problem-solving, exploring advanced AI-driven project planning and resource allocation tools. The curriculum encompasses AI algorithms, machine learning architectures, and intelligent decision-making processes, from foundational to advanced levels. Participants will learn to design, implement, and evaluate AI applications tailored to multi-disciplinary project management scenarios. Graduates of this program are empowered to navigate the evolving AI-driven landscape and drive efficient project execution, team collaboration, and data-driven stakeholder communication.";
+  // Helper function to extract list items from HTML
+  const extractListItems = (html: string): string[] => {
+    const tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    const listItems = tmp.querySelectorAll("li");
+    return Array.from(listItems).map((li) => stripHtml(li.innerHTML));
+  };
 
-  const truncatedDescription = fullDescription.substring(0, 200) + "...";
+  // Get data or fallbacks
+  const programTitle = detailData?.title?.rendered || "Loading...";
+  const duration = detailData?.acf?.certification_duration || "Loading...";
+  const fullDescription = detailData?.acf?.about_certification
+    ? stripHtml(detailData.acf.about_certification)
+    : "Loading course description...";
+
+  const truncatedDescription =
+    fullDescription.length > 200
+      ? fullDescription.substring(0, 200) + "..."
+      : fullDescription;
+
+  const prerequisites = detailData?.acf?.prerequisites
+    ? extractListItems(detailData.acf.prerequisites)
+    : [];
+
+  const modules =
+    detailData?.acf?.certification_modules?.map(
+      (module) => module.certification_module_title
+    ) || [];
+
+  const materials =
+    detailData?.acf?.fields_v5?.["self-study-materials_data"]?.map(
+      (material) => material.name
+    ) || [];
+
+  const learningOutcomes =
+    detailData?.acf?.what_will_you_learn?.learn_sections?.map((section) => ({
+      title: section.learn_name,
+      description: section.learn_text,
+    })) || [];
+
+  const tools = detailData?.acf?.tools_data || [];
+
+  if (!detailData) {
+    return (
+      <section className={styles.container}>
+        <div className={styles.headerSection}>
+          <div className={styles.backButton} onClick={handleBackClick}>
+            <Image
+              src={black_back_arrow}
+              alt="Back"
+              className={styles.backArrow}
+            />
+            <span className={styles.backText}>Back</span>
+          </div>
+          <div className={styles.headerContent}>
+            <div>Loading...</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.container}>
       {/* Header Section */}
       <div className={styles.headerSection}>
         <div className={styles.backButton} onClick={handleBackClick}>
-          <Image src={black_back_arrow} alt="Back" className={styles.backArrow} />
+          <Image
+            src={black_back_arrow}
+            alt="Back"
+            className={styles.backArrow}
+          />
           <span className={styles.backText}>Back</span>
         </div>
-        
+
         <div className={styles.headerContent}>
           <div className={styles.programImageContainer}>
-            <Image 
-              src={program_img} 
-              alt="AI+ Executive Program" 
+            <Image
+              src={courseImage || program_img}
+              alt={programTitle}
               className={styles.programImage}
             />
           </div>
-          
+
           <div className={styles.programInfo}>
-            <h1 className={styles.programTitle}>AI+ Executive</h1>
-            
+            <h1 className={styles.programTitle}>{programTitle}</h1>
+
             <div className={styles.durationContainer}>
-              <span className={styles.durationLabel}>Certification Duration:</span>
-              <span className={styles.durationValue}>8 Hours</span>
+              <span className={styles.durationLabel}>
+                Certification Duration:
+              </span>
+              <span className={styles.durationValue}>{duration}</span>
             </div>
-            
+
             <div className={styles.descriptionContainer}>
               <p className={styles.description}>
                 {isDescriptionExpanded ? fullDescription : truncatedDescription}
               </p>
-              <div className={styles.readMoreContainer} onClick={toggleDescription}>
-                <span className={styles.readMoreText}>
-                  {isDescriptionExpanded ? "Read Less" : "Read More"}
-                </span>
-                <span className={`${styles.readMoreArrow} ${isDescriptionExpanded ? styles.rotated : ''}`}>
-                  ›
-                </span>
-              </div>
+              {fullDescription.length > 200 && (
+                <div
+                  className={styles.readMoreContainer}
+                  onClick={toggleDescription}
+                >
+                  <span className={styles.readMoreText}>
+                    {isDescriptionExpanded ? "Read Less" : "Read More"}
+                  </span>
+                  <span
+                    className={`${styles.readMoreArrow} ${
+                      isDescriptionExpanded ? styles.rotated : ""
+                    }`}
+                  >
+                    ›
+                  </span>
+                </div>
+              )}
             </div>
-            
-            <button 
-              onClick={() => router.push('/certifications/aiCertification/checkout')}
+
+            <button
+              onClick={() => router.back()}
               className={styles.buyNowButton}
             >
               Buy Now
@@ -134,72 +207,96 @@ export default function AiProgramDetailsSection() {
       </div>
 
       {/* Prerequisites Section */}
-      <div className={styles.section}>
-        <div className={styles.sectionContent}>
-          <h2 className={styles.sectionTitle}>Prerequisites</h2>
-          <ul className={styles.bulletList}>
-            {prerequisites.map((item, index) => (
-              <li key={index} className={styles.listItem}>{item}</li>
-            ))}
-          </ul>
+      {prerequisites.length > 0 && (
+        <div className={styles.section}>
+          <div className={styles.sectionContent}>
+            <h2 className={styles.sectionTitle}>Prerequisites</h2>
+            <ul className={styles.bulletList}>
+              {prerequisites.map((item, index) => (
+                <li key={index} className={styles.listItem}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Modules Section */}
-      <div className={styles.section}>
-        <div className={styles.sectionContent}>
-          <h2 className={styles.sectionTitle}>Modules</h2>
-          <ul className={styles.bulletList}>
-            {modules.map((item, index) => (
-              <li key={index} className={styles.listItem}>{item}</li>
-            ))}
-          </ul>
+      {modules.length > 0 && (
+        <div className={styles.section}>
+          <div className={styles.sectionContent}>
+            <h2 className={styles.sectionTitle}>Modules</h2>
+            <ul className={styles.bulletList}>
+              {modules.map((item, index) => (
+                <li key={index} className={styles.listItem}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Materials Section */}
-      <div className={styles.section}>
-        <div className={styles.sectionContent}>
-          <h2 className={styles.sectionTitle}>Materials</h2>
-          <div className={styles.materialsContainer}>
-            {materials.map((item, index) => (
-              <span key={index} className={styles.materialItem}>• {item}</span>
-            ))}
+      {materials.length > 0 && (
+        <div className={styles.section}>
+          <div className={styles.sectionContent}>
+            <h2 className={styles.sectionTitle}>Materials</h2>
+            <div className={styles.materialsContainer}>
+              {materials.map((item, index) => (
+                <span key={index} className={styles.materialItem}>
+                  • {item}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* What will you learn? Section */}
-      <div className={styles.section}>
-        <div className={styles.sectionContent}>
-          <h2 className={styles.sectionTitle}>What Will You Learn?</h2>
-          <div className={styles.learningGrid}>
-            {learningOutcomes.map((outcome, index) => (
-              <div key={index} className={styles.learningItem}>
-                <h3 className={styles.learningTitle}>{outcome.title}</h3>
-                <p className={styles.learningDescription}>{outcome.description}</p>
-              </div>
-            ))}
+      {learningOutcomes.length > 0 && (
+        <div className={styles.section}>
+          <div className={styles.sectionContent}>
+            <h2 className={styles.sectionTitle}>What Will You Learn?</h2>
+            <div className={styles.learningGrid}>
+              {learningOutcomes.map((outcome, index) => (
+                <div key={index} className={styles.learningItem}>
+                  <h3 className={styles.learningTitle}>{outcome.title}</h3>
+                  <p className={styles.learningDescription}>
+                    {outcome.description}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Tools you'll master Section */}
-      <div className={styles.section}>
-        <div className={styles.sectionContent}>
-          <h2 className={styles.sectionTitle}>Tools You'll Master</h2>
-          <div className={styles.toolsContainer}>
-            {tools.map((tool, index) => (
-              <div key={index} className={styles.toolItem}>
-                <div className={styles.toolIconContainer}>
-                  <Image src={tool.icon} alt={tool.name} className={styles.toolIcon} />
+      {tools.length > 0 && (
+        <div className={styles.section}>
+          <div className={styles.sectionContent}>
+            <h2 className={styles.sectionTitle}>Tools You&apos;ll Master</h2>
+            <div className={styles.toolsContainer}>
+              {tools.map((tool, index) => (
+                <div key={index} className={styles.toolItem}>
+                  <div className={styles.toolIconContainer}>
+                    <img
+                      src={tool.tool_image}
+                      alt={tool.name}
+                      className={styles.toolIcon}
+                      width={50}
+                      height={50}
+                    />
+                  </div>
+                  <span className={styles.toolName}>{tool.name}</span>
                 </div>
-                <span className={styles.toolName}>{tool.name}</span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }

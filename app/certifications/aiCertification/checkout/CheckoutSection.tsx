@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 // Styles
@@ -9,37 +8,74 @@ import styles from "./checkoutSection.module.css";
 
 export default function CheckoutSection() {
   const router = useRouter();
+  const [courseInfo, setCourseInfo] = useState({
+    amount: 0,
+    title: "",
+    category: "",
+  });
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    country: '',
-    orderNotes: '',
-    cardNumber: '',
-    expirationDate: '',
-    securityCode: ''
+    firstName: "",
+    lastName: "",
+    address: "",
+    email: "",
+    phone: "",
   });
 
-  const [focusedField, setFocusedField] = useState('');
-
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
-  const handleFocus = (field: string) => {
-    setFocusedField(field);
-  };
-
-  const handleBlur = () => {
-    setFocusedField('');
-  };
-
   const handleCompleteCheckout = () => {
-    // Handle checkout logic here
-    console.log('Checkout completed', formData);
+    if (
+      courseInfo.amount <= 0 ||
+      courseInfo.title.length === 0 ||
+      courseInfo.category.length === 0
+    ) {
+      return router.replace("/");
+    }
+    payWithPayStack();
+  };
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://js.paystack.co/v1/inline.js";
+    script.async = true;
+    document.body.appendChild(script);
+    const data = sessionStorage.getItem("courseDetail");
+    if (!data) {
+      return router.replace("/");
+    }
+    let courseDetail = JSON.parse(data);
+    courseDetail = Object.create({
+      amount: courseDetail.amount,
+      title: courseDetail.name,
+      category: courseDetail.category,
+    });
+    setCourseInfo(courseDetail);
+  }, [router]);
+
+  const payWithPayStack = () => {
+    // @ts-ignore
+    const handler = PaystackPop.setup({
+      key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY, // public key
+      email: formData.email,
+      amount: courseInfo.amount * 100, // in kobo
+      callback: async (response: any) => {
+        const res = await fetch("/api/payments/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ reference: response.reference }),
+        });
+        const { success } = await res.json();
+        if (success) {
+          router.replace("/");
+        }
+      },
+    });
+    handler.openIframe();
   };
 
   return (
@@ -53,70 +89,68 @@ export default function CheckoutSection() {
         {/* Billing Address Section('Billing Address' text, the 2 by 2 grid text fields, order note text field) */}
         <div className={styles.billingSection}>
           <h2 className={styles.billingTitle}>Billing Address</h2>
-          
+
           <div className={styles.formGrid}>
             <div className={styles.formField}>
-              <label className={styles.fieldLabel}>Full Name</label>
+              <label className={styles.fieldLabel}>First Name</label>
               <input
                 type="text"
-                placeholder="Enter Full Name"
-                className={`${styles.textField} ${focusedField === 'fullName' ? styles.fieldActive : ''}`}
-                value={formData.fullName}
-                onChange={(e) => handleInputChange('fullName', e.target.value)}
-                onFocus={() => handleFocus('fullName')}
-                onBlur={handleBlur}
+                placeholder="Enter First Name"
+                className={`${styles.textField} ${
+                  focusedField === "fullName" ? styles.fieldActive : ""
+                }`}
+                value={formData.firstName}
+                onChange={(e) => handleInputChange("firstName", e.target.value)}
               />
             </div>
-            
+            <div className={styles.formField}>
+              <label className={styles.fieldLabel}>Last Name</label>
+              <input
+                type="text"
+                placeholder="Enter Last Name"
+                className={`${styles.textField} ${
+                  focusedField === "fullName" ? styles.fieldActive : ""
+                }`}
+                value={formData.lastName}
+                onChange={(e) => handleInputChange("lastName", e.target.value)}
+              />
+            </div>
+
             <div className={styles.formField}>
               <label className={styles.fieldLabel}>Email</label>
               <input
                 type="email"
                 placeholder="Enter email"
-                className={`${styles.textField} ${focusedField === 'email' ? styles.fieldActive : ''}`}
+                className={`${styles.textField} ${
+                  focusedField === "email" ? styles.fieldActive : ""
+                }`}
                 value={formData.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
-                onFocus={() => handleFocus('email')}
-                onBlur={handleBlur}
+                onChange={(e) => handleInputChange("email", e.target.value)}
               />
             </div>
-            
+
             <div className={styles.formField}>
               <label className={styles.fieldLabel}>Phone</label>
               <input
                 type="tel"
                 placeholder="Enter phone number"
-                className={`${styles.textField} ${focusedField === 'phone' ? styles.fieldActive : ''}`}
+                className={`${styles.textField} ${
+                  focusedField === "phone" ? styles.fieldActive : ""
+                }`}
                 value={formData.phone}
-                onChange={(e) => handleInputChange('phone', e.target.value)}
-                onFocus={() => handleFocus('phone')}
-                onBlur={handleBlur}
-              />
-            </div>
-            
-            <div className={styles.formField}>
-              <label className={styles.fieldLabel}>Country</label>
-              <input
-                type="text"
-                placeholder="E.g: Nigeria"
-                className={`${styles.textField} ${focusedField === 'country' ? styles.fieldActive : ''}`}
-                value={formData.country}
-                onChange={(e) => handleInputChange('country', e.target.value)}
-                onFocus={() => handleFocus('country')}
-                onBlur={handleBlur}
+                onChange={(e) => handleInputChange("phone", e.target.value)}
               />
             </div>
           </div>
 
           <div className={styles.orderNotesField}>
-            <label className={styles.fieldLabel}>Order notes(optional)</label>
+            <label className={styles.fieldLabel}>Address(optional)</label>
             <textarea
-              placeholder="Notes about your order, e.g. questions or recommendations"
-              className={`${styles.orderNotesTextarea} ${focusedField === 'orderNotes' ? styles.fieldActive : ''}`}
-              value={formData.orderNotes}
-              onChange={(e) => handleInputChange('orderNotes', e.target.value)}
-              onFocus={() => handleFocus('orderNotes')}
-              onBlur={handleBlur}
+              className={`${styles.orderNotesTextarea} ${
+                focusedField === "orderNotes" ? styles.fieldActive : ""
+              }`}
+              value={formData.address}
+              onChange={(e) => handleInputChange("address", e.target.value)}
             />
           </div>
         </div>
@@ -125,67 +159,18 @@ export default function CheckoutSection() {
         <div className={styles.orderSummarySection}>
           <div className={styles.orderSummaryContent}>
             <h2 className={styles.orderSummaryTitle}>Order Summary</h2>
-            
+
             <div className={styles.priceRow}>
-              <span className={styles.subtotalText}>Subtotal</span>
-              <span className={styles.subtotalPrice}>₦299,999.00</span>
+              <span className={styles.subtotalText}>Course Name</span>
+              <span className={styles.subtotalPrice}>{courseInfo.title} </span>
             </div>
-            
+
             <div className={styles.priceRow}>
               <span className={styles.totalText}>Total</span>
-              <span className={styles.totalPrice}>₦299,999.00</span>
+              <span className={styles.totalPrice}>₦{courseInfo.amount}</span>
             </div>
-            
-            <div className={styles.dividerLine}></div>
-            
-            <h2 className={styles.cardDetailsTitle}>Card Details</h2>
-            
-            <div className={styles.cardField}>
-              <label className={styles.fieldLabel}>Card number</label>
-              <input
-                type="text"
-                placeholder="Enter card number"
-                className={`${styles.cardNumberField} ${focusedField === 'cardNumber' ? styles.fieldActive : ''}`}
-                value={formData.cardNumber}
-                onChange={(e) => handleInputChange('cardNumber', e.target.value)}
-                onFocus={() => handleFocus('cardNumber')}
-                onBlur={handleBlur}
-              />
-            </div>
-            
-            <div className={styles.cardRowFields}>
-              <div className={styles.cardHalfField}>
-                <label className={styles.fieldLabel}>Expiration date</label>
-                <input
-                  type="text"
-                  placeholder="MM/YY"
-                  className={`${styles.cardHalfInput} ${focusedField === 'expirationDate' ? styles.fieldActive : ''}`}
-                  value={formData.expirationDate}
-                  onChange={(e) => handleInputChange('expirationDate', e.target.value)}
-                  onFocus={() => handleFocus('expirationDate')}
-                  onBlur={handleBlur}
-                />
-              </div>
-              
-              <div className={styles.cardHalfField}>
-                <label className={styles.fieldLabel}>Security code</label>
-                <input
-                  type="text"
-                  placeholder="CVC"
-                  className={`${styles.cardHalfInput} ${focusedField === 'securityCode' ? styles.fieldActive : ''}`}
-                  value={formData.securityCode}
-                  onChange={(e) => handleInputChange('securityCode', e.target.value)}
-                  onFocus={() => handleFocus('securityCode')}
-                  onBlur={handleBlur}
-                />
-              </div>
-            </div>
-            
-            <p className={styles.disclaimerText}>
-              Your personal data will be used to process your order, and support your experience throughout this website.
-            </p>
-            
-            <button 
+
+            <button
               className={styles.completeCheckoutButton}
               onClick={handleCompleteCheckout}
             >
