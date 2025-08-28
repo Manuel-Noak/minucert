@@ -36,45 +36,68 @@ export default function CheckoutSection() {
     ) {
       return router.replace("/");
     }
-    payWithPayStack();
+    console.log("ss");
+
+    handlePayment();
   };
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://js.paystack.co/v1/inline.js";
-    script.async = true;
-    document.body.appendChild(script);
-    const data = sessionStorage.getItem("courseDetail");
-    if (!data) {
-      return router.replace("/");
+    if (!document.querySelector("#paystack-script")) {
+      const script = document.createElement("script");
+      script.id = "paystack-script";
+      script.src = "https://js.paystack.co/v1/inline.js";
+      script.async = true;
+      document.body.appendChild(script);
     }
-    let courseDetail = JSON.parse(data);
-    courseDetail = Object.create({
-      amount: courseDetail.amount,
-      title: courseDetail.name,
-      category: courseDetail.category,
-    });
-    setCourseInfo(courseDetail);
+
+    fetch("/api/getCourse")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setCourseInfo(data.info);
+          return;
+        } else router.replace("/");
+      })
+      .catch(() => router.replace("/"));
   }, [router]);
 
-  const payWithPayStack = () => {
+  const handlePayment = () => {
     // @ts-ignore
+    const PaystackPop = window.PaystackPop;
+
+    if (!PaystackPop) {
+      alert("Paystack script not loaded yet!");
+      return;
+    }
+
     const handler = PaystackPop.setup({
-      key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY, // public key
+      key: "pk_live_3ac4bb0857b395c81d37dd8e816dd0b209b6e9cd", // use your real public key
       email: formData.email,
       amount: courseInfo.amount * 100, // in kobo
-      callback: async (response: any) => {
-        const res = await fetch("/api/payments/verify", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ reference: response.reference }),
-        });
-        const { success } = await res.json();
-        if (success) {
-          router.replace("/");
+      callback: async (response) => {
+        // This is a valid function
+        try {
+          const res = await fetch("/api/payments/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ reference: response.reference }),
+          });
+
+          const { success } = await res.json();
+          if (success) {
+            router.replace("/");
+          } else {
+            alert("Payment verification failed");
+          }
+        } catch (error) {
+          console.error("Verification error:", error);
         }
       },
+      onClose: () => {
+        console.log("Payment window closed.");
+      },
     });
+
     handler.openIframe();
   };
 
@@ -96,9 +119,7 @@ export default function CheckoutSection() {
               <input
                 type="text"
                 placeholder="Enter First Name"
-                className={`${styles.textField} ${
-                  focusedField === "fullName" ? styles.fieldActive : ""
-                }`}
+                className={`${styles.textField} `}
                 value={formData.firstName}
                 onChange={(e) => handleInputChange("firstName", e.target.value)}
               />
@@ -108,9 +129,7 @@ export default function CheckoutSection() {
               <input
                 type="text"
                 placeholder="Enter Last Name"
-                className={`${styles.textField} ${
-                  focusedField === "fullName" ? styles.fieldActive : ""
-                }`}
+                className={`${styles.textField} `}
                 value={formData.lastName}
                 onChange={(e) => handleInputChange("lastName", e.target.value)}
               />
@@ -121,9 +140,7 @@ export default function CheckoutSection() {
               <input
                 type="email"
                 placeholder="Enter email"
-                className={`${styles.textField} ${
-                  focusedField === "email" ? styles.fieldActive : ""
-                }`}
+                className={`${styles.textField} `}
                 value={formData.email}
                 onChange={(e) => handleInputChange("email", e.target.value)}
               />
@@ -134,9 +151,7 @@ export default function CheckoutSection() {
               <input
                 type="tel"
                 placeholder="Enter phone number"
-                className={`${styles.textField} ${
-                  focusedField === "phone" ? styles.fieldActive : ""
-                }`}
+                className={`${styles.textField} `}
                 value={formData.phone}
                 onChange={(e) => handleInputChange("phone", e.target.value)}
               />
@@ -146,9 +161,7 @@ export default function CheckoutSection() {
           <div className={styles.orderNotesField}>
             <label className={styles.fieldLabel}>Address(optional)</label>
             <textarea
-              className={`${styles.orderNotesTextarea} ${
-                focusedField === "orderNotes" ? styles.fieldActive : ""
-              }`}
+              className={`${styles.orderNotesTextarea}`}
               value={formData.address}
               onChange={(e) => handleInputChange("address", e.target.value)}
             />

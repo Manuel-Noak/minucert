@@ -9,12 +9,14 @@ export async function GET(
 ) {
   const { id } = await context.params;
 
-  const { courseId, price, thumbnailLink, title, providerId } = certification;
+  const { category, courseId, price, thumbnailLink, title, providerId } =
+    certification;
   const { apiBaseUrl } = certificationProvider;
   const course = await db
-    .select({ courseId, price, thumbnailLink, title, providerId })
+    .select({ category, courseId, price, thumbnailLink, title, providerId })
     .from(certification)
     .where(eq(certification.id, id));
+
   if (course.length === 0) {
     return NextResponse.json({ success: false }, { status: 400 });
   }
@@ -29,11 +31,19 @@ export async function GET(
   const info = { ...course[0], ...api[0] };
 
   const response = NextResponse.json({ success: true, info });
-  response.cookies.set("courseInfo", JSON.stringify(info), {
-    httpOnly: true,
-    sameSite: "strict",
-    maxAge: 60 * 60 * 5,
-  });
+  response.cookies.set(
+    "courseInfo",
+    JSON.stringify({
+      amount: info.price,
+      category: info.category,
+      title: info.title,
+    }),
+    {
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 60 * 60 * 5,
+    }
+  );
 
   return response;
 }

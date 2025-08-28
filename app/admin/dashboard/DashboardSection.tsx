@@ -8,7 +8,8 @@ import arrow_icon from "../../assets/img/Admin/arrow_icon.png";
 export default function DashboardSection() {
     const [activeTab, setActiveTab] = useState("AI Certification");
     const [currentPage, setCurrentPage] = useState(1);
-    const [isCertificationsExpanded, setIsCertificationsExpanded] = useState(true);
+    const [isCertificationsExpanded, setIsCertificationsExpanded] =
+        useState(true);
     const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -74,7 +75,10 @@ export default function DashboardSection() {
     // Close dropdown when clicking outside
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
                 setActiveDropdown(null);
             }
         }
@@ -99,11 +103,19 @@ export default function DashboardSection() {
     };
 
     const handleStatusChange = (customerId: number) => {
-        setCustomers(customers.map(customer => 
-            customer.id === customerId 
-                ? { ...customer, status: customer.status === "Fulfilled" ? "Unfulfilled" : "Fulfilled" }
-                : customer
-        ));
+        setCustomers(
+            customers.map((customer) =>
+                customer.id === customerId
+                    ? {
+                          ...customer,
+                          status:
+                              customer.status === "Fulfilled"
+                                  ? "Unfulfilled"
+                                  : "Fulfilled",
+                      }
+                    : customer
+            )
+        );
         setActiveDropdown(null);
     };
 
@@ -112,12 +124,21 @@ export default function DashboardSection() {
         setActiveDropdown(null);
     };
 
+    const handleSeeCoursesClick = () => {
+        console.log("See Courses button clicked");
+        // Add your navigation logic here
+        window.location.href = "/admin/dashboard/manage-courses";
+    };
+
     const renderPaginationNumbers = () => {
         const pages = [];
         const maxVisiblePages = 5;
-        let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+        let startPage = Math.max(
+            1,
+            currentPage - Math.floor(maxVisiblePages / 2)
+        );
         let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-        
+
         if (endPage - startPage + 1 < maxVisiblePages) {
             startPage = Math.max(1, endPage - maxVisiblePages + 1);
         }
@@ -142,10 +163,22 @@ export default function DashboardSection() {
         <section className={styles.dashboard_section}>
             {/* Header */}
             <div className={styles.header}>
-                <h1 className={styles.title}>Administration Dashboard</h1>
-                <p className={styles.subtitle}>
-                    Track customers who make payment for courses
-                </p>
+                <div className={styles.header_content}>
+                    <div className={styles.header_text}>
+                        <h1 className={styles.title}>
+                            Administration Dashboard
+                        </h1>
+                        <p className={styles.subtitle}>
+                            Track customers who make payment for courses
+                        </p>
+                    </div>
+                    <button
+                        className={styles.see_courses_btn}
+                        onClick={handleSeeCoursesClick}
+                    >
+                        See Courses
+                    </button>
+                </div>
             </div>
 
             {/* Table Container */}
@@ -162,7 +195,12 @@ export default function DashboardSection() {
                                 isCertificationsExpanded ? styles.expanded : ""
                             }`}
                         >
-                            <Image src={arrow_icon} alt='Arrow icon' width={16} height={16} />
+                            <Image
+                                src={arrow_icon}
+                                alt='Arrow icon'
+                                width={16}
+                                height={16}
+                            />
                         </span>
                     </div>
                     <div
@@ -211,12 +249,18 @@ export default function DashboardSection() {
                         {customers.map((customer) => (
                             <div key={customer.id} className={styles.table_row}>
                                 <div className={styles.table_cell}>
-                                    <span className={styles.table_cell_text} title={customer.fullName}>
+                                    <span
+                                        className={styles.table_cell_text}
+                                        title={customer.fullName}
+                                    >
                                         {customer.fullName}
                                     </span>
                                 </div>
                                 <div className={styles.table_cell}>
-                                    <span className={styles.table_cell_text} title={customer.email}>
+                                    <span
+                                        className={styles.table_cell_text}
+                                        title={customer.email}
+                                    >
                                         {customer.email}
                                     </span>
                                 </div>
@@ -236,34 +280,54 @@ export default function DashboardSection() {
                                         {customer.status}
                                     </span>
                                 </div>
-                                <div className={`${styles.table_cell} ${styles.actions_cell}`}>
+                                <div
+                                    className={`${styles.table_cell} ${styles.actions_cell}`}
+                                >
                                     <div className={styles.actions_container}>
-                                        <button 
+                                        <button
                                             className={styles.actions_btn}
-                                            onClick={(e) => toggleDropdown(customer.id, e)}
+                                            onClick={(e) =>
+                                                toggleDropdown(customer.id, e)
+                                            }
                                         >
                                             ⋮
                                         </button>
                                         {activeDropdown === customer.id && (
-                                            <div 
-                                                className={styles.action_dropdown}
+                                            <div
+                                                className={
+                                                    styles.action_dropdown
+                                                }
                                             >
                                                 <button
-                                                    className={styles.view_details_btn}
-                                                    onClick={() => handleViewDetails(customer.id)}
+                                                    className={
+                                                        styles.view_details_btn
+                                                    }
+                                                    onClick={() =>
+                                                        handleViewDetails(
+                                                            customer.id
+                                                        )
+                                                    }
                                                 >
                                                     View details
                                                 </button>
                                                 <button
-                                                    className={`${styles.mark_status_btn} ${
-                                                        customer.status === "Unfulfilled" 
-                                                            ? styles.mark_fulfilled 
+                                                    className={`${
+                                                        styles.mark_status_btn
+                                                    } ${
+                                                        customer.status ===
+                                                        "Unfulfilled"
+                                                            ? styles.mark_fulfilled
                                                             : styles.mark_unfulfilled
                                                     }`}
-                                                    onClick={() => handleStatusChange(customer.id)}
+                                                    onClick={() =>
+                                                        handleStatusChange(
+                                                            customer.id
+                                                        )
+                                                    }
                                                 >
-                                                    {customer.status === "Unfulfilled" 
-                                                        ? "Mark as fulfilled" 
+                                                    {customer.status ===
+                                                    "Unfulfilled"
+                                                        ? "Mark as fulfilled"
                                                         : "Mark as unfulfilled"}
                                                 </button>
                                             </div>

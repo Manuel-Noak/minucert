@@ -220,7 +220,7 @@ export default function AiProgramDetailsSection() {
               </div>
 
               <button
-                onClick={() => router.back()}
+                onClick={() => router.push("/certifications/checkout")}
                 className={styles.buyNowButton}
               >
                 Buy Now
