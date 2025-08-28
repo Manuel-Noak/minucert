@@ -1,35 +1,35 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import heroImage from "/assets/heroImage.jpg";
+// import heroImage from "/assets/heroImage.jpg";
 import back_arrow from "../../assets/img/Admin/back_arrow.png";
 import styles from "./signin.module.css";
+import { useRouter } from "next/navigation";
 
 export default function Signin() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const router = useRouter();
 
-  // const logAdminIn = async () => {
-  //   if (password.trim().length < 1 || email.trim().length < 1) {
-  //     return;
-  //   }
+  const logAdminIn = async () => {
+    if (password.trim().length < 1 || email.trim().length < 1) {
+      return;
+    }
 
-  //   try {
-  //     const res = await fetch("/api/admin", {
-  //       method: "POST",
-  //       body: JSON.stringify({ email, password }),
-  //     });
+    try {
+      const res = await fetch("/api/admin", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      });
 
-  //     const data = await res.json();
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.log(error?.message);
-  //   }
-  // };
-
-  const handleSignin = () => {
-    // Navigate to admin dashboard using window.location
-    window.location.href = "/admin/dashboard";
+      const data = await res.json();
+      if (!data.success) {
+        return alert("Wrong password " + data.message);
+      }
+      router.push("/admin/dashboard");
+    } catch (error) {
+      return alert("Wrong password " + error.message);
+    }
   };
 
   return (
@@ -82,11 +82,7 @@ export default function Signin() {
             />
           </div>
 
-          <button
-            // onClick={logAdminIn}
-            onClick={handleSignin}
-            className={styles.loginButton}
-          >
+          <button onClick={logAdminIn} className={styles.loginButton}>
             Login
           </button>
         </div>

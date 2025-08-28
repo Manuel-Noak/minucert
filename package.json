@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "lucide-react": "^0.541.0",
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.2.1",
     "drizzle-orm": "^0.44.4",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.541.0",
     "mysql2": "^3.14.3",
     "next": "15.4.6",
     "react": "19.1.0",
