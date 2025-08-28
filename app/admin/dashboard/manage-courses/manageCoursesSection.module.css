@@ -1,5 +1,5 @@
-/* dashboardSection.module.css */
-.dashboard_section {
+/* manageCoursesSection.module.css */
+.manage_courses_section {
   background-color: #FAFFEF;
   min-height: 100vh;
   padding: 40px;
@@ -41,8 +41,7 @@
   margin-bottom: 50px;
 }
 
-.see_courses_btn {
-  width: 158px;
+.new_course_btn {
   height: 42px;
   border-radius: 5px;
   background: #FFBB15;
@@ -57,20 +56,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
   flex-shrink: 0;
 }
 
-.see_courses_btn:hover {
+.new_course_btn:hover {
   background: #E6A612;
   transform: translateY(-1px);
 }
 
-.see_courses_btn:active {
+.new_course_btn:active {
   transform: translateY(0);
 }
 
 .table_container {
-  display: flex;
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -78,96 +78,8 @@
   position: relative;
 }
 
-/* Sidebar Styles */
-.sidebar {
-  width: 236px;
-  background-color: #000000CC;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-right: 1px solid #9E9EA64D;
-  padding: 0;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.certifications_header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  color: white;
-  font-weight: 600;
-  font-size: 16px;
-  border-bottom: 1px solid #9E9EA64D;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.certifications_header:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.dropdown_arrow {
-  transition: transform 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dropdown_arrow.expanded {
-  transform: rotate(0deg);
-}
-
-.dropdown_arrow:not(.expanded) {
-  transform: rotate(180deg);
-}
-
-.certifications_list {
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-  overflow: hidden;
-}
-
-.certifications_list.expanded {
-  max-height: 500px;
-  opacity: 1;
-}
-
-.certifications_list.collapsed {
-  max-height: 0;
-  opacity: 0;
-}
-
-.certification_tab {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.certification_tab:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.active_tab {
-  background-color: #FFBB15 !important;
-  color: #000000 !important;
-  font-weight: 600;
-}
-
-.cert_icon {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-}
-
 /* Table Content Styles */
 .table_content {
-  flex: 1;
   display: flex;
   flex-direction: column;
   overflow-x: auto;
@@ -175,12 +87,12 @@
 
 .table_header {
   display: grid;
-  grid-template-columns: 1.5fr 2fr 1fr 1fr auto;
+  grid-template-columns: 1.2fr 1fr 1fr 1.2fr 1fr auto;
   background-color: #000000CC;
   color: white;
   font-weight: 600;
   font-size: 14px;
-  min-width: 800px;
+  min-width: 900px;
 }
 
 .header_cell {
@@ -197,12 +109,12 @@
 
 .table_body {
   flex: 1;
-  min-width: 800px;
+  min-width: 900px;
 }
 
 .table_row {
   display: grid;
-  grid-template-columns: 1.5fr 2fr 1fr 1fr auto;
+  grid-template-columns: 1.2fr 1fr 1fr 1.2fr 1fr auto;
   border-bottom: 1px solid #9E9EA64D;
   transition: background-color 0.2s ease;
   position: relative;
@@ -240,29 +152,6 @@
   position: relative;
   display: flex;
   justify-content: center;
-}
-
-.status_badge {
-  padding: 6px 12px;
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: capitalize;
-  display: inline-block;
-  min-width: 90px;
-  text-align: center;
-}
-
-.fulfilled {
-  background-color: #006B401A;
-  color: #006b40;
-  border: 1px solid #006B40;
-}
-
-.unfulfilled {
-  background-color: #FFBB151A;
-  color: #FFBB15;
-  border: 1px solid #FFBB15;
 }
 
 .actions_btn {
@@ -320,40 +209,26 @@
   background: #004a9a;
 }
 
-.mark_status_btn {
+.edit_course_btn {
   width: 100%;
   height: 40px;
   border-radius: 6px;
-  background: transparent;
+  /* background: #FFBB15; */
+  /* color: #000000; */
+
+  /* border: none; */
+  border: 1px solid #FFBB15;
+  color: #FFBB15;
+  background-color: #FFBB150D;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.mark_status_btn:hover {
-  opacity: 1;
+.edit_course_btn:hover {
+  background: #E6A612;
   transform: translateY(-1px);
-}
-
-.mark_fulfilled {
-  border: 1px solid #006B40;
-  color: #006B40;
-  background-color: #006B400D;
-}
-
-.mark_fulfilled:hover {
-  background-color: #006B401A;
-}
-
-.mark_unfulfilled {
-  border: 1px solid #FFBB15;
-  color: #FFBB15;
-  background-color: #FFBB150D;
-}
-
-.mark_unfulfilled:hover {
-  background-color: #FFBB151A;
 }
 
 /* Pagination Styles */
@@ -458,12 +333,8 @@
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-  .dashboard_section {
+  .manage_courses_section {
     padding: 24px;
-  }
-  
-  .sidebar {
-    width: 200px;
   }
 
   .header_content {
@@ -472,30 +343,14 @@
     gap: 20px;
   }
 
-  .see_courses_btn {
+  .new_course_btn {
     align-self: flex-end;
   }
 }
 
 @media (max-width: 1024px) {
-  .dashboard_section {
+  .manage_courses_section {
     padding: 20px;
-  }
-  
-  .table_container {
-    flex-direction: column;
-  }
-  
-  .sidebar {
-    width: 100%;
-    border-radius: 20px 20px 0 0;
-    border-right: none;
-    border-bottom: 1px solid #9E9EA64D;
-  }
-  
-  .certification_tab {
-    justify-content: flex-start;
-    padding-left: 30px;
   }
 
   .header_content {
@@ -504,14 +359,14 @@
     gap: 20px;
   }
 
-  .see_courses_btn {
+  .new_course_btn {
     align-self: center;
     margin-top: 10px;
   }
 }
 
 @media (max-width: 768px) {
-  .dashboard_section {
+  .manage_courses_section {
     padding: 16px;
   }
   
@@ -533,9 +388,11 @@
     padding: 16px 8px;
   }
   
-  /* Hide email column on mobile */
+  /* Hide course code and provider columns on mobile */
   .table_header .header_cell:nth-child(2),
-  .table_row .table_cell:nth-child(2) {
+  .table_row .table_cell:nth-child(2),
+  .table_header .header_cell:nth-child(4),
+  .table_row .table_cell:nth-child(4) {
     display: none;
   }
   
@@ -563,26 +420,19 @@
   }
 
   .view_details_btn,
-  .mark_status_btn {
+  .edit_course_btn {
     height: 36px;
     font-size: 13px;
   }
 
-  .status_badge {
-    min-width: 80px;
-    font-size: 11px;
-    padding: 4px 8px;
-  }
-
-  .see_courses_btn {
-    width: 140px;
+  .new_course_btn {
     height: 38px;
     font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
-  .dashboard_section {
+  .manage_courses_section {
     padding: 12px;
   }
   
@@ -594,9 +444,9 @@
     font-size: 14px;
   }
   
-  /* Hide program column on very small screens */
-  .table_header .header_cell:nth-child(3),
-  .table_row .table_cell:nth-child(3) {
+  /* Hide currency column on very small screens */
+  .table_header .header_cell:nth-child(5),
+  .table_row .table_cell:nth-child(5) {
     display: none;
   }
   
@@ -610,17 +460,13 @@
     right: 0;
   }
   
-  .sidebar {
-    border-radius: 12px 12px 0 0;
-  }
-  
   .table_container {
     border-radius: 12px;
   }
 
-  .see_courses_btn {
-    width: 120px;
+  .new_course_btn {
     height: 36px;
     font-size: 13px;
+    gap: 6px;
   }
 }
