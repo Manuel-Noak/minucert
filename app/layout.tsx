@@ -4,6 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import FooterWrapper from "./(components)/FooterWrapper";
 import "./globals.css";
 import { AppProvider } from "./(state)/state";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +33,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning={true}
       >
-        <AppProvider>{children}</AppProvider>
+        <AppProvider>
+          {children}
+          <ToastContainer position="top-right" autoClose={3000} />
+        </AppProvider>
         <FooterWrapper />
       </body>
     </html>

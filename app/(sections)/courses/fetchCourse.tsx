@@ -49,7 +49,6 @@ export default async function fetchCourses(
       pagination: data.pagination,
     };
   } catch (error) {
-    console.error("Error fetching courses:", error);
     return {
       success: false,
       info: [],

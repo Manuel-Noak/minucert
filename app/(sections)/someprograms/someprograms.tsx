@@ -4,7 +4,7 @@
 import styles from "./someprograms.module.css";
 
 import type { StaticImageData } from "next/image";
-// import Image from "next/image";
+import defaultImage from "@/app/assets/img/aiSales.jpg";
 import { useEffect } from "react";
 import fetchCourses from "../courses/fetchCourse";
 import { useAppContext } from "@/app/(state)/state";
@@ -23,7 +23,7 @@ const Courses = ({ src, title, id, price }: CoursesProps) => {
     <div className={styles.courseCard}>
       <div className={styles.courseImage}>
         <img
-          src={src}
+          src={src || defaultImage}
           alt={title}
           width={433}
           height={297}
@@ -39,9 +39,7 @@ const Courses = ({ src, title, id, price }: CoursesProps) => {
         <p className={styles.courseTitle}>₦{price}</p>
         <button
           onClick={() =>
-            router.push(
-              `/certifications/aiCertification/program-details?id=${id}`
-            )
+            router.push(`/certifications/program-details?id=${id}`)
           }
           className={styles.seeProgramBtn}
         >

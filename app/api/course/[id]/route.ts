@@ -7,15 +7,15 @@ export async function GET(
   request: Request,
   context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await context.params;
+  const { id: paramId } = await context.params;
 
-  const { category, courseId, price, thumbnailLink, title, providerId } =
+  const { id, category, courseId, price, thumbnailLink, title, providerId } =
     certification;
   const { apiBaseUrl } = certificationProvider;
   const course = await db
-    .select({ category, courseId, price, thumbnailLink, title, providerId })
+    .select({ id, category, courseId, price, thumbnailLink, title, providerId })
     .from(certification)
-    .where(eq(certification.id, id));
+    .where(eq(certification.id, paramId));
 
   if (course.length === 0) {
     return NextResponse.json({ success: false }, { status: 400 });
@@ -37,6 +37,7 @@ export async function GET(
       amount: info.price,
       category: info.category,
       title: info.title,
+      id: info.id,
     }),
     {
       httpOnly: true,

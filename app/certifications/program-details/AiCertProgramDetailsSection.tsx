@@ -5,12 +5,11 @@ import Image, { StaticImageData } from "next/image";
 
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import black_back_arrow from "../../../../public/assets/black_back_arrow.png";
+import black_back_arrow from "@/public/assets/black_back_arrow.png";
 import program_img from "@/app/assets/img/aiCloud.jpg";
 
 // Styles
 import styles from "./aiCertProgramDetails.module.css";
-import { useAppContext } from "@/app/(state)/state";
 
 interface CourseDetail {
   title: { rendered: string };
@@ -84,7 +83,6 @@ export default function AiProgramDetailsSection() {
 
         setDetailData(wpData);
       } catch (err) {
-        console.error("Fetch error:", err);
         router.replace("/");
       }
     };
@@ -178,7 +176,7 @@ export default function AiProgramDetailsSection() {
           <div className={styles.headerContent}>
             <div className={styles.programImageContainer}>
               <img
-                src={courseInfo?.thumbnailLink}
+                src={courseInfo?.thumbnailLink || program_img}
                 alt={programTitle}
                 className={styles.programImage}
               />

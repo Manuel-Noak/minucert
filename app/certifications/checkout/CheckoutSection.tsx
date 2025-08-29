@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 // Styles
 import styles from "./checkoutSection.module.css";
+import { toast } from "react-toastify";
 
 export default function CheckoutSection() {
   const router = useRouter();
@@ -12,6 +13,7 @@ export default function CheckoutSection() {
     amount: 0,
     title: "",
     category: "",
+    id: 0,
   });
   const [formData, setFormData] = useState({
     firstName: "",
@@ -28,17 +30,50 @@ export default function CheckoutSection() {
     }));
   };
 
-  const handleCompleteCheckout = () => {
+  const handleCompleteCheckout = async () => {
+    const { email, phone, firstName, lastName, address } = formData;
+    const { id } = courseInfo;
+
     if (
       courseInfo.amount <= 0 ||
       courseInfo.title.length === 0 ||
-      courseInfo.category.length === 0
+      courseInfo.category.length === 0 ||
+      id <= 0
     ) {
       return router.replace("/");
     }
-    console.log("ss");
 
-    handlePayment();
+    if (
+      email.length === 0 ||
+      phone.length === 0 ||
+      firstName.length === 0 ||
+      lastName.length === 0
+    ) {
+      return alert("ess");
+    }
+
+    try {
+      const res = await fetch("/api/addOrder", {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          phone,
+          address,
+          firstName,
+          lastName,
+          id,
+        }),
+      });
+      const data = await res.json();
+
+      if (!data.success) {
+        return alert(data.message);
+      }
+
+      handlePayment();
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   useEffect(() => {
@@ -55,6 +90,7 @@ export default function CheckoutSection() {
       .then((data) => {
         if (data.success) {
           setCourseInfo(data.info);
+
           return;
         } else router.replace("/");
       })
@@ -71,34 +107,37 @@ export default function CheckoutSection() {
     }
 
     const handler = PaystackPop.setup({
-      key: "pk_live_3ac4bb0857b395c81d37dd8e816dd0b209b6e9cd", // use your real public key
+      key: process.env.NEXT_PUBLIC_KEY, // use your real public key
       email: formData.email,
+      phone: formData.phone,
+      name: formData.firstName + " " + formData.lastName,
       amount: courseInfo.amount * 100, // in kobo
-      callback: async (response) => {
+      callback: function (response) {
         // This is a valid function
-        try {
-          const res = await fetch("/api/payments/verify", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ reference: response.reference }),
-          });
-
-          const { success } = await res.json();
-          if (success) {
-            router.replace("/");
-          } else {
-            alert("Payment verification failed");
-          }
-        } catch (error) {
-          console.error("Verification error:", error);
-        }
-      },
-      onClose: () => {
-        console.log("Payment window closed.");
+        verifyPayment(response.reference);
       },
     });
 
     handler.openIframe();
+  };
+
+  const verifyPayment = async (reference: string) => {
+    try {
+      const res = await fetch("/api/payments/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reference }),
+      });
+
+      const { success } = await res.json();
+      if (success) {
+        router.replace("/");
+      } else {
+        toast.error("Payment verification failed");
+      }
+    } catch (err) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
