@@ -12,6 +12,7 @@ export default function CheckoutSection() {
     amount: 0,
     title: "",
     category: "",
+    id: 0,
   });
   const [formData, setFormData] = useState({
     firstName: "",
@@ -28,17 +29,51 @@ export default function CheckoutSection() {
     }));
   };
 
-  const handleCompleteCheckout = () => {
+  const handleCompleteCheckout = async () => {
+    const { email, phone, firstName, lastName, address } = formData;
+    const { id } = courseInfo;
+    console.log(id);
+
     if (
       courseInfo.amount <= 0 ||
       courseInfo.title.length === 0 ||
-      courseInfo.category.length === 0
+      courseInfo.category.length === 0 ||
+      id <= 0
     ) {
       return router.replace("/");
     }
-    console.log("ss");
 
-    handlePayment();
+    if (
+      email.length === 0 ||
+      phone.length === 0 ||
+      firstName.length === 0 ||
+      lastName.length === 0
+    ) {
+      return alert("ess");
+    }
+
+    try {
+      const res = await fetch("/api/addOrder", {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          phone,
+          address,
+          firstName,
+          lastName,
+          id,
+        }),
+      });
+      const data = await res.json();
+
+      if (!data.success) {
+        return alert(data.message);
+      }
+
+      handlePayment();
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   useEffect(() => {
@@ -55,6 +90,8 @@ export default function CheckoutSection() {
       .then((data) => {
         if (data.success) {
           setCourseInfo(data.info);
+          console.log(data.info.id);
+
           return;
         } else router.replace("/");
       })
@@ -74,24 +111,9 @@ export default function CheckoutSection() {
       key: "pk_live_3ac4bb0857b395c81d37dd8e816dd0b209b6e9cd", // use your real public key
       email: formData.email,
       amount: courseInfo.amount * 100, // in kobo
-      callback: async (response) => {
+      callback: function (response) {
         // This is a valid function
-        try {
-          const res = await fetch("/api/payments/verify", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ reference: response.reference }),
-          });
-
-          const { success } = await res.json();
-          if (success) {
-            router.replace("/");
-          } else {
-            alert("Payment verification failed");
-          }
-        } catch (error) {
-          console.error("Verification error:", error);
-        }
+        verifyPayment(response.reference);
       },
       onClose: () => {
         console.log("Payment window closed.");
@@ -99,6 +121,25 @@ export default function CheckoutSection() {
     });
 
     handler.openIframe();
+  };
+
+  const verifyPayment = async (reference: string) => {
+    try {
+      const res = await fetch("/api/payments/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reference }),
+      });
+
+      const { success } = await res.json();
+      if (success) {
+        router.replace("/");
+      } else {
+        alert("Payment verification failed");
+      }
+    } catch (err) {
+      console.error("Verification error", err);
+    }
   };
 
   return (
