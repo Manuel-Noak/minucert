@@ -1,27 +1,32 @@
 "use client";
 import { useAppContext } from "@/app/(state)/state";
-import styles from "./aiCert.module.css";
+import styles from "./[id]/aiCert.module.css";
 
 export default function Pagination() {
   const {
     CoursesInfo,
     currentPage,
     setCurrentPage,
-    firstIndex,
     setFirstIndex,
     setLastIndex,
   } = useAppContext();
+
   const programsPerPage = 9;
   const totalPages =
     CoursesInfo.length > 0
       ? Math.ceil(CoursesInfo.length / programsPerPage)
       : 1;
+  setLastIndex(programsPerPage);
 
   const handlePageChange = (page: number) => {
+    const newFirstIndex = (page - 1) * programsPerPage;
+    const newLastIndex = newFirstIndex + programsPerPage;
+
     setCurrentPage(page);
-    setFirstIndex((page - 1) * programsPerPage);
-    setLastIndex(firstIndex + programsPerPage);
+    setFirstIndex(newFirstIndex);
+    setLastIndex(newLastIndex);
   };
+
   const renderPaginationNumbers = () => {
     const pages = [];
     const maxVisiblePages = 5;
@@ -47,13 +52,16 @@ export default function Pagination() {
     }
     return pages;
   };
+
   return (
     <div className={styles.pagination}>
       <button
         className={styles.pagination_arrow}
         onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
-      ></button>
+      >
+        ‹
+      </button>
       {renderPaginationNumbers()}
       <button
         className={styles.pagination_arrow}
@@ -61,7 +69,9 @@ export default function Pagination() {
           currentPage < totalPages && handlePageChange(currentPage + 1)
         }
         disabled={currentPage === totalPages}
-      ></button>
+      >
+        ›
+      </button>
     </div>
   );
 }

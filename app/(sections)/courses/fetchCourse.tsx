@@ -41,11 +41,9 @@ export default async function fetchCourses(
       };
     }
 
-    console.log(data.info);
-
     return {
       success: true,
-      info: data.data || data.info || [], // Handle both new and old API response formats
+      info: data.data || data.info || [],
       pagination: data.pagination,
     };
   } catch (error) {
