@@ -18,7 +18,9 @@ export default function Navbar({
   const [dropdownHeight, setDropdownHeight] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [categories, setCategories] = useState<{ name: string }[]>([]);
+  const [providers, setProviders] = useState<{ name: string; id: number }[]>(
+    []
+  );
 
   const router = useRouter();
   const pathname = usePathname();
@@ -46,7 +48,7 @@ export default function Navbar({
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          setCategories(data.categories);
+          setProviders(data.providers);
         }
       })
       .catch(() => {});
@@ -81,7 +83,7 @@ export default function Navbar({
     if (dropdownRef.current) {
       setDropdownHeight(hideSubLink ? 0 : dropdownRef.current.scrollHeight);
     }
-  }, [hideSubLink, categories]);
+  }, [hideSubLink, providers]);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
@@ -155,25 +157,25 @@ export default function Navbar({
               visibility: hideSubLink ? "hidden" : "visible",
             }}
           >
-            {categories.map((category, index) => (
+            {providers.map((provider, index) => (
               <div key={index} className={styles.dropdown_content}>
                 <Link
                   className={`${styles.nav_link} ${styles.subLinks}`}
                   style={{
                     color: isActivePage(
-                      `/certifications/certification/${encodeURIComponent(
-                        category.name
+                      `/certifications/provider/${encodeURIComponent(
+                        provider.name
                       )}`
                     )
                       ? activeTextColor
                       : textColor,
                   }}
-                  href={`/certifications/certification/${encodeURIComponent(
-                    category.name
+                  href={`/certifications/provider/${encodeURIComponent(
+                    provider.name
                   )}`}
                   onClick={() => setHideSubLink(true)}
                 >
-                  {category.name}
+                  {provider.name}
                 </Link>
               </div>
             ))}
@@ -274,25 +276,25 @@ export default function Navbar({
                   !hideSubLink ? styles.mobile_dropdown_menu_open : ""
                 }`}
               >
-                {categories.map((category, index) => (
+                {providers.map((provider, index) => (
                   <Link
                     key={index}
                     className={`${styles.mobile_nav_link} ${styles.mobile_subLinks}`}
                     style={{
                       color: isActivePage(
                         `/certifications/certifications/${encodeURIComponent(
-                          category.name
+                          provider.name
                         )}`
                       )
                         ? activeTextColor
                         : textColor,
                     }}
                     href={`/certifications/certification/${encodeURIComponent(
-                      category.name
+                      provider.name
                     )}`}
                     onClick={closeMenu}
                   >
-                    {category.name}
+                    {provider.name}
                   </Link>
                 ))}
               </div>

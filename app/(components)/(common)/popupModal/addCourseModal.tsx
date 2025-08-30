@@ -55,16 +55,25 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
     currency: "",
     category: "",
   });
-  const [selectCategories, setCategories] = useState<ProviderData[]>([]);
+  const [selectCategories, setCategories] = useState<{ name: string }[]>([]);
   const [selectProviders, setProviders] = useState<ProviderData[]>([]);
-  const [toggleCategoryInput, setToggleCategoryInput] = useState(false);
+  // const [toggleCategoryInput, setToggleCategoryInput] = useState(false);
+
+  const currency = [
+    {
+      name: "NGN",
+      code: "566",
+    },
+  ];
+
+  const tempCategories = [{ name: "All course" }];
 
   useEffect(() => {
     fetch("/api/getProviders")
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          setCategories(data.categories);
+          setCategories(tempCategories);
           setProviders(data.providers);
         }
       })
@@ -75,12 +84,18 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    if (name === "category" && value === "input") {
-      setToggleCategoryInput(true);
-    }
     setFormData((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  const handleCurrencyChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      currency: e.target.value,
     }));
   };
 
@@ -214,6 +229,7 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
               className={styles.form_select}
               required
             >
+              <option value="input">Choose Provider</option>
               {selectProviders.map((provider, index) => (
                 <option key={index} value={provider.name}>
                   {provider.name}
@@ -224,44 +240,50 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
 
           <div className={styles.form_group}>
             <label className={styles.form_label}>Currency</label>
-            <input
-              type="text"
-              name="currency"
-              value={formData.currency}
-              onChange={handleInputChange}
-              className={styles.form_input}
-              placeholder="₦"
-              required
-            />
-          </div>
-
-          <div className={styles.form_group}>
-            <label className={styles.form_label}>Category</label>
-            {formData.category.length === 0 && !toggleCategoryInput ? (
+            {currency?.length > 0 ? (
               <select
-                name="category"
-                value={formData.category}
-                onChange={handleInputChange}
+                name="currency"
+                value={formData.currency}
+                onChange={handleCurrencyChange}
                 className={styles.form_select}
                 required
               >
-                <option value="input">Input Custom Categroy</option>
-                {selectCategories.map((category, index) => (
-                  <option value={category.name} key={index}>
-                    {category.name}
+                <option value="input">Choose Currency</option>
+                {currency.map((currency, index) => (
+                  <option value={currency.name} key={index}>
+                    {currency.name}
                   </option>
                 ))}
               </select>
             ) : (
               <input
-                className={styles.form_input}
                 type="text"
-                name="category"
-                placeholder="Input category"
-                value={formData.category}
+                name="currency"
+                value={formData.currency}
                 onChange={handleInputChange}
+                className={styles.form_input}
+                placeholder="₦"
+                required
               />
             )}
+          </div>
+
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>Category</label>
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleInputChange}
+              className={styles.form_select}
+              required
+            >
+              <option value="input">Input Categroy</option>
+              {selectCategories.map((category, index) => (
+                <option value={category.name} key={index}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <button type="submit" className={styles.submit_button}>

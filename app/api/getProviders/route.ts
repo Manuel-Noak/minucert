@@ -1,17 +1,20 @@
 import { db } from "@/db";
-import { certification, certificationProvider } from "@/db/schema";
+import { certificationProvider } from "@/db/schema";
 import { sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
     const providers = await db
-      .select({ name: certificationProvider.name })
+      .select({
+        id: certificationProvider.id,
+        name: certificationProvider.name,
+      })
       .from(certificationProvider);
-    const categories = await db
-      .select({ name: sql<string>`DISTINCT ${certification.category}` })
-      .from(certification);
-    return NextResponse.json({ success: true, providers, categories });
+    // const categories = await db
+    //   .select({ name: sql<string>`DISTINCT ${certification.category}` })
+    //   .from(certification);
+    return NextResponse.json({ success: true, providers });
   } catch (err) {
     return NextResponse.json(
       {

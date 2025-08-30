@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "@/app/certifications/certification/[id]/aiCert.module.css";
+import styles from "@/app/certifications/provider/[name]/aiCert.module.css";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "@/app/(state)/state";
 
