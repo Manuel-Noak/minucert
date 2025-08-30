@@ -4,6 +4,7 @@ import styles from "./dashboardSection.module.css";
 import Image from "next/image";
 import ai_cert_icon from "../../assets/img/Admin/ai_cert_icon.png";
 import arrow_icon from "../../assets/img/Admin/arrow_icon.png";
+import { toast } from "react-toastify";
 
 export default function DashboardSection() {
     const [activeTab, setActiveTab] = useState("AI Certification");
@@ -72,6 +73,7 @@ export default function DashboardSection() {
 
     const totalPages = 10;
 
+<<<<<<< HEAD
     // Close dropdown when clicking outside
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -88,6 +90,29 @@ export default function DashboardSection() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+=======
+      if (!data.success) {
+        return toast.error(data.message);
+      }
+
+      setCustomers(data.customers);
+      setCertifications(data.cert);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    fetchCustomersDetails();
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setActiveDropdown(null);
+      }
+    }
+>>>>>>> e06e757 (payment_integration_v2)
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);

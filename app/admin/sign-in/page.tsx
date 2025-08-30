@@ -5,6 +5,7 @@ import Image from "next/image";
 import back_arrow from "../../assets/img/Admin/back_arrow.png";
 import styles from "./signin.module.css";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function Signin() {
   const [password, setPassword] = useState("");
@@ -24,11 +25,11 @@ export default function Signin() {
 
       const data = await res.json();
       if (!data.success) {
-        return alert("Wrong password " + data.message);
+        return toast.error(data.message);
       }
       router.push("/admin/dashboard");
     } catch (error) {
-      return alert("Wrong password " + error.message);
+      return toast.error(error.message);
     }
   };
 

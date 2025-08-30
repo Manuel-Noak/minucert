@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 // Styles
 import styles from "./checkoutSection.module.css";
+import { toast } from "react-toastify";
 
 export default function CheckoutSection() {
   const router = useRouter();
@@ -32,7 +33,6 @@ export default function CheckoutSection() {
   const handleCompleteCheckout = async () => {
     const { email, phone, firstName, lastName, address } = formData;
     const { id } = courseInfo;
-    console.log(id);
 
     if (
       courseInfo.amount <= 0 ||
@@ -90,7 +90,6 @@ export default function CheckoutSection() {
       .then((data) => {
         if (data.success) {
           setCourseInfo(data.info);
-          console.log(data.info.id);
 
           return;
         } else router.replace("/");
@@ -108,15 +107,14 @@ export default function CheckoutSection() {
     }
 
     const handler = PaystackPop.setup({
-      key: "pk_live_3ac4bb0857b395c81d37dd8e816dd0b209b6e9cd", // use your real public key
+      key: process.env.NEXT_PUBLIC_KEY, // use your real public key
       email: formData.email,
+      phone: formData.phone,
+      name: formData.firstName + " " + formData.lastName,
       amount: courseInfo.amount * 100, // in kobo
       callback: function (response) {
         // This is a valid function
         verifyPayment(response.reference);
-      },
-      onClose: () => {
-        console.log("Payment window closed.");
       },
     });
 
@@ -135,10 +133,10 @@ export default function CheckoutSection() {
       if (success) {
         router.replace("/");
       } else {
-        alert("Payment verification failed");
+        toast.error("Payment verification failed");
       }
     } catch (err) {
-      console.error("Verification error", err);
+      toast.error("Something went wrong");
     }
   };
 
