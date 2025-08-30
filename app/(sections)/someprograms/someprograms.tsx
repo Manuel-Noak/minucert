@@ -15,9 +15,10 @@ type CoursesProps = {
   title: string;
   price: number;
   id: number;
+  currencyCode: string;
 };
 
-const Courses = ({ src, title, id, price }: CoursesProps) => {
+const Courses = ({ src, title, id, price, currencyCode }: CoursesProps) => {
   const router = useRouter();
   return (
     <div className={styles.courseCard}>
@@ -36,7 +37,12 @@ const Courses = ({ src, title, id, price }: CoursesProps) => {
       </div>
       <div className={styles.courseContent}>
         <h3 className={styles.courseTitle}>{title}</h3>
-        <p className={styles.courseTitle}>₦{price}</p>
+        <p className={styles.courseTitle}>
+          {new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: currencyCode,
+          }).format(price / 100)}
+        </p>
         <button
           onClick={() =>
             router.push(`/certifications/program-details?id=${id}`)
@@ -53,24 +59,18 @@ const Courses = ({ src, title, id, price }: CoursesProps) => {
 // Main Some Programs Component
 export default function SomePrograms() {
   const { setCoursesInfo, CoursesInfo } = useAppContext();
-  const runFetch = async () => {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    const url = `${baseUrl}/api/courses/${encodeURIComponent(
-      "AI Certification"
-    )}?perPage=6&offset=0`;
-
-    const result = await fetchCourses(url);
-
-    if (!result.success || result.info.length === 0) {
-      return null;
-    }
-
-    setCoursesInfo(result.info);
-    console.log(result.info);
-  };
   useEffect(() => {
+    const runFetch = async () => {
+      const result = await fetchCourses("/api/fetchFewCourse");
+
+      if (!result.success || result.info.length === 0) {
+        return null;
+      }
+
+      setCoursesInfo(result.info);
+    };
     runFetch();
-  }, []);
+  }, [setCoursesInfo]);
   return (
     <section className={styles.programsBody}>
       <div className={styles.programsHeader}>
@@ -92,6 +92,7 @@ export default function SomePrograms() {
             title={course.title}
             price={course.price}
             id={course.id}
+            currencyCode={course.currencyCode}
           />
         ))}
       </div>

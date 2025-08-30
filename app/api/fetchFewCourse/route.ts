@@ -1,30 +1,9 @@
 import { db } from "@/db";
 import { certification } from "@/db/schema";
-import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-export async function GET(
-  _: Request,
-  context: { params: Promise<{ category: string }> }
-) {
+export async function GET() {
   try {
-    // Get and validate category
-    const categoryParam = (await context.params).category;
-    if (!categoryParam) {
-      return NextResponse.json(
-        { success: false, error: "Category is required" },
-        { status: 400 }
-      );
-    }
-
-    const category = decodeURIComponent(categoryParam);
-    if (!category) {
-      return NextResponse.json(
-        { success: false, error: "Invalid category" },
-        { status: 400 }
-      );
-    }
-
     // Destructure fields for better readability
     const { title, price, id, thumbnailLink, currencyCode } = certification;
 
@@ -32,7 +11,7 @@ export async function GET(
     const certifications = await db
       .select({ title, price, id, thumbnailLink, currencyCode })
       .from(certification)
-      .where(eq(certification.category, category));
+      .limit(6);
 
     // Handle no results found
     if (certifications.length === 0) {
