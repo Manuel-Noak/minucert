@@ -10,6 +10,7 @@ import program_img from "@/app/assets/img/aiCloud.jpg";
 
 // Styles
 import styles from "./aiCertProgramDetails.module.css";
+import { toast } from "react-toastify";
 
 interface CourseDetail {
   title: { rendered: string };
@@ -67,7 +68,7 @@ export default function AiProgramDetailsSection() {
         const data = await res.json();
 
         if (!data.success) {
-          return router.replace("/");
+          return toast.error(data.message);
         }
 
         setCourseInfo(data.info);
@@ -83,7 +84,7 @@ export default function AiProgramDetailsSection() {
 
         setDetailData(wpData);
       } catch (err) {
-        router.replace("/");
+        toast.error("Something went wrong, please check your connection");
       }
     };
 

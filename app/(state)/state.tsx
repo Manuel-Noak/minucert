@@ -41,7 +41,7 @@ let setCourse: Dispatch<SetStateAction<CourseSyntax[]>> = () => {};
 export function AppProvider({ children }: { children: ReactNode }) {
   const [CoursesInfo, setCoursesInfo] = useState<CourseSyntax[]>([]);
   const [firstIndex, setFirstIndex] = useState<number>(0);
-  const [lastIndex, setLastIndex] = useState<number>(0);
+  const [lastIndex, setLastIndex] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(0);
   course = CoursesInfo;
   setCourse = setCoursesInfo;

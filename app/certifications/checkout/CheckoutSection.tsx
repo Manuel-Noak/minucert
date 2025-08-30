@@ -49,7 +49,7 @@ export default function CheckoutSection() {
       firstName.length === 0 ||
       lastName.length === 0
     ) {
-      return alert("ess");
+      return toast.error("Please complete all necessary fields");
     }
 
     try {
@@ -67,12 +67,12 @@ export default function CheckoutSection() {
       const data = await res.json();
 
       if (!data.success) {
-        return alert(data.message);
+        return toast.error(data.message);
       }
 
-      handlePayment();
+      handlePayment(data.ref);
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -97,20 +97,33 @@ export default function CheckoutSection() {
       .catch(() => router.replace("/"));
   }, [router]);
 
-  const handlePayment = () => {
+  const handlePayment = (ref: string) => {
     // @ts-ignore
     const PaystackPop = window.PaystackPop;
 
     if (!PaystackPop) {
-      alert("Paystack script not loaded yet!");
+      toast.error("Paystack script not loaded yet!");
       return;
     }
 
     const handler = PaystackPop.setup({
       key: process.env.NEXT_PUBLIC_KEY, // use your real public key
       email: formData.email,
-      phone: formData.phone,
-      name: formData.firstName + " " + formData.lastName,
+      ref,
+      metadata: {
+        custom_fields: [
+          {
+            display_name: "Name",
+            variable_name: "name",
+            value: formData.firstName + " " + formData.lastName,
+          },
+          {
+            display_name: "Phone",
+            variable_name: "phone",
+            value: formData.phone,
+          },
+        ],
+      },
       amount: courseInfo.amount * 100, // in kobo
       callback: function (response) {
         // This is a valid function
@@ -123,7 +136,7 @@ export default function CheckoutSection() {
 
   const verifyPayment = async (reference: string) => {
     try {
-      const res = await fetch("/api/payments/verify", {
+      const res = await fetch("/api/verifyPayment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ reference }),

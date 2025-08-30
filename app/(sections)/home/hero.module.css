@@ -1,0 +1,236 @@
+.heroContent {
+  max-width: 90%;
+  text-align: left;
+}
+
+.heroTitleMain {
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 110%;
+  letter-spacing: 0%;
+  text-align: left;
+  max-width: 607px;
+  margin-bottom: 20px;
+}
+
+.heroTitleItalic {
+  /* Keep your cursive pick with safe fallbacks */
+  font-family: "Monotype Corsiva", "URW Chancery L", "Apple Chancery", cursive;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 55px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: left;
+}
+
+.heroSubtitle {
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  text-align: left;
+  max-width: 607px;
+  margin-bottom: 30px;
+}
+
+.heroButton {
+  width: 263px;
+  height: 52px;
+  border-radius: 50px;
+}
+
+.buttonText {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+}
+
+/* Desktop Large */
+@media (min-width: 1400px) {
+  .heroContent {
+    max-width: 1200px;
+    margin-top: 60px; /* Changed from -80px to +60px */
+  }
+}
+
+/* Tablet and Large Mobile */
+@media (max-width: 1024px) {
+  .heroContent {
+    margin-top: 40px; /* Changed from -80px to +40px */
+    max-width: 95%;
+    padding: 0 20px;
+  }
+
+  .heroTitleMain {
+    font-size: 40px;
+    line-height: 115%;
+    margin-bottom: 16px;
+  }
+
+  .heroTitleItalic {
+    font-size: 44px;
+  }
+
+  .heroSubtitle {
+    font-size: 18px;
+    line-height: 125%;
+    margin-bottom: 25px;
+  }
+
+  .heroButton {
+    width: 240px;
+    height: 48px;
+  }
+
+  .buttonText {
+    font-size: 14px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .heroContent {
+    margin-top: 50px; /* Changed from -60px to +50px */
+    padding: 0 16px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .heroTitleMain {
+    font-size: 32px;
+    line-height: 120%;
+    margin-bottom: 14px;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .heroTitleItalic {
+    font-size: 44px;
+    text-align: center;
+  }
+
+  .heroSubtitle {
+    font-size: 16px;
+    line-height: 130%;
+    margin-bottom: 20px;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .heroButton {
+    width: 220px;
+    height: 46px;
+  }
+
+  .buttonText {
+    font-size: 14px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .heroContent {
+    margin-top: 40px; /* Changed from -40px to +40px */
+    padding: 0 12px;
+  }
+
+  .heroTitleMain {
+    font-size: 28px;
+    line-height: 125%;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .heroTitleItalic {
+    font-size: 38px;
+    text-align: center;
+  }
+
+  .heroSubtitle {
+    font-size: 15px;
+    line-height: 135%;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+
+  .heroButton {
+    width: 200px;
+    height: 44px;
+  }
+
+  .buttonText {
+    font-size: 13px;
+  }
+}
+
+/* Very Small Mobile */
+@media (max-width: 360px) {
+  .heroContent {
+    margin-top: 30px; /* Changed from -20px to +30px */
+    padding: 0 10px;
+  }
+
+  .heroTitleMain {
+    font-size: 24px;
+    line-height: 130%;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .heroTitleItalic {
+    font-size: 34px;
+    text-align: center;
+  }
+
+  .heroSubtitle {
+    font-size: 14px;
+    line-height: 140%;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .heroButton {
+    width: 180px;
+    height: 42px;
+  }
+
+  .buttonText {
+    font-size: 12px;
+  }
+}
+
+/* Landscape orientation for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .heroContent {
+    margin-top: 20px; /* Changed from -20px to +20px */
+  }
+
+  .heroTitleMain {
+    font-size: 28px;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .heroTitleItalic {
+    font-size: 38px;
+    text-align: center;
+  }
+
+  .heroSubtitle {
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .heroButton {
+    width: 200px;
+    height: 40px;
+  }
+
+  .buttonText {
+    font-size: 13px;
+  }
+}
