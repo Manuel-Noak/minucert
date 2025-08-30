@@ -10,10 +10,10 @@ import { useParams } from "next/navigation";
 
 export default function ProgramsSection() {
   const { setCoursesInfo } = useAppContext();
-  const { id } = useParams();
+  const { name }: { name: string } = useParams();
   useEffect(() => {
     const runFetch = async () => {
-      const result = await fetchCourses(`/api/courses/${id}`);
+      const result = await fetchCourses(`/api/courses/provider/${name}`);
 
       if (!result.success || result.info.length === 0) {
         return null;
@@ -22,13 +22,13 @@ export default function ProgramsSection() {
       setCoursesInfo(result.info);
     };
     runFetch();
-  }, [setCoursesInfo, id]);
+  }, [setCoursesInfo, name]);
 
   return (
     <section className={styles.programs_section}>
       {/* Title and Results Count */}
       <div className={styles.header_section}>
-        <h1 className={styles.section_title}>{decodeURIComponent(id)}</h1>
+        <h1 className={styles.section_title}>{decodeURIComponent(name)}</h1>
       </div>
 
       {/* Programs Grid */}

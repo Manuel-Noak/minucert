@@ -1,6 +1,6 @@
 "use client";
 import { useAppContext } from "@/app/(state)/state";
-import styles from "./[id]/aiCert.module.css";
+import styles from "./[name]/aiCert.module.css";
 
 export default function Pagination() {
   const {

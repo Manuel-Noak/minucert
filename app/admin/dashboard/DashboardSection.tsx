@@ -42,10 +42,10 @@ export default function DashboardSection() {
         return toast.error(data.message);
       }
 
-      setCertifications(data.categories);
-      setActiveTab(data.categories[0].name);
+      setCertifications(data.providers);
+      setActiveTab(data.providers[0].name);
 
-      res = await fetch("/api/customersDetails/" + data.categories[0].name);
+      res = await fetch("/api/customersDetails/" + data.providers[0].name);
       data = await res.json();
 
       if (!data.success) {

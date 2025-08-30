@@ -123,9 +123,12 @@ export default function AiProgramDetailsSection() {
     : [];
 
   const modules =
-    detailData?.acf?.certification_modules?.map(
-      (module) => module.certification_module_title
-    ) || [];
+    detailData?.acf?.certification_modules == undefined ||
+    !detailData?.acf?.certification_modules
+      ? []
+      : detailData?.acf?.certification_modules.map(
+          (module) => module.certification_module_title
+        );
 
   const materials =
     detailData?.acf?.fields_v5?.["self-study-materials_data"]?.map(
@@ -133,10 +136,15 @@ export default function AiProgramDetailsSection() {
     ) || [];
 
   const learningOutcomes =
-    detailData?.acf?.what_will_you_learn?.learn_sections?.map((section) => ({
-      title: section.learn_name,
-      description: section.learn_text,
-    })) || [];
+    detailData?.acf?.what_will_you_learn?.learn_sections == undefined ||
+    !detailData?.acf?.what_will_you_learn?.learn_sections
+      ? []
+      : detailData?.acf?.what_will_you_learn?.learn_sections?.map(
+          (section) => ({
+            title: section.learn_name,
+            description: section.learn_text,
+          })
+        );
 
   const tools = detailData?.acf?.tools_data || [];
 
