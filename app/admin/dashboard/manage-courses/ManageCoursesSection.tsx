@@ -35,7 +35,7 @@ export default function ManageCoursesSection() {
 
   const fetchCourseDetails = async () => {
     try {
-      const res = await fetch(`/api/getAllCourse`);
+      const res = await fetch(`/api/adminAuth/getAllCourse`);
       const data = await res.json();
 
       if (!data.success) {
@@ -88,7 +88,7 @@ export default function ManageCoursesSection() {
   const handleDeleteDetail = async (courseId: number) => {
     setActiveDropdown(null);
     try {
-      const res = await fetch("/api/removeCourse", {
+      const res = await fetch("/api/adminAuth/removeCourse", {
         method: "DELETE",
         headers: {
           courseId: courseId.toString(),
@@ -118,7 +118,7 @@ export default function ManageCoursesSection() {
     try {
       setLoading(true);
 
-      const res = await fetch("/api/addCourse", {
+      const res = await fetch("/api/adminAuth/addCourse", {
         method: "POST",
         body: JSON.stringify({
           form: formData,
@@ -149,7 +149,7 @@ export default function ManageCoursesSection() {
   const handleProviderSubmit = async (formData: ProviderData) => {
     setLoading(true);
     try {
-      const res = await fetch("/api/addProvider", {
+      const res = await fetch("/api/adminAuth/addProvider", {
         method: "POST",
         body: JSON.stringify(formData),
       });
@@ -170,7 +170,7 @@ export default function ManageCoursesSection() {
   const handleAdminSubmit = async (formData: AdminData) => {
     try {
       setLoading(true);
-      const res = await fetch("/api/addAdmin", {
+      const res = await fetch("/api/adminAuth/addAdmin", {
         method: "POST",
         body: JSON.stringify(formData),
       });

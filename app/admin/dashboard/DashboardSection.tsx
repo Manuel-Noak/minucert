@@ -20,7 +20,7 @@ interface CertificationType {
 }
 
 export default function DashboardSection() {
-  const [activeTab, setActiveTab] = useState("AI Certification");
+  const [activeTab, setActiveTab] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [isCertificationsExpanded, setIsCertificationsExpanded] =
     useState(true);
@@ -46,7 +46,9 @@ export default function DashboardSection() {
       setCertifications(data.providers);
       setActiveTab(data.providers[0].name);
 
-      res = await fetch("/api/customersDetails/" + data.providers[0].name);
+      res = await fetch(
+        "/api/adminAuth/customersDetails/" + data.providers[0].name
+      );
       data = await res.json();
 
       setLoading(false);
@@ -90,7 +92,7 @@ export default function DashboardSection() {
 
   const toggleCertificationsName = async (cert: CertificationType) => {
     try {
-      const res = await fetch("/api/customersDetails/" + cert.name);
+      const res = await fetch("/api/adminAuth/customersDetails/" + cert.name);
       const data = await res.json();
 
       if (!data.success) {
@@ -158,7 +160,7 @@ export default function DashboardSection() {
           <button
             className={styles.see_courses_btn}
             onClick={() => {
-              window.location.href = "/api/downloadTransactions";
+              window.location.href = "/api/adminAuth/downloadTransactions";
             }}
           >
             Download Customer&apos;s Transactions
