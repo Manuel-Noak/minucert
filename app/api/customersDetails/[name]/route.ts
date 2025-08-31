@@ -33,7 +33,11 @@ export async function GET(
         certification,
         eq(customerCertificationOrders.certificationId, certification.id)
       )
-      .where(eq(certification.category, name)); // ✅ filter by category
+      .innerJoin(
+        certificationProvider,
+        eq(certification.providerId, certificationProvider.id)
+      )
+      .where(eq(certificationProvider.name, name)); // ✅ filter by category
 
     return NextResponse.json({
       success: true,

@@ -5,6 +5,7 @@ import Image from "next/image";
 import ai_cert_icon from "../../assets/img/Admin/ai_cert_icon.png";
 import arrow_icon from "../../assets/img/Admin/arrow_icon.png";
 import { toast } from "react-toastify";
+import Loader from "@/app/(components)/(loading)/loader";
 
 interface CustomerType {
   id: number;
@@ -23,13 +24,13 @@ export default function DashboardSection() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isCertificationsExpanded, setIsCertificationsExpanded] =
     useState(true);
-  const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
+  // const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const [customers, setCustomers] = useState<CustomerType[]>([]);
   const [certifications, setCertifications] = useState<CertificationType[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  // ✅ pagination settings
   const pageSize = 10;
   const totalPages = Math.ceil(customers.length / pageSize);
 
@@ -48,32 +49,35 @@ export default function DashboardSection() {
       res = await fetch("/api/customersDetails/" + data.providers[0].name);
       data = await res.json();
 
+      setLoading(false);
       if (!data.success) {
         return toast.error(data.message);
       }
       setCustomers(data.customers);
       setCurrentPage(1); // ✅ reset to first page
     } catch (error: any) {
+      setLoading(false);
       toast.error(error.message);
     }
   };
 
   // Close dropdown when clicking outside
   useEffect(() => {
+    setLoading(true);
     fetchCustomersDetails();
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setActiveDropdown(null);
-      }
-    }
+    // function handleClickOutside(event: MouseEvent) {
+    //   if (
+    //     dropdownRef.current &&
+    //     !dropdownRef.current.contains(event.target as Node)
+    //   ) {
+    //     setActiveDropdown(null);
+    //   }
+    // }
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    // document.addEventListener("mousedown", handleClickOutside);
+    // return () => {
+    //   document.removeEventListener("mousedown", handleClickOutside);
+    // };
   }, []);
 
   const handlePageChange = (page: number) => {
@@ -82,19 +86,6 @@ export default function DashboardSection() {
 
   const toggleCertifications = () => {
     setIsCertificationsExpanded(!isCertificationsExpanded);
-  };
-
-  const toggleDropdown = (customerId: number, e: React.MouseEvent) => {
-    e.stopPropagation();
-    setActiveDropdown(activeDropdown === customerId ? null : customerId);
-  };
-
-  const handleStatusChange = (customerId: number) => {
-    setActiveDropdown(null);
-  };
-
-  const handleViewDetails = (customerId: number) => {
-    setActiveDropdown(null);
   };
 
   const toggleCertificationsName = async (cert: CertificationType) => {
@@ -143,6 +134,10 @@ export default function DashboardSection() {
     return pages;
   };
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <section className={styles.dashboard_section}>
       {/* Header */}
@@ -159,6 +154,14 @@ export default function DashboardSection() {
             onClick={handleSeeCoursesClick}
           >
             See Courses
+          </button>
+          <button
+            className={styles.see_courses_btn}
+            onClick={() => {
+              window.location.href = "/api/downloadTransactions";
+            }}
+          >
+            Download Customer&apos;s Transactions
           </button>
         </div>
       </div>

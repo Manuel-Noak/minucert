@@ -11,6 +11,7 @@ import AddCourseModal, {
   ProviderData,
 } from "@/app/(components)/(common)/popupModal/addCourseModal";
 import { toast } from "react-toastify";
+import Loader from "@/app/(components)/(loading)/loader";
 
 interface CourseFormsData {
   courseName: string;
@@ -28,7 +29,7 @@ export default function ManageCoursesSection() {
   const [isModalProviderOpen, setModalProviderOpen] = useState(false);
   const [isModalAdminOpen, setModalAdminOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  const [loading, setLoading] = useState(false);
   const [courses, setCourses] = useState<CourseFormsData[]>([]);
   const coursesPerPage = 5;
 
@@ -115,19 +116,38 @@ export default function ManageCoursesSection() {
 
   const handleCourseSubmit = async (formData: CourseFormData) => {
     try {
+      setLoading(true);
+
       const res = await fetch("/api/addCourse", {
         method: "POST",
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          form: formData,
+          courseExists: courses.find(
+            (course) =>
+              String(course.courseCode) === String(formData.courseCode) &&
+              course.provider === formData.provider
+          ),
+        }),
       });
       const data = await res.json();
+      setLoading(false);
       if (data.success) {
+        toast.success("Successfully added the course");
         fetchCourseDetails(); // refresh list
       }
-    } catch {}
+      toast.error(data.message || "Something went wrong");
+    } catch (err) {
+      setLoading(false);
+      toast.error(
+        err.message ||
+          "Something went wrong, please check your connection or try again"
+      );
+    }
     setIsModalOpen(false);
   };
 
   const handleProviderSubmit = async (formData: ProviderData) => {
+    setLoading(true);
     try {
       const res = await fetch("/api/addProvider", {
         method: "POST",
@@ -135,31 +155,38 @@ export default function ManageCoursesSection() {
       });
 
       const { success } = await res.json();
+      setLoading(false);
       if (!success) {
         toast.error(success.message || "Something went wrong");
         return;
       }
       toast.success("Successfully added the provider");
     } catch {
+      setLoading(false);
       toast.error("Something went wrong");
     }
+    setModalProviderOpen(false);
   };
   const handleAdminSubmit = async (formData: AdminData) => {
     try {
+      setLoading(true);
       const res = await fetch("/api/addAdmin", {
         method: "POST",
         body: JSON.stringify(formData),
       });
 
       const { success } = await res.json();
+      setLoading(false);
       if (!success) {
         toast.error(success.message || "Something went wrong");
         return;
       }
       toast.success("Successfully added the admin");
     } catch {
+      setLoading(false);
       toast.error("Something went wrong");
     }
+    setModalAdminOpen(false);
   };
 
   const renderPaginationNumbers = () => {
@@ -187,7 +214,9 @@ export default function ManageCoursesSection() {
     }
     return pages;
   };
-
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <section className={styles.manage_courses_section}>
       {/* Header */}

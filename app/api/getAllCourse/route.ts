@@ -67,6 +67,8 @@ export async function GET() {
       courses: result,
     });
   } catch (err) {
+    console.log(err.message);
+
     return NextResponse.json(
       {
         success: false,
