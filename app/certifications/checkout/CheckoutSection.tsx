@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ResponseCodes } from "../../(model)/data";
 
 // Styles
 import styles from "./checkoutSection.module.css";
@@ -70,21 +71,18 @@ export default function CheckoutSection() {
         return toast.error(data.message);
       }
 
-      handlePayment(data.ref);
+      if (ResponseCodes.SUCCESS === data.code) {
+        //It verified existing transaction with completed
+        return toast.info("Order is already completed");
+      }
+
+      router.push(data.authorizedUrl);
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   useEffect(() => {
-    if (!document.querySelector("#paystack-script")) {
-      const script = document.createElement("script");
-      script.id = "paystack-script";
-      script.src = "https://js.paystack.co/v1/inline.js";
-      script.async = true;
-      document.body.appendChild(script);
-    }
-
     fetch("/api/getCourse")
       .then((res) => res.json())
       .then((data) => {
@@ -96,62 +94,6 @@ export default function CheckoutSection() {
       })
       .catch(() => router.replace("/"));
   }, [router]);
-
-  const handlePayment = (ref: string) => {
-    // @ts-ignore
-    const PaystackPop = window.PaystackPop;
-
-    if (!PaystackPop) {
-      toast.error("Paystack script not loaded yet!");
-      return;
-    }
-
-    const handler = PaystackPop.setup({
-      key: process.env.NEXT_PUBLIC_KEY, // use your real public key
-      email: formData.email,
-      ref,
-      metadata: {
-        custom_fields: [
-          {
-            display_name: "Name",
-            variable_name: "name",
-            value: formData.firstName + " " + formData.lastName,
-          },
-          {
-            display_name: "Phone",
-            variable_name: "phone",
-            value: formData.phone,
-          },
-        ],
-      },
-      amount: courseInfo.amount * 100, // in kobo
-      callback: function (response) {
-        // This is a valid function
-        verifyPayment(response.reference);
-      },
-    });
-
-    handler.openIframe();
-  };
-
-  const verifyPayment = async (reference: string) => {
-    try {
-      const res = await fetch("/api/verifyPayment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ reference }),
-      });
-
-      const { success } = await res.json();
-      if (success) {
-        router.replace("/");
-      } else {
-        toast.error("Payment verification failed");
-      }
-    } catch (err) {
-      toast.error("Something went wrong");
-    }
-  };
 
   return (
     <section className={styles.checkoutSection}>
