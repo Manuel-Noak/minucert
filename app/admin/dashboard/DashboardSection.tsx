@@ -6,6 +6,7 @@ import ai_cert_icon from "../../assets/img/Admin/ai_cert_icon.png";
 import arrow_icon from "../../assets/img/Admin/arrow_icon.png";
 import { toast } from "react-toastify";
 import Loader from "@/app/(components)/(loading)/loader";
+import { useRouter } from "next/navigation";
 
 interface CustomerType {
   id: number;
@@ -20,6 +21,7 @@ interface CertificationType {
 }
 
 export default function DashboardSection() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [isCertificationsExpanded, setIsCertificationsExpanded] =
@@ -67,19 +69,6 @@ export default function DashboardSection() {
   useEffect(() => {
     setLoading(true);
     fetchCustomersDetails();
-    // function handleClickOutside(event: MouseEvent) {
-    //   if (
-    //     dropdownRef.current &&
-    //     !dropdownRef.current.contains(event.target as Node)
-    //   ) {
-    //     setActiveDropdown(null);
-    //   }
-    // }
-
-    // document.addEventListener("mousedown", handleClickOutside);
-    // return () => {
-    //   document.removeEventListener("mousedown", handleClickOutside);
-    // };
   }, []);
 
   const handlePageChange = (page: number) => {
@@ -107,7 +96,7 @@ export default function DashboardSection() {
   };
 
   const handleSeeCoursesClick = () => {
-    window.location.href = "/admin/dashboard/manage-courses";
+    router.push("/admin/dashboard/manage-courses");
   };
 
   const renderPaginationNumbers = () => {

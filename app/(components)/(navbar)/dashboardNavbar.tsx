@@ -2,26 +2,20 @@
 import styles from "./navbar.module.css";
 import Logo_img from "../../assets/img/Home/logo_img.png";
 import signout_icon from "../../assets/img/Admin/signout_icon.png";
+import { useRouter } from "next/navigation";
 
 interface DashboardNavbarProps {
   backgroundColor?: string;
-  onSignOut?: () => void;
 }
 
 export default function DashboardNavbar({
   backgroundColor = "white",
-  onSignOut,
 }: DashboardNavbarProps) {
+  const router = useRouter();
   const handleSignOut = () => {
-    // Add your sign out logic here
-    if (onSignOut) {
-      onSignOut();
-    } else {
-      // Default sign out behavior
-      console.log("Sign out clicked");
-      // Example: redirect to login page
-      // window.location.href = "/login";
-    }
+    fetch("/api/adminAuth/logout")
+      .then(() => router.replace("/"))
+      .catch(() => router.replace("/"));
   };
 
   return (
