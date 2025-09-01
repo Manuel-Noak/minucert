@@ -1,0 +1,655 @@
+.contactSection {
+  width: 100vw;
+  min-height: 100vh;
+  margin-top: 100px;
+  margin-left: calc(-50vw + 50%);
+  background: #ffffff;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+.headerSection {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px 20px 0;
+}
+
+.contactTitle {
+  /* font-family: "Montserrat", sans-serif; */
+  font-weight: 600;
+  font-size: 50px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #000000;
+  margin: 0;
+}
+
+.contactContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sendMessageSection {
+  margin-bottom: 60px;
+}
+
+.sendMessageTitle {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000;
+  margin: 0 0 30px 0;
+  text-align: start;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldLabel {
+  /* font-family: "Montserrat", sans-serif; */
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+.textField {
+  width: 100%;
+  max-width: 550px;
+  height: 68px;
+  border-radius: 10px;
+  border: 2px solid #0000004d;
+  background: #d9d9d9;
+  padding: 0 15px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  color: #000000;
+  outline: none;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.textField::placeholder {
+  color: #000000;
+  opacity: 0.6;
+}
+
+.textField:focus {
+  border-color: #ffbb15 !important;
+}
+
+.messageField {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.messageTextarea {
+  width: 100%;
+  max-width: 1160px;
+  height: 191px;
+  border-radius: 10px;
+  border: 2px solid #0000004d;
+  background: #d9d9d9;
+  padding: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  color: #000000;
+  outline: none;
+  resize: none;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.messageTextarea::placeholder {
+  color: #000000;
+  opacity: 0.6;
+}
+
+.messageTextarea:focus {
+  border-color: #ffbb15;
+}
+
+.sendMessageButton {
+  width: 100%;
+  max-width: 550px;
+  height: 52px;
+  border-radius: 5px;
+  border: 1px solid #ffbb15;
+  background: #ffbb15;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 17px 72px;
+  box-sizing: border-box;
+}
+
+.sendMessageButton:hover {
+  background: #e6a813;
+  border-color: #e6a813;
+}
+
+.buttonText {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000;
+}
+
+/* Let us know how we can help section */
+.letUsHelpSection {
+  background: #faffef;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 60px 0;
+  margin-bottom: 100px;
+}
+
+.letUsHelpContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.letUsHelpTitle {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #000000;
+  margin: 0 0 40px 0;
+}
+
+.contactInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  justify-items: center;
+}
+
+.contactInfoCard {
+  width: 100%;
+  max-width: 386px;
+  min-height: 246px;
+  border-radius: 10px;
+  border: 1px solid #00000033;
+  background: #faf9fe;
+  padding: 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.contactIcon {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.contactIcon img {
+  width: auto;
+  height: auto;
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.contactInfoTitle {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: #000000;
+  margin: 0 0 15px 0;
+}
+
+.contactInfoSubtitle {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: #000000;
+  margin: 0 0 15px 0;
+}
+
+.contactInfoText {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: #000000;
+  margin: auto 0 0 0;
+}
+
+/* Large Desktop (1440px and above) */
+@media (min-width: 1440px) {
+  .contactContent,
+  .letUsHelpContent {
+    max-width: 1400px;
+  }
+  
+  .contactInfoGrid {
+    gap: 40px;
+  }
+}
+
+/* Desktop/Large Tablet (1200px and below) */
+@media (max-width: 1200px) {
+  .contactSection {
+    margin-top: 80px;
+  }
+
+  .contactInfoGrid {
+    gap: 25px;
+  }
+
+  .contactInfoCard {
+    max-width: 350px;
+    min-height: 230px;
+    padding: 25px;
+  }
+
+  .letUsHelpSection {
+    padding: 50px 0;
+    margin-bottom: 80px;
+  }
+}
+
+/* Medium Tablet (992px and below) */
+@media (max-width: 992px) {
+  .contactSection {
+    margin-top: 70px;
+  }
+
+  .contactTitle {
+    font-size: 42px;
+  }
+
+  .sendMessageTitle,
+  .letUsHelpTitle {
+    font-size: 30px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .contactInfoGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+
+  .textField {
+    max-width: none;
+  }
+
+  .messageTextarea {
+    max-width: none;
+  }
+
+  .sendMessageButton {
+    max-width: none;
+  }
+}
+
+/* Small Tablet (768px and below) */
+@media (max-width: 768px) {
+  .contactSection {
+    margin-top: 60px;
+  }
+
+  .headerSection {
+    padding: 30px 20px 0;
+    margin-bottom: 35px;
+  }
+
+  .contactTitle {
+    font-size: 36px;
+  }
+
+  .contactContent,
+  .letUsHelpContent {
+    padding: 0 20px;
+  }
+
+  .sendMessageSection {
+    margin-bottom: 50px;
+  }
+
+  .sendMessageTitle,
+  .letUsHelpTitle {
+    font-size: 28px;
+    margin-bottom: 25px;
+  }
+
+  .formGrid {
+    gap: 20px;
+    margin-bottom: 25px;
+  }
+
+  .fieldLabel {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .textField {
+    height: 60px;
+    padding: 0 15px;
+    font-size: 15px;
+  }
+
+  .messageTextarea {
+    height: 150px;
+    padding: 15px;
+    font-size: 15px;
+  }
+
+  .letUsHelpSection {
+    padding: 45px 0;
+    margin-bottom: 70px;
+  }
+
+  .contactInfoGrid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .contactInfoCard {
+    max-width: 100%;
+    min-height: 200px;
+    padding: 25px;
+  }
+
+  .sendMessageButton {
+    height: 56px;
+    padding: 0 40px;
+  }
+
+  .buttonText {
+    font-size: 16px;
+  }
+}
+
+/* Large Mobile (576px and below) */
+@media (max-width: 576px) {
+  .contactSection {
+    margin-top: 50px;
+  }
+
+  .headerSection {
+    padding: 25px 15px 0;
+    margin-bottom: 30px;
+  }
+
+  .contactTitle {
+    font-size: 30px;
+  }
+
+  .contactContent,
+  .letUsHelpContent {
+    padding: 0 15px;
+  }
+
+  .sendMessageTitle,
+  .letUsHelpTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .formGrid {
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+
+  .fieldLabel {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .textField {
+    height: 55px;
+    padding: 0 12px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+
+  .messageTextarea {
+    height: 130px;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+
+  .letUsHelpSection {
+    padding: 35px 0;
+    margin-bottom: 50px;
+  }
+
+  .contactInfoCard {
+    min-height: 180px;
+    padding: 20px;
+  }
+
+  .contactInfoTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .contactInfoSubtitle {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .contactInfoText {
+    font-size: 16px;
+  }
+
+  .sendMessageButton {
+    height: 52px;
+    border-radius: 8px;
+  }
+
+  .buttonText {
+    font-size: 15px;
+  }
+}
+
+/* Medium Mobile (480px and below) */
+@media (max-width: 480px) {
+  .headerSection {
+    padding: 20px 10px 0;
+  }
+
+  .contactTitle {
+    font-size: 26px;
+  }
+
+  .contactContent,
+  .letUsHelpContent {
+    padding: 0 12px;
+  }
+
+  .sendMessageTitle,
+  .letUsHelpTitle {
+    font-size: 22px;
+  }
+
+  .formGrid {
+    gap: 15px;
+  }
+
+  .fieldLabel {
+    font-size: 15px;
+  }
+
+  .textField {
+    height: 50px;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  .messageTextarea {
+    height: 110px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .contactInfoCard {
+    min-height: 170px;
+    padding: 18px;
+  }
+
+  .contactInfoTitle {
+    font-size: 17px;
+  }
+
+  .contactInfoSubtitle {
+    font-size: 13px;
+  }
+
+  .contactInfoText {
+    font-size: 15px;
+  }
+
+  .sendMessageButton {
+    height: 48px;
+  }
+
+  .buttonText {
+    font-size: 14px;
+  }
+}
+
+/* Small Mobile (360px and below) */
+@media (max-width: 360px) {
+  .contactContent,
+  .letUsHelpContent {
+    padding: 0 10px;
+  }
+
+  .contactTitle {
+    font-size: 24px;
+  }
+
+  .sendMessageTitle,
+  .letUsHelpTitle {
+    font-size: 20px;
+  }
+
+  .formGrid {
+    gap: 12px;
+  }
+
+  .fieldLabel {
+    font-size: 14px;
+  }
+
+  .textField {
+    height: 46px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+  .messageTextarea {
+    height: 100px;
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .contactInfoCard {
+    min-height: 160px;
+    padding: 15px;
+  }
+
+  .contactInfoTitle {
+    font-size: 16px;
+  }
+
+  .contactInfoSubtitle {
+    font-size: 12px;
+  }
+
+  .contactInfoText {
+    font-size: 14px;
+  }
+
+  .sendMessageButton {
+    height: 44px;
+  }
+
+  .buttonText {
+    font-size: 13px;
+  }
+}
+
+/* Landscape Mobile Orientation */
+@media (max-height: 600px) and (orientation: landscape) {
+  .contactSection {
+    margin-top: 40px;
+  }
+  
+  .headerSection {
+    margin-bottom: 25px;
+    padding-top: 20px;
+  }
+  
+  .sendMessageSection {
+    margin-bottom: 35px;
+  }
+  
+  .letUsHelpSection {
+    padding: 30px 0;
+    margin-bottom: 40px;
+  }
+}
+
+/* Improved touch targets for mobile */
+@media (max-width: 768px) {
+  .textField,
+  .messageTextarea,
+  .sendMessageButton {
+    min-height: 44px; /* Minimum touch target size */
+  }
+  
+  .sendMessageButton {
+    padding: 12px 20px;
+  }
+}
+
+/* Better spacing for very wide screens */
+@media (min-width: 1600px) {
+  .contactInfoGrid {
+    gap: 50px;
+  }
+  
+  .contactInfoCard {
+    max-width: 400px;
+  }
+}

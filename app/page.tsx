@@ -1,4 +1,4 @@
-import { CoursesInfo } from "./(components)/(common)/data";
+// import { CoursesInfo } from "./(components)/(common)/data";
 import Navbar from "./(components)/(navbar)/navbar";
 import Brands from "./(sections)/(brands)/brands";
 import Empowerment from "./(sections)/(empowerment)/empowerment";
