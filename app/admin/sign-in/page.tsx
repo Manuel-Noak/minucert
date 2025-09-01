@@ -24,6 +24,7 @@ export default function Signin() {
       });
 
       const data = await res.json();
+
       if (!data.success) {
         return toast.error(data.message);
       }

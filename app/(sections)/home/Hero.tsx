@@ -4,7 +4,9 @@ import React from "react";
 import Image from "next/image";
 import hero_bg_img from "@/app/assets/img/Home/hero_bg_img.jpg";
 import styles from "./hero.module.css";
+import { useRouter } from "next/navigation";
 export default function Hero() {
+  const router = useRouter();
   return (
     <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -50,6 +52,7 @@ export default function Hero() {
         <button
           className={`${styles.heroButton} bg-white text-black hover:bg-gray-100 transition-colors duration-200 flex items-center justify-center`}
           aria-label="Pick a Program"
+          onClick={() => router.push("/")}
         >
           <span className={styles.buttonText}>Pick a Program</span>
         </button>

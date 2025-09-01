@@ -36,7 +36,7 @@ export default function DashboardSection() {
 
   const fetchCustomersDetails = async () => {
     try {
-      let res = await fetch("/api/getProviders");
+      let res = await fetch("/api/getProvidersss");
       let data = await res.json();
 
       if (!data.success) {

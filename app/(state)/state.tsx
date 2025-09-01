@@ -29,6 +29,8 @@ interface AppContextType {
 
   currentPage: number;
   setCurrentPage: (lastIndex: number) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 // 2. Create context with default empty values
@@ -43,6 +45,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [firstIndex, setFirstIndex] = useState<number>(0);
   const [lastIndex, setLastIndex] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
   course = CoursesInfo;
   setCourse = setCoursesInfo;
   return (
@@ -56,6 +59,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setLastIndex,
         currentPage,
         setCurrentPage,
+        loading,
+        setLoading,
       }}
     >
       {children}

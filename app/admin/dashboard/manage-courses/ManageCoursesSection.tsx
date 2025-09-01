@@ -8,10 +8,12 @@ import AddCourseModal, {
   AddProviderModal,
   AdminData,
   CourseFormData,
+  MessageModal,
   ProviderData,
 } from "@/app/(components)/(common)/popupModal/addCourseModal";
 import { toast } from "react-toastify";
 import Loader from "@/app/(components)/(loading)/loader";
+import { useAppContext } from "@/app/(state)/state";
 
 interface CourseFormsData {
   courseName: string;
@@ -28,14 +30,17 @@ export default function ManageCoursesSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalProviderOpen, setModalProviderOpen] = useState(false);
   const [isModalAdminOpen, setModalAdminOpen] = useState(false);
+  const [isMessageModalOpen, setMessageModalOpen] = useState(true);
+  const [status, setStatus] = useState(false);
+  const [message, setMessage] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useAppContext();
   const [courses, setCourses] = useState<CourseFormsData[]>([]);
   const coursesPerPage = 5;
 
   const fetchCourseDetails = async () => {
     try {
-      const res = await fetch(`/api/adminAuth/getAllCourse`);
+      const res = await fetch(`/api/adminAuth/getAllCourseee`);
       const data = await res.json();
 
       if (!data.success) {
@@ -95,15 +100,19 @@ export default function ManageCoursesSection() {
         },
       });
       const { success } = await res.json();
+      setStatus(success);
       if (success) {
-        toast.success("Successfully deleted");
+        setMessage("Successfully deleted the course");
         return setCourses((prev) =>
           [...prev].filter((course) => course.id !== courseId)
         );
       }
-      toast.error("Something went wrong");
+
+      setMessage("Unable able to delete Course");
     } catch (error) {
-      toast.error(error.message || "Something went wrong");
+      toast.error(
+        error instanceof Error ? error.message : "Something went wrong"
+      );
     }
   };
 
@@ -113,6 +122,7 @@ export default function ManageCoursesSection() {
   const handleModalClose = () => setIsModalOpen(false);
   const handleModalProviderClose = () => setModalProviderOpen(false);
   const handleModalAdminClose = () => setModalAdminOpen(false);
+  const handleMessageModalClose = () => setMessageModalOpen(false);
 
   const handleCourseSubmit = async (formData: CourseFormData) => {
     try {
@@ -131,16 +141,20 @@ export default function ManageCoursesSection() {
       });
       const data = await res.json();
       setLoading(false);
+      setStatus(data.success);
+      setIsModalOpen(true);
       if (data.success) {
-        toast.success("Successfully added the course");
+        setMessage("Successfully added the course");
         fetchCourseDetails(); // refresh list
+        return;
       }
-      toast.error(data.message || "Something went wrong");
+      setMessage(data.message || "Something went wrong");
     } catch (err) {
       setLoading(false);
       toast.error(
-        err.message ||
-          "Something went wrong, please check your connection or try again"
+        err instanceof Error
+          ? err.message
+          : "Something went wrong, please check your connection or try again"
       );
     }
     setIsModalOpen(false);
@@ -156,11 +170,13 @@ export default function ManageCoursesSection() {
 
       const { success } = await res.json();
       setLoading(false);
+      setStatus(success);
+      setIsModalOpen(true);
       if (!success) {
-        toast.error(success.message || "Something went wrong");
+        setMessage(success.message || "Something went wrong");
         return;
       }
-      toast.success("Successfully added the provider");
+      setMessage("Successfully added the provider");
     } catch {
       setLoading(false);
       toast.error("Something went wrong");
@@ -177,11 +193,13 @@ export default function ManageCoursesSection() {
 
       const { success } = await res.json();
       setLoading(false);
+      setStatus(success);
+      setIsModalOpen(true);
       if (!success) {
-        toast.error(success.message || "Something went wrong");
+        setMessage(success.message || "Something went wrong");
         return;
       }
-      toast.success("Successfully added the admin");
+      setMessage("Successfully added the admin");
     } catch {
       setLoading(false);
       toast.error("Something went wrong");
@@ -356,6 +374,12 @@ export default function ManageCoursesSection() {
         isOpen={isModalAdminOpen}
         onClose={handleModalAdminClose}
         onSubmit={handleAdminSubmit}
+      />
+      <MessageModal
+        isOpen={isMessageModalOpen}
+        onClose={handleMessageModalClose}
+        status={status}
+        message={message}
       />
     </section>
   );

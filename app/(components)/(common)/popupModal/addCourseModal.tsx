@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./AddCourseModal.module.css";
+import styles from "./addCourseModal.module.css";
 
 interface AddCourseModalProps {
   isOpen: boolean;
@@ -31,6 +31,12 @@ export interface ProviderData {
   name: string;
   website: string;
   apiBaseUrl: string;
+}
+export interface MessageProps {
+  isOpen: boolean;
+  onClose: () => void;
+  message: string;
+  status: boolean;
 }
 export interface AdminData {
   firstName: string;
@@ -178,7 +184,7 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
           </div>
 
           <div className={styles.form_group}>
-            <label className={styles.form_label}>Course Code</label>
+            <label className={styles.form_label}>Course Id</label>
             <input
               type="text"
               name="courseCode"
@@ -229,7 +235,6 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
               className={styles.form_select}
               required
             >
-              <option value="input">Choose Provider</option>
               {selectProviders.map((provider, index) => (
                 <option key={index} value={provider.name}>
                   {provider.name}
@@ -277,7 +282,6 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
               className={styles.form_select}
               required
             >
-              <option value="input">Input Categroy</option>
               {selectCategories.map((category, index) => (
                 <option value={category.name} key={index}>
                   {category.name}
@@ -395,6 +399,30 @@ export const AddProviderModal: React.FC<AddProviderModalProps> = ({
             Add Provider
           </button>
         </form>
+      </div>
+    </div>
+  );
+};
+export const MessageModal: React.FC<MessageProps> = ({
+  isOpen,
+  onClose,
+  message,
+  status,
+}) => {
+  const handleClose = () => {
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className={styles.modal_overlay}>
+      <div className={styles.message_modal}>
+        <div className={styles.success}>
+          <span>X</span>
+        </div>
+        <h2>You have successfully the course </h2>
+        <button onClick={handleClose}>Continue</button>
       </div>
     </div>
   );
