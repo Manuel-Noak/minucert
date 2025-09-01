@@ -4,17 +4,21 @@ import styles from "./aiCert.module.css";
 import Courses from "@/app/(sections)/courses/courses";
 import Pagination from "../pagination";
 import fetchCourses from "@/app/(sections)/courses/fetchCourse";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppContext } from "@/app/(state)/state";
 import { useParams } from "next/navigation";
+import Loader from "@/app/(components)/(loading)/loader";
 
 export default function ProgramsSection() {
   const { setCoursesInfo } = useAppContext();
+  const [loading, setLoading] = useState(false);
+
   const { name }: { name: string } = useParams();
   useEffect(() => {
     const runFetch = async () => {
+      setLoading(true);
       const result = await fetchCourses(`/api/courses/provider/${name}`);
-
+      setLoading(false);
       if (!result.success || result.info.length === 0) {
         return null;
       }
@@ -23,6 +27,9 @@ export default function ProgramsSection() {
     };
     runFetch();
   }, [setCoursesInfo, name]);
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section className={styles.programs_section}>

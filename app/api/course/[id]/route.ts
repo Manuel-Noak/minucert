@@ -13,7 +13,7 @@ export async function GET(
     const { id, category, courseId, price, thumbnailLink, title, providerId } =
       certification;
     const { apiBaseUrl } = certificationProvider;
-    const course = await db
+    const [course] = await db
       .select({
         id,
         category,
@@ -22,31 +22,27 @@ export async function GET(
         thumbnailLink,
         title,
         providerId,
+        api: apiBaseUrl,
       })
       .from(certification)
+      .innerJoin(
+        certificationProvider,
+        eq(certificationProvider.id, providerId)
+      )
       .where(eq(certification.id, paramId));
 
-    if (course.length === 0) {
-      return NextResponse.json({ success: false }, { status: 400 });
-    }
-    const api = await db
-      .select({ apiBaseUrl })
-      .from(certificationProvider)
-      .where(eq(certificationProvider.id, course[0].providerId));
-    if (api.length === 0) {
+    if (!course) {
       return NextResponse.json({ success: false }, { status: 400 });
     }
 
-    const info = { ...course[0], ...api[0] };
-
-    const response = NextResponse.json({ success: true, info });
+    const response = NextResponse.json({ success: true, info: course });
     response.cookies.set(
       "courseInfo",
       JSON.stringify({
-        amount: (Number(info.price) / 100).toFixed(2),
-        category: info.category,
-        title: info.title,
-        id: info.id,
+        amount: (Number(course.price) / 100).toFixed(2),
+        category: course.category,
+        title: course.title,
+        id: course.id,
       }),
       {
         httpOnly: true,

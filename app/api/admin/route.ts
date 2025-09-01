@@ -8,18 +8,24 @@ import jwt from "jsonwebtoken";
 export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
-    const res = await db
+    if (email.length < 1 || password.length < 1) {
+      return NextResponse.json(
+        { success: false, message: "Invalid Input" },
+        { status: 400 }
+      );
+    }
+    const [res] = await db
       .select()
       .from(internalUser)
       .where(eq(internalUser.email, email));
-    if (!res[0]) {
+    if (!res) {
       return NextResponse.json(
-        { success: true, message: "Incorrect email or password" },
+        { success: false, message: "Incorrect email or password" },
         { status: 401 }
       );
     }
 
-    const isValid = await bcrypt.compare(password, res[0].password);
+    const isValid = await bcrypt.compare(password, res.password);
 
     if (!isValid) {
       return NextResponse.json(
@@ -28,8 +34,10 @@ export async function POST(request: Request) {
       );
     }
 
+    console.log(isValid);
+
     const token = jwt.sign(
-      { email: res[0].email, role: res[0].roles },
+      { email: res.email, role: res.roles },
       "admin@gmail.com201902",
       { expiresIn: "1d" }
     );

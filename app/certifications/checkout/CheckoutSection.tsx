@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 // Styles
 import styles from "./checkoutSection.module.css";
 import { toast } from "react-toastify";
+import Loader from "@/app/(components)/(loading)/loader";
 
 export default function CheckoutSection() {
   const router = useRouter();
@@ -22,7 +23,7 @@ export default function CheckoutSection() {
     email: "",
     phone: "",
   });
-
+  const [loading, setLoading] = useState(false);
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -53,6 +54,7 @@ export default function CheckoutSection() {
     }
 
     try {
+      setLoading(true);
       const res = await fetch("/api/addOrder", {
         method: "POST",
         body: JSON.stringify({
@@ -65,13 +67,14 @@ export default function CheckoutSection() {
         }),
       });
       const data = await res.json();
-
+      setLoading(false);
       if (!data.success) {
         return toast.error(data.message);
       }
 
       handlePayment(data.ref);
     } catch (error) {
+      setLoading(false);
       toast.error(error.message);
     }
   };
@@ -152,6 +155,9 @@ export default function CheckoutSection() {
       toast.error("Something went wrong");
     }
   };
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section className={styles.checkoutSection}>
