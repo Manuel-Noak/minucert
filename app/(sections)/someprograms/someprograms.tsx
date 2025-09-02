@@ -23,17 +23,7 @@ const Courses = ({ src, title, id, price, currencyCode }: CoursesProps) => {
   return (
     <div className={styles.courseCard}>
       <div className={styles.courseImage}>
-        <img
-          src={src || defaultImage}
-          alt={title}
-          width={433}
-          height={297}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-        />
+        <img src={src || defaultImage} alt={title} />
       </div>
       <div className={styles.courseContent}>
         <h3 className={styles.courseTitle}>{title}</h3>

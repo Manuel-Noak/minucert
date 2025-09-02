@@ -4,8 +4,12 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import hero_bg_img from "@/app/assets/img/Home/hero_bg_img.jpg";
 import styles from "./hero.module.css";
+import { useRouter } from "next/navigation";
+import { useAppContext } from "@/app/(state)/state";
 
 export default function Hero() {
+  const router = useRouter();
+  const { providerRoute } = useAppContext();
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -85,6 +89,10 @@ export default function Hero() {
             transitionDuration: '0.8s'
           }}
           aria-label="Pick a Program"
+          onClick={() =>
+            providerRoute.length > 1 &&
+            router.push("/certifications/provider/" + providerRoute)
+          }
         >
           <span className={styles.buttonText}>Pick a Program</span>
         </button>

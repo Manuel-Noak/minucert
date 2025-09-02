@@ -1,16 +1,17 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-// import heroImage from "/assets/heroImage.jpg";
 import back_arrow from "../../assets/img/Admin/back_arrow.png";
 import styles from "./signin.module.css";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import Loader from "@/app/(components)/(loading)/loader";
 
 export default function Signin() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const logAdminIn = async () => {
     if (password.trim().length < 1 || email.trim().length < 1) {
@@ -18,21 +19,27 @@ export default function Signin() {
     }
 
     try {
+      setLoading(true);
       const res = await fetch("/api/admin", {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
+
       if (!data.success) {
         return toast.error(data.message);
       }
       router.push("/admin/dashboard");
     } catch (error) {
       return toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
-
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className={styles.signinBody}>
       <div className={styles.heroSection}>

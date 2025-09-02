@@ -8,9 +8,12 @@ import AddCourseModal, {
   AddProviderModal,
   AdminData,
   CourseFormData,
+  MessageModal,
   ProviderData,
-} from "@/app/(components)/(common)/popupModal/addCourseModal";
+} from "@/app/(components)/(common)/popupModal/popupModels";
 import { toast } from "react-toastify";
+import { useAppContext } from "@/app/(state)/state";
+import Loader from "@/app/(components)/(loading)/loader";
 
 interface CourseFormsData {
   courseName: string;
@@ -27,21 +30,28 @@ export default function ManageCoursesSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalProviderOpen, setModalProviderOpen] = useState(false);
   const [isModalAdminOpen, setModalAdminOpen] = useState(false);
+  const [isMessageModalOpen, setMessageModalOpen] = useState(false);
+  const [status, setStatus] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageDetail, setMessageDetail] = useState<string | undefined>();
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  const [loading, setLoading] = useState(false);
   const [courses, setCourses] = useState<CourseFormsData[]>([]);
   const coursesPerPage = 5;
 
   const fetchCourseDetails = async () => {
     try {
-      const res = await fetch(`/api/getAllCourse`);
+      setLoading(true);
+      const res = await fetch(`/api/adminAuth/getAllCourse`);
       const data = await res.json();
 
+      setLoading(false);
       if (!data.success) {
         return toast.error(data.message);
       }
       setCourses(data.courses);
     } catch (err: any) {
+      setLoading(false);
       toast.error(err.message);
     }
   };
@@ -87,22 +97,30 @@ export default function ManageCoursesSection() {
   const handleDeleteDetail = async (courseId: number) => {
     setActiveDropdown(null);
     try {
-      const res = await fetch("/api/removeCourse", {
+      const res = await fetch("/api/adminAuth/removeCourse", {
         method: "DELETE",
         headers: {
           courseId: courseId.toString(),
         },
       });
-      const { success } = await res.json();
+      const { success, message } = await res.json();
+      setStatus(success);
       if (success) {
-        toast.success("Successfully deleted");
+        setMessage("Successfully deleted the course");
         return setCourses((prev) =>
           [...prev].filter((course) => course.id !== courseId)
         );
       }
-      toast.error("Something went wrong");
+
+      setMessage("Unable able to delete Course");
+      setMessageDetail(message);
     } catch (error) {
-      toast.error(error.message || "Something went wrong");
+      setMessage("Unable able to delete Course");
+      setMessageDetail(
+        error instanceof Error
+          ? error.message
+          : "Could be your internet connection"
+      );
     }
   };
 
@@ -112,54 +130,108 @@ export default function ManageCoursesSection() {
   const handleModalClose = () => setIsModalOpen(false);
   const handleModalProviderClose = () => setModalProviderOpen(false);
   const handleModalAdminClose = () => setModalAdminOpen(false);
+  const handleMessageModalClose = () => setMessageModalOpen(false);
 
   const handleCourseSubmit = async (formData: CourseFormData) => {
     try {
-      const res = await fetch("/api/addCourse", {
+      setMessageDetail(undefined);
+      setLoading(true);
+
+      const res = await fetch("/api/adminAuth/addCourse", {
         method: "POST",
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          form: formData,
+          courseExists: courses.find(
+            (course) =>
+              String(course.courseCode) === String(formData.courseCode) &&
+              course.provider === formData.provider
+          ),
+        }),
       });
       const data = await res.json();
+      setLoading(false);
+      setStatus(data.success);
       if (data.success) {
+        setMessage("Successfully added the Course");
         fetchCourseDetails(); // refresh list
+        return;
       }
-    } catch {}
+      setMessage("Couldn't add the new course");
+      setMessageDetail(data.message || "Something went wrong");
+    } catch (err) {
+      setLoading(false);
+      setStatus(false);
+      setMessage("Couldn't add the new course");
+      setMessageDetail(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong, please check your connection or try again"
+      );
+    }
+    setMessageModalOpen(true);
     setIsModalOpen(false);
   };
 
   const handleProviderSubmit = async (formData: ProviderData) => {
+    setLoading(true);
     try {
-      const res = await fetch("/api/addProvider", {
+      setMessageDetail(undefined);
+      const res = await fetch("/api/adminAuth/addProvider", {
         method: "POST",
         body: JSON.stringify(formData),
       });
 
       const { success } = await res.json();
+      setLoading(false);
+      setStatus(success);
       if (!success) {
-        toast.error(success.message || "Something went wrong");
+        setMessage("Couldn't add the new Provider");
+        setMessageDetail(success.message || null);
         return;
       }
-      toast.success("Successfully added the provider");
-    } catch {
-      toast.error("Something went wrong");
+      setMessage("Successfully added the Provider");
+    } catch (err) {
+      setLoading(false);
+      setStatus(false);
+      setMessage("Couldn't add the new Provider");
+      setMessageDetail(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong, please check your connection or try again"
+      );
     }
+    setMessageModalOpen(true);
+    setModalProviderOpen(false);
   };
   const handleAdminSubmit = async (formData: AdminData) => {
     try {
-      const res = await fetch("/api/addAdmin", {
+      setLoading(true);
+      setMessageDetail(undefined);
+      const res = await fetch("/api/adminAuth/addAdmin", {
         method: "POST",
         body: JSON.stringify(formData),
       });
-
       const { success } = await res.json();
+      setLoading(false);
+      setStatus(success);
       if (!success) {
-        toast.error(success.message || "Something went wrong");
+        setMessage("Couldn't add the new admin");
+        setMessageDetail(success.message || null);
         return;
       }
-      toast.success("Successfully added the admin");
-    } catch {
-      toast.error("Something went wrong");
+      setMessage("Successfully added the Admin");
+    } catch (err) {
+      setLoading(false);
+      setStatus(false);
+      setMessage("Couldn't add the new admin");
+      setMessageDetail(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong, please check your connection or try again"
+      );
     }
+    setMessageModalOpen(true);
+    setModalAdminOpen(false);
   };
 
   const renderPaginationNumbers = () => {
@@ -187,6 +259,10 @@ export default function ManageCoursesSection() {
     }
     return pages;
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section className={styles.manage_courses_section}>
@@ -327,6 +403,13 @@ export default function ManageCoursesSection() {
         isOpen={isModalAdminOpen}
         onClose={handleModalAdminClose}
         onSubmit={handleAdminSubmit}
+      />
+      <MessageModal
+        isOpen={isMessageModalOpen}
+        onClose={handleMessageModalClose}
+        status={status}
+        header={message}
+        moreDetails={messageDetail}
       />
     </section>
   );

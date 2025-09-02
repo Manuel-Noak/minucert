@@ -1,16 +1,15 @@
 "use client";
 
-import { CoursesInfo } from "@/app/(components)/(common)/data";
-import Image, { StaticImageData } from "next/image";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
+import { toast } from "react-toastify";
 
-import React, { useEffect, useState } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
 import black_back_arrow from "@/public/assets/black_back_arrow.png";
 import program_img from "@/app/assets/img/aiCloud.jpg";
-
-// Styles
 import styles from "./aiCertProgramDetails.module.css";
-import { toast } from "react-toastify";
+import { useAppContext } from "@/app/(state)/state";
+import Loader from "@/app/(components)/(loading)/loader";
 
 interface CourseDetail {
   title: { rendered: string };
@@ -109,8 +108,11 @@ export default function AiProgramDetailsSection() {
 
   const params = useSearchParams();
   const page = params.get("id")?.toString();
-  const [detailData, setDetailData] = useState<CourseDetail | null>();
-  const [courseInfo, setCourseInfo] = useState();
+
+  const [detailData, setDetailData] = useState<CourseDetail | null>(null);
+  const [courseInfo, setCourseInfo] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   useEffect(() => {
     if (!page) return;
@@ -118,84 +120,63 @@ export default function AiProgramDetailsSection() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        // Get course info from your API
         const res = await fetch(`/api/course/${page}`);
         const data = await res.json();
 
         if (!data.success) {
           setIsLoading(false);
-          return toast.error(data.message);
+          toast.error(data.message);
+          // setLoading(false);
+          return;
         }
 
         setCourseInfo(data.info);
 
-        // Now safely fetch detailData using courseId
-        const courseId = data.info.courseId;
-        if (!courseId) {
-          setIsLoading(false);
-          return;
-        }
+        const { courseId, api } = data.info;
+        if (!courseId || !api) return;
 
-        const wpRes = await fetch(
-          `https://www.aicerts.ai/wp-json/wp/v2/courses/${courseId}`
-        );
+        const wpRes = await fetch(api + courseId);
+
         const wpData = await wpRes.json();
 
         setDetailData(wpData);
-        setIsLoading(false);
-      } catch (err) {
-        setIsLoading(false);
+      } catch (_) {
         toast.error("Something went wrong, please check your connection");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
-  }, [page, router]);
+  }, [page]);
+  if (loading) {
+    return <Loader />;
+  }
 
-  // Helper function to strip HTML tags
-  const stripHtml = (html: string) => {
-    const tmp = document.createElement("DIV");
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || "";
-  };
+  const handleBackClick = () => router.back();
+  const toggleDescription = () =>
+    setIsDescriptionExpanded(!isDescriptionExpanded);
 
-  // Helper function to extract list items from HTML
-  const extractListItems = (html: string): string[] => {
-    const tmp = document.createElement("DIV");
-    tmp.innerHTML = html;
-    const listItems = tmp.querySelectorAll("li");
-    return Array.from(listItems).map((li) => stripHtml(li.innerHTML));
-  };
+  if (!detailData || !courseInfo) {
+    return (
+      <section className={styles.container}>
+        <p className={styles.error}>Course details not found.</p>
+      </section>
+    );
+  }
 
-  // Get data or fallbacks
-  const programTitle = detailData?.title?.rendered || "Loading...";
-  const duration = detailData?.acf?.certification_duration || "Loading...";
-  const fullDescription = detailData?.acf?.about_certification
-    ? stripHtml(detailData.acf.about_certification)
-    : "Loading course description...";
-
+  const programTitle = detailData.title?.rendered ?? "No Title";
+  const duration = detailData.acf?.certification_duration ?? "Not specified";
+  const fullDescription = detailData.acf?.about_certification ?? "";
   const truncatedDescription =
     fullDescription.length > 200
       ? fullDescription.substring(0, 200) + "..."
       : fullDescription;
 
-  const prerequisites = detailData?.acf?.prerequisites
-    ? extractListItems(detailData.acf.prerequisites)
-    : [];
-
-  const modules =
-    detailData?.acf?.certification_modules == undefined ||
-    !detailData?.acf?.certification_modules
-      ? []
-      : detailData?.acf?.certification_modules.map(
-          (module) => module.certification_module_title
-        );
-
+  const prerequisites = detailData.acf?.prerequisites;
+  const modules = detailData.acf?.certification_modules ?? [];
   const materials =
-    detailData?.acf?.fields_v5?.["self-study-materials_data"]?.map(
-      (material) => material.name
-    ) || [];
-
+    detailData.acf?.fields_v5?.["self-study-materials_data"] ?? [];
   const learningOutcomes =
     detailData?.acf?.what_will_you_learn?.learn_sections == undefined ||
     !detailData?.acf?.what_will_you_learn?.learn_sections
@@ -230,7 +211,7 @@ export default function AiProgramDetailsSection() {
         <div className={styles.headerContent}>
           <div className={styles.programImageContainer}>
             <img
-              src={courseInfo?.thumbnailLink || program_img}
+              src={courseInfo?.thumbnailLink || program_img.src}
               alt={programTitle}
               className={styles.programImage}
             />
@@ -313,18 +294,16 @@ export default function AiProgramDetailsSection() {
         </div>
       )}
 
-      {/* Materials Section */}
+      {/* Materials */}
       {materials.length > 0 && (
         <div className={styles.section}>
-          <div className={styles.sectionContent}>
-            <h2 className={styles.sectionTitle}>Materials</h2>
-            <div className={styles.materialsContainer}>
-              {materials.map((item, index) => (
-                <span key={index} className={styles.materialItem}>
-                  • {item}
-                </span>
-              ))}
-            </div>
+          <h2 className={styles.sectionTitle}>Materials</h2>
+          <div className={styles.materialsContainer}>
+            {materials.map((m, idx) => (
+              <span key={idx} className={styles.materialItem}>
+                • {m.name}
+              </span>
+            ))}
           </div>
         </div>
       )}
