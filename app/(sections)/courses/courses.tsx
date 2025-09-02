@@ -17,6 +17,17 @@ export default function Courses() {
     router.push(`/certifications/program-details?id=${programId}`);
   };
 
+  // If no courses available, show message
+  if (!CoursesInfo || CoursesInfo.length === 0) {
+    return (
+      <div className={styles.programs_grid}>
+        <div className={styles.no_programs_message}>
+          <p>No courses available at the moment.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.programs_grid}>
       {CoursesInfo.slice(firstIndex, lastIndex).map(
@@ -38,7 +49,7 @@ export default function Courses() {
               <div className={styles.program_title_section}>
                 <h3 className={styles.program_title}>
                   {title}
-                  <span className={styles.trademark}>™</span>
+                  {/* <span className={styles.trademark}>™</span> */}
                 </h3>
               </div>
 

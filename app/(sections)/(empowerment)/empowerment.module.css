@@ -1,273 +1,388 @@
+/* Base styles remain the same */
 .empowerment {
-            width: 100%;
-            max-width: 1728px;
-            height: 1074px;
-            background: linear-gradient(308.37deg, #ffbb15 0.62%, #000000 66.75%);
-            padding: 156px 111px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-        }
+    width: 100%;
+    max-width: 1728px;
+    height: 1074px;
+    background: linear-gradient(308.37deg, #ffbb15 0.62%, #000000 66.75%);
+    padding: 156px 111px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
 
-        .empowermentContainer {
-            width: 100%;
-            max-width: 1506px;
-            height: 762px;
-            background-color: #ffffff;
-            border-radius: 20px;
-            display: flex;
-            overflow: hidden;
-            opacity: 1;
-            gap: 0;
-            angle: 0deg;
-        }
+.empowermentContainer {
+    width: 100%;
+    max-width: 1506px;
+    height: 762px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    display: flex;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 0;
+    angle: 0deg;
+}
 
-        /* Left side - Female figure image */
-        .empowermentImage {
-            width: 609px;
-            height: 762px;
-            border-top-left-radius: 20px;
-            border-bottom-left-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            flex-shrink: 0;
-            opacity: 1;
-            angle: 0deg;
-        }
+/* Animation trigger */
+.empowerment.animate .empowermentContainer {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
 
-        .imageElement {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 25%, #9333EA 50%, #7C3AED 75%, #6D28D9 100%);
-            position: relative;
-            border-top-left-radius: 20px;
-            border-bottom-left-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            object-fit: cover;
-        }
+/* Left side - Female figure image */
+.empowermentImage {
+    width: 609px;
+    height: 762px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    opacity: 1;
+    angle: 0deg;
+}
 
-        .imageElement::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 400px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400"><path d="M150 50 C200 50, 250 100, 250 150 L250 300 C250 350, 200 400, 150 400 C100 400, 50 350, 50 300 L50 150 C50 100, 100 50, 150 50 Z" fill="rgba(139,92,246,0.8)"/><circle cx="150" cy="120" r="40" fill="rgba(168,85,247,0.9)"/><path d="M110 200 L190 200 L190 320 L110 320 Z" fill="rgba(147,51,234,0.8)"/><path d="M80 180 Q150 160, 220 180" stroke="rgba(124,58,237,0.7)" stroke-width="8" fill="none"/></svg>') no-repeat center;
-            background-size: contain;
-        }
+.imageElement {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 25%, #9333EA 50%, #7C3AED 75%, #6D28D9 100%);
+    position: relative;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+}
 
-        /* Right side - Content */
-        .empowermentContent {
-            flex: 1;
-            padding: 80px 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
+.imageElement::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 400px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400"><path d="M150 50 C200 50, 250 100, 250 150 L250 300 C250 350, 200 400, 150 400 C100 400, 50 350, 50 300 L50 150 C50 100, 100 50, 150 50 Z" fill="rgba(139,92,246,0.8)"/><circle cx="150" cy="120" r="40" fill="rgba(168,85,247,0.9)"/><path d="M110 200 L190 200 L190 320 L110 320 Z" fill="rgba(147,51,234,0.8)"/><path d="M80 180 Q150 160, 220 180" stroke="rgba(124,58,237,0.7)" stroke-width="8" fill="none"/></svg>') no-repeat center;
+    background-size: contain;
+}
 
-        .textContent {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 220px;
-        }
+/* Right side - Content */
+.empowermentContent {
+    flex: 1;
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
 
-        .empowermentLabel {
-            font-family: Montserrat;
-            font-weight: 500;
-            font-style: normal;
-            font-size: 22px;
-            line-height: 100%;
-            letter-spacing: 0%;
-            text-transform: uppercase;
-            color: #000000;
-            width: 623px;
-            margin: 80px 0 20px 0;
-        }
+.textContent {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 220px;
+}
 
-        .empowermentTitle {
-            font-family: Montserrat;
-            font-weight: 600;
-            font-style: normal;
-            font-size: 35px;
-            line-height: 100%;
-            letter-spacing: 0%;
-            color: #000000;
-            max-width: 623px;
-        }
+.empowermentLabel {
+    font-family: Montserrat;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 22px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-transform: uppercase;
+    color: #000000;
+    width: 623px;
+    margin: 80px 0 20px 0;
+}
 
-        .programButton {
-            width: 263px;
-            height: 52px;
-            background-color: #ffbb15;
-            border: none;
-            border-radius: 50px;
-            padding: 17px 72px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 15px;
-            line-height: 100%;
-            color: #000000;
-            transition: all 0.3s ease;
-            opacity: 1;
-            angle: 0deg;
-            gap: 10px;
-        }
+.empowermentTitle {
+    font-family: Montserrat;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 35px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #000000;
+    max-width: 623px;
+}
 
-        .programButton:hover {
-            background-color: #e0a814;
-            transform: translateY(-2px);
-        }
+.programButton {
+    width: 263px;
+    height: 52px;
+    background-color: #ffbb15;
+    border: none;
+    border-radius: 50px;
+    padding: 17px 72px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 100%;
+    color: #000000;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 1;
+    angle: 0deg;
+    gap: 10px;
+}
 
-        /* Tablet Styles (768px - 1024px) */
-        @media (max-width: 1024px) {
-            .empowerment {
-                height: auto;
-                min-height: 600px;
-                padding: 80px 40px;
-            }
+.programButton:hover {
+    background-color: #e0a814;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 187, 21, 0.3);
+}
 
-            .empowermentContainer {
-                height: auto;
-                min-height: 500px;
-                flex-direction: column;
-            }
+/* Animation Classes */
+.slideInLeft {
+    opacity: 0;
+    transform: translateX(-80px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
-            .empowermentImage {
-                width: 100%;
-                height: 300px;
-                border-radius: 20px 20px 0 0;
-            }
+.slideInRight {
+    opacity: 0;
+    transform: translateX(80px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
-            .imageElement {
-                border-radius: 20px 20px 0 0;
-            }
+.fadeInUp {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
-            .empowermentContent {
-                padding: 40px 50px 50px 50px;
-            }
+/* Animation delays */
+.delayShort {
+    transition-delay: 0.2s;
+}
 
-            .textContent {
-                margin-bottom: 40px;
-            }
+.delayLong {
+    transition-delay: 0.4s;
+}
 
-            .empowermentLabel {
-                font-size: 18px;
-                width: 100%;
-                margin: 0 0 15px 0;
-            }
+/* Trigger animations when visible */
+.empowerment.animate .slideInLeft {
+    opacity: 1;
+    transform: translateX(0);
+}
 
-            .empowermentTitle {
-                font-size: 28px;
-                max-width: 100%;
-                line-height: 110%;
-            }
+.empowerment.animate .slideInRight {
+    opacity: 1;
+    transform: translateX(0);
+}
 
-            .programButton {
-                width: 220px;
-                height: 48px;
-                font-size: 14px;
-                padding: 15px 50px;
-            }
-        }
+.empowerment.animate .fadeInUp {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        /* Mobile Styles (up to 767px) */
-        @media (max-width: 767px) {
-            .empowerment {
-                height: auto;
-                min-height: 500px;
-                padding: 40px 20px;
-            }
+/* Enhanced button animation */
+.empowerment.animate .programButton {
+    transform: translateY(0);
+    animation: buttonPulse 2s ease-in-out infinite;
+    animation-delay: 1s;
+}
 
-            .empowermentContainer {
-                height: auto;
-                min-height: 400px;
-                border-radius: 15px;
-                flex-direction: column;
-            }
+@keyframes buttonPulse {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(255, 187, 21, 0.2);
+    }
+    50% {
+        box-shadow: 0 6px 25px rgba(255, 187, 21, 0.4);
+    }
+}
 
-            .empowermentImage {
-                width: 100%;
-                height: 250px;
-                border-radius: 15px 15px 0 0;
-            }
+/* Tablet Styles (768px - 1024px) */
+@media (max-width: 1024px) {
+    .empowerment {
+        height: auto;
+        min-height: 600px;
+        padding: 80px 40px;
+    }
 
-            .imageElement {
-                border-radius: 15px 15px 0 0;
-            }
+    .empowermentContainer {
+        height: auto;
+        min-height: 500px;
+        flex-direction: column;
+    }
 
-            .empowermentContent {
-                padding: 30px 25px 40px 25px;
-            }
+    .empowermentImage {
+        width: 100%;
+        height: 300px;
+        border-radius: 20px 20px 0 0;
+    }
 
-            .textContent {
-                margin-bottom: 30px;
-            }
+    .imageElement {
+        border-radius: 20px 20px 0 0;
+    }
 
-            .empowermentLabel {
-                font-size: 16px;
-                width: 100%;
-                margin: 0 0 12px 0;
-            }
+    .empowermentContent {
+        padding: 40px 50px 50px 50px;
+    }
 
-            .empowermentTitle {
-                font-size: 24px;
-                max-width: 100%;
-                line-height: 115%;
-            }
+    .textContent {
+        margin-bottom: 40px;
+    }
 
-            .programButton {
-                width: 100%;
-                max-width: 200px;
-                height: 44px;
-                font-size: 14px;
-                padding: 14px 30px;
-                align-self: flex-start;
-            }
-        }
+    .empowermentLabel {
+        font-size: 18px;
+        width: 100%;
+        margin: 0 0 15px 0;
+    }
 
-        /* Small Mobile Styles (up to 480px) */
-        @media (max-width: 480px) {
-            .empowerment {
-                padding: 30px 15px;
-            }
+    .empowermentTitle {
+        font-size: 28px;
+        max-width: 100%;
+        line-height: 110%;
+    }
 
-            .empowermentContainer {
-                border-radius: 12px;
-            }
+    .programButton {
+        width: 220px;
+        height: 48px;
+        font-size: 14px;
+        padding: 15px 50px;
+    }
 
-            .empowermentImage {
-                height: 220px;
-                border-radius: 12px 12px 0 0;
-            }
+    /* Adjust animations for tablet */
+    .slideInLeft,
+    .slideInRight {
+        transform: translateY(60px);
+    }
 
-            .imageElement {
-                border-radius: 12px 12px 0 0;
-            }
+    .empowerment.animate .slideInLeft,
+    .empowerment.animate .slideInRight {
+        transform: translateY(0);
+    }
+}
 
-            .empowermentContent {
-                padding: 25px 20px 35px 20px;
-            }
+/* Mobile Styles (up to 767px) */
+@media (max-width: 767px) {
+    .empowerment {
+        height: auto;
+        min-height: 500px;
+        padding: 40px 20px;
+    }
 
-            .empowermentLabel {
-                font-size: 14px;
-                margin: 0 0 10px 0;
-            }
+    .empowermentContainer {
+        height: auto;
+        min-height: 400px;
+        border-radius: 15px;
+        flex-direction: column;
+    }
 
-            .empowermentTitle {
-                font-size: 20px;
-                line-height: 120%;
-            }
+    .empowermentImage {
+        width: 100%;
+        height: 250px;
+        border-radius: 15px 15px 0 0;
+    }
 
-            .programButton {
-                width: 100%;
-                max-width: 180px;
-                height: 42px;
-                font-size: 13px;
-                padding: 13px 25px;
-            }
-        }
+    .imageElement {
+        border-radius: 15px 15px 0 0;
+    }
+
+    .empowermentContent {
+        padding: 30px 25px 40px 25px;
+    }
+
+    .textContent {
+        margin-bottom: 30px;
+    }
+
+    .empowermentLabel {
+        font-size: 16px;
+        width: 100%;
+        margin: 0 0 12px 0;
+    }
+
+    .empowermentTitle {
+        font-size: 24px;
+        max-width: 100%;
+        line-height: 115%;
+    }
+
+    .programButton {
+        width: 100%;
+        max-width: 200px;
+        height: 44px;
+        font-size: 14px;
+        padding: 14px 30px;
+        align-self: flex-start;
+    }
+
+    /* Reduce motion for mobile performance */
+    .fadeInUp {
+        transition-duration: 0.5s;
+    }
+
+    .slideInLeft,
+    .slideInRight {
+        transition-duration: 0.6s;
+    }
+}
+
+/* Small Mobile Styles (up to 480px) */
+@media (max-width: 480px) {
+    .empowerment {
+        padding: 30px 15px;
+    }
+
+    .empowermentContainer {
+        border-radius: 12px;
+    }
+
+    .empowermentImage {
+        height: 220px;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .imageElement {
+        border-radius: 12px 12px 0 0;
+    }
+
+    .empowermentContent {
+        padding: 25px 20px 35px 20px;
+    }
+
+    .empowermentLabel {
+        font-size: 14px;
+        margin: 0 0 10px 0;
+    }
+
+    .empowermentTitle {
+        font-size: 20px;
+        line-height: 120%;
+    }
+
+    .programButton {
+        width: 100%;
+        max-width: 180px;
+        height: 42px;
+        font-size: 13px;
+        padding: 13px 25px;
+    }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    .empowermentContainer,
+    .slideInLeft,
+    .slideInRight,
+    .fadeInUp,
+    .programButton {
+        transition: none;
+        animation: none;
+    }
+    
+    .empowermentContainer {
+        opacity: 1;
+        transform: none;
+    }
+    
+    .slideInLeft,
+    .slideInRight,
+    .fadeInUp {
+        opacity: 1;
+        transform: none;
+    }
+}
