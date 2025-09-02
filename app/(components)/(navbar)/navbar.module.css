@@ -39,6 +39,7 @@
   display: flex;
   align-items: center;
   z-index: 1001;
+  cursor: pointer;
 }
 
 .logo_img {

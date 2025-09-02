@@ -41,9 +41,63 @@ interface CourseDetail {
   };
 }
 
+// Loading Skeleton Component
+const LoadingSkeleton = () => {
+  return (
+    <section className={styles.container}>
+      {/* Header Loading Skeleton */}
+      <div className={styles.headerSection}>
+        <div className={styles.backButton}>
+          <div className={styles.skeletonBackArrow}></div>
+          <div className={styles.skeletonBackText}></div>
+        </div>
+
+        <div className={styles.headerContent}>
+          <div className={styles.programImageContainer}>
+            <div className={styles.skeletonImage}></div>
+          </div>
+
+          <div className={styles.programInfo}>
+            <div className={styles.skeletonTitle}></div>
+            <div className={styles.skeletonTitleSecond}></div>
+            
+            <div className={styles.durationContainer}>
+              <div className={styles.skeletonDurationLabel}></div>
+              <div className={styles.skeletonDurationValue}></div>
+            </div>
+
+            <div className={styles.descriptionContainer}>
+              <div className={styles.skeletonDescription}></div>
+              <div className={styles.skeletonDescriptionSecond}></div>
+              <div className={styles.skeletonDescriptionThird}></div>
+            </div>
+
+            <div className={styles.skeletonButton}></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Section Loading Skeletons */}
+      {[1, 2, 3].map((index) => (
+        <div key={index} className={styles.section}>
+          <div className={styles.sectionContent}>
+            <div className={styles.skeletonSectionTitle}></div>
+            <div className={styles.skeletonSectionContent}>
+              {[1, 2, 3, 4].map((item) => (
+                <div key={item} className={styles.skeletonListItem}></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </section>
+  );
+};
+
 export default function AiProgramDetailsSection() {
   const router = useRouter();
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleBackClick = () => {
     router.back();
@@ -62,12 +116,14 @@ export default function AiProgramDetailsSection() {
     if (!page) return;
 
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         // Get course info from your API
         const res = await fetch(`/api/course/${page}`);
         const data = await res.json();
 
         if (!data.success) {
+          setIsLoading(false);
           return toast.error(data.message);
         }
 
@@ -75,7 +131,10 @@ export default function AiProgramDetailsSection() {
 
         // Now safely fetch detailData using courseId
         const courseId = data.info.courseId;
-        if (!courseId) return;
+        if (!courseId) {
+          setIsLoading(false);
+          return;
+        }
 
         const wpRes = await fetch(
           `https://www.aicerts.ai/wp-json/wp/v2/courses/${courseId}`
@@ -83,7 +142,9 @@ export default function AiProgramDetailsSection() {
         const wpData = await wpRes.json();
 
         setDetailData(wpData);
+        setIsLoading(false);
       } catch (err) {
+        setIsLoading(false);
         toast.error("Something went wrong, please check your connection");
       }
     };
@@ -148,186 +209,169 @@ export default function AiProgramDetailsSection() {
 
   const tools = detailData?.acf?.tools_data || [];
 
-  if (!detailData) {
-    return (
-      <section className={styles.container}>
-        <div className={styles.headerSection}>
-          <div className={styles.backButton} onClick={handleBackClick}>
-            <Image
-              src={black_back_arrow}
-              alt="Back"
-              className={styles.backArrow}
-            />
-            <span className={styles.backText}>Back</span>
-          </div>
-          <div className={styles.headerContent}>
-            <div>Loading...</div>
-          </div>
-        </div>
-      </section>
-    );
+  // Show loading skeleton while data is being fetched
+  if (isLoading || !detailData || !courseInfo) {
+    return <LoadingSkeleton />;
   }
 
   return (
-    courseInfo && (
-      <section className={styles.container}>
-        {/* Header Section */}
-        <div className={styles.headerSection}>
-          <div className={styles.backButton} onClick={handleBackClick}>
-            <Image
-              src={black_back_arrow}
-              alt="Back"
-              className={styles.backArrow}
+    <section className={styles.container}>
+      {/* Header Section */}
+      <div className={styles.headerSection}>
+        <div className={styles.backButton} onClick={handleBackClick}>
+          <Image
+            src={black_back_arrow}
+            alt="Back"
+            className={styles.backArrow}
+          />
+          <span className={styles.backText}>Back</span>
+        </div>
+
+        <div className={styles.headerContent}>
+          <div className={styles.programImageContainer}>
+            <img
+              src={courseInfo?.thumbnailLink || program_img}
+              alt={programTitle}
+              className={styles.programImage}
             />
-            <span className={styles.backText}>Back</span>
           </div>
 
-          <div className={styles.headerContent}>
-            <div className={styles.programImageContainer}>
-              <img
-                src={courseInfo?.thumbnailLink || program_img}
-                alt={programTitle}
-                className={styles.programImage}
-              />
+          <div className={styles.programInfo}>
+            <h1 className={styles.programTitle}>{programTitle}</h1>
+
+            <div className={styles.durationContainer}>
+              <span className={styles.durationLabel}>
+                Certification Duration:
+              </span>
+              <span className={styles.durationValue}>{duration}</span>
             </div>
 
-            <div className={styles.programInfo}>
-              <h1 className={styles.programTitle}>{programTitle}</h1>
-
-              <div className={styles.durationContainer}>
-                <span className={styles.durationLabel}>
-                  Certification Duration:
-                </span>
-                <span className={styles.durationValue}>{duration}</span>
-              </div>
-
-              <div className={styles.descriptionContainer}>
-                <p className={styles.description}>
-                  {isDescriptionExpanded
-                    ? fullDescription
-                    : truncatedDescription}
-                </p>
-                {fullDescription.length > 200 && (
-                  <div
-                    className={styles.readMoreContainer}
-                    onClick={toggleDescription}
+            <div className={styles.descriptionContainer}>
+              <p className={styles.description}>
+                {isDescriptionExpanded
+                  ? fullDescription
+                  : truncatedDescription}
+              </p>
+              {fullDescription.length > 200 && (
+                <div
+                  className={styles.readMoreContainer}
+                  onClick={toggleDescription}
+                >
+                  <span className={styles.readMoreText}>
+                    {isDescriptionExpanded ? "Read Less" : "Read More"}
+                  </span>
+                  <span
+                    className={`${styles.readMoreArrow} ${
+                      isDescriptionExpanded ? styles.rotated : ""
+                    }`}
                   >
-                    <span className={styles.readMoreText}>
-                      {isDescriptionExpanded ? "Read Less" : "Read More"}
-                    </span>
-                    <span
-                      className={`${styles.readMoreArrow} ${
-                        isDescriptionExpanded ? styles.rotated : ""
-                      }`}
-                    >
-                      ›
-                    </span>
-                  </div>
-                )}
-              </div>
+                    ›
+                  </span>
+                </div>
+              )}
+            </div>
 
-              <button
-                onClick={() => router.push("/certifications/checkout")}
-                className={styles.buyNowButton}
-              >
-                Buy Now
-              </button>
+            <button
+              onClick={() => router.push("/certifications/checkout")}
+              className={styles.buyNowButton}
+            >
+              Buy Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Prerequisites Section */}
+      {prerequisites.length > 0 && (
+        <div className={styles.section}>
+          <div className={styles.sectionContent}>
+            <h2 className={styles.sectionTitle}>Prerequisites</h2>
+            <ul className={styles.bulletList}>
+              {prerequisites.map((item, index) => (
+                <li key={index} className={styles.listItem}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
+      {/* Modules Section */}
+      {modules.length > 0 && (
+        <div className={styles.section}>
+          <div className={styles.sectionContent}>
+            <h2 className={styles.sectionTitle}>Modules</h2>
+            <ul className={styles.bulletList}>
+              {modules.map((item, index) => (
+                <li key={index} className={styles.listItem}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
+      {/* Materials Section */}
+      {materials.length > 0 && (
+        <div className={styles.section}>
+          <div className={styles.sectionContent}>
+            <h2 className={styles.sectionTitle}>Materials</h2>
+            <div className={styles.materialsContainer}>
+              {materials.map((item, index) => (
+                <span key={index} className={styles.materialItem}>
+                  • {item}
+                </span>
+              ))}
             </div>
           </div>
         </div>
+      )}
 
-        {/* Prerequisites Section */}
-        {prerequisites.length > 0 && (
-          <div className={styles.section}>
-            <div className={styles.sectionContent}>
-              <h2 className={styles.sectionTitle}>Prerequisites</h2>
-              <ul className={styles.bulletList}>
-                {prerequisites.map((item, index) => (
-                  <li key={index} className={styles.listItem}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
+      {/* What will you learn? Section */}
+      {learningOutcomes.length > 0 && (
+        <div className={styles.section}>
+          <div className={styles.sectionContent}>
+            <h2 className={styles.sectionTitle}>What Will You Learn?</h2>
+            <div className={styles.learningGrid}>
+              {learningOutcomes.map((outcome, index) => (
+                <div key={index} className={styles.learningItem}>
+                  <h3 className={styles.learningTitle}>{outcome.title}</h3>
+                  <p className={styles.learningDescription}>
+                    {outcome.description}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Modules Section */}
-        {modules.length > 0 && (
-          <div className={styles.section}>
-            <div className={styles.sectionContent}>
-              <h2 className={styles.sectionTitle}>Modules</h2>
-              <ul className={styles.bulletList}>
-                {modules.map((item, index) => (
-                  <li key={index} className={styles.listItem}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
-
-        {/* Materials Section */}
-        {materials.length > 0 && (
-          <div className={styles.section}>
-            <div className={styles.sectionContent}>
-              <h2 className={styles.sectionTitle}>Materials</h2>
-              <div className={styles.materialsContainer}>
-                {materials.map((item, index) => (
-                  <span key={index} className={styles.materialItem}>
-                    • {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* What will you learn? Section */}
-        {learningOutcomes.length > 0 && (
-          <div className={styles.section}>
-            <div className={styles.sectionContent}>
-              <h2 className={styles.sectionTitle}>What Will You Learn?</h2>
-              <div className={styles.learningGrid}>
-                {learningOutcomes.map((outcome, index) => (
-                  <div key={index} className={styles.learningItem}>
-                    <h3 className={styles.learningTitle}>{outcome.title}</h3>
-                    <p className={styles.learningDescription}>
-                      {outcome.description}
-                    </p>
+      {/* Tools you'll master Section */}
+      {tools.length > 0 && (
+        <div className={styles.section}>
+          <div className={styles.sectionContent}>
+            <h2 className={styles.sectionTitle}>Tools You&apos;ll Master</h2>
+            <div className={styles.toolsContainer}>
+              {tools.map((tool, index) => (
+                <div key={index} className={styles.toolItem}>
+                  <div className={styles.toolIconContainer}>
+                    <img
+                      src={tool.tool_image}
+                      alt={tool.name}
+                      className={styles.toolIcon}
+                      width={50}
+                      height={50}
+                    />
                   </div>
-                ))}
-              </div>
+                  <span className={styles.toolName}>{tool.name}</span>
+                </div>
+              ))}
             </div>
           </div>
-        )}
-
-        {/* Tools you'll master Section */}
-        {tools.length > 0 && (
-          <div className={styles.section}>
-            <div className={styles.sectionContent}>
-              <h2 className={styles.sectionTitle}>Tools You&apos;ll Master</h2>
-              <div className={styles.toolsContainer}>
-                {tools.map((tool, index) => (
-                  <div key={index} className={styles.toolItem}>
-                    <div className={styles.toolIconContainer}>
-                      <img
-                        src={tool.tool_image}
-                        alt={tool.name}
-                        className={styles.toolIcon}
-                        width={50}
-                        height={50}
-                      />
-                    </div>
-                    <span className={styles.toolName}>{tool.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-      </section>
-    )
+        </div>
+      )}
+    </section>
   );
 }

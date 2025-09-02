@@ -97,11 +97,15 @@ export default function Navbar({
       }}
     >
       <div className={styles.logo}>
+        <Link
+        href={"/"}
+        >
         <img
           src={Logo_img.src}
           alt="MinuCert Logo"
           className={styles.logo_img}
         />
+        </Link>
       </div>
 
       {/* Desktop Navigation */}

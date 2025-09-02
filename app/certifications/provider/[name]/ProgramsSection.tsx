@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { useAppContext } from "@/app/(state)/state";
 import { useParams } from "next/navigation";
 
-export default function ProgramsSection() {
+export default function                                      ProgramsSection() {
   const { setCoursesInfo } = useAppContext();
   const { name }: { name: string } = useParams();
   useEffect(() => {
