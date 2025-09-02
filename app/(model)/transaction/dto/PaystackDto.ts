@@ -18,7 +18,7 @@ export type PaystackMetadataCustomFields = {
   value: string | number;
 };
 
-export type PaystackCreateTransactionResponseDto = {
+export type PaystackInitializeTransactionResponseDto = {
   status: boolean;
   message: string;
   data: {

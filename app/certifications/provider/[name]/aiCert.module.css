@@ -69,7 +69,7 @@
 
 .program_image_container {
   width: 100%;
-  height: 297px;
+  height: 347px;
   position: relative;
   overflow: hidden;
   border-top-left-radius: 5px;
@@ -286,7 +286,7 @@
   .program_card {
     width: 100%;
     height: auto;
-    min-height: 500px;
+    min-height: 400px;
   }
 }
 
@@ -311,7 +311,7 @@
   }
 
   .program_image_container {
-    height: 200px;
+    height: 320px;
   }
 
   .program_title {

@@ -18,7 +18,7 @@ import { generateDailyHash } from "../../(components)/(common)/utils";
 import {
   PaystackMetadata,
   PaystackCreateTransactionDto,
-  PaystackCreateTransactionResponseDto,
+  PaystackInitializeTransactionResponseDto,
 } from "@/app/(model)/transaction/dto/PaystackDto";
 import { postRequest } from "@/app/(components)/(common)/network/PostRequest";
 import { verifyTransaction } from "../verifyPayment/route";
@@ -153,13 +153,14 @@ async function createOrderAndInitiateTransaction(
 
   if (order.status === "COMPLETED") {
     const transactions: CertificationPurchaseTransaction[] =
-      await getExistingTransactionByOrderId(order);
+      await getExistingTransactionByOrderId(order.id);
 
     if (!transactions || transactions.length === 0) {
       return NextResponse.json(
         {
           success: false,
           message: "There is a completed order with no transaction",
+          code: ResponseCodes.COMPLETED_ORDER_WITH_NO_TRANSACTION,
         },
         { status: 404 }
       );
@@ -168,10 +169,7 @@ async function createOrderAndInitiateTransaction(
     const [transaction] = transactions;
 
     try {
-      return await {
-        ...verifyTransaction(transaction.transactionReference),
-        code: ResponseCodes.DUPLICATE_TRANSACTION,
-      };
+      return await verifyTransaction(transaction.transactionReference);
     } catch (error) {
       console.error(
         `Error trying to verify completed transaction for order ${order.reference}`,
@@ -223,16 +221,15 @@ async function createOrderAndInitiateTransaction(
     Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
   };
 
-  let result: PaystackCreateTransactionResponseDto;
+  let result: PaystackInitializeTransactionResponseDto;
   try {
-    const response = await postRequest<PaystackCreateTransactionResponseDto>(
+    result = await postRequest<PaystackInitializeTransactionResponseDto>(
       url,
       payload,
       header
     );
 
-    console.log("Response " + response);
-    result = response;
+    console.log("Response " + result);
   } catch (error) {
     console.error("Paystack API call failed:", error);
     return NextResponse.json(
@@ -244,21 +241,15 @@ async function createOrderAndInitiateTransaction(
     );
   }
 
-  const data = result.data;
   if (result.status) {
     //create transaction
-    const insertTrxResult = await createPendingTransaction(
+    await createPendingPaystackTransaction(
       order.id,
       certification.price,
-      data.reference
+      result
     );
 
-    if (!insertTrxResult) {
-      return NextResponse.json(
-        { success: false, message: "Could not create transaction" },
-        { status: 500 }
-      );
-    }
+    const data = result.data;
 
     return NextResponse.json(
       {
@@ -303,26 +294,40 @@ async function createPendingOrder(
 }
 
 async function getExistingTransactionByOrderId(
-  order: CertificationOrder
+  orderId: number
 ): Promise<CertificationPurchaseTransaction[]> {
   return (await db
     .select()
     .from(certificationPurchaseTransaction)
     .where(
-      eq(certificationPurchaseTransaction.certificationOrderId, order.id)
+      eq(certificationPurchaseTransaction.certificationOrderId, orderId)
     )) as CertificationPurchaseTransaction[];
 }
 
-async function createPendingTransaction(
+async function createPendingPaystackTransaction(
   certificationOrderId: number,
   amount: number,
-  transactionReference: string
+  response: PaystackInitializeTransactionResponseDto
 ) {
-  return await db.insert(certificationPurchaseTransaction).values({
-    certificationOrderId,
-    amount,
-    status: "PENDING",
-    transactionReference,
-    paymentGateway: "PAYSTACK",
-  });
+  const transactions: CertificationPurchaseTransaction[] =
+    await getExistingTransactionByOrderId(certificationOrderId);
+
+  if (transactions && transactions.length > 0) {
+    const [transaction] = transactions;
+
+    await db
+      .update(certificationPurchaseTransaction)
+      .set({
+        transactionReference: response.data.reference,
+      })
+      .where(eq(certificationPurchaseTransaction.id, transaction.id));
+  } else {
+    await db.insert(certificationPurchaseTransaction).values({
+      certificationOrderId,
+      amount,
+      status: "PENDING",
+      transactionReference: response.data.reference,
+      paymentGateway: "PAYSTACK",
+    });
+  }
 }

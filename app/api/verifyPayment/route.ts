@@ -108,7 +108,7 @@ export async function verifyTransaction(reference: string) {
         {
           success: true,
           data: result.data,
-          code: ResponseCodes.SUCCESS,
+          code: ResponseCodes.VERIFIED_TRANSACTION,
         },
         { status: 200 }
       );

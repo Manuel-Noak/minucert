@@ -5,7 +5,7 @@
 
 /* Header Section Styles */
 .headerSection {
-  background: #FAFFEF;
+  background: #faffef;
   min-height: 688px;
   padding: 20px 40px;
   display: flex;
@@ -64,16 +64,12 @@
   padding-right: 16px;
 }
 
-.programImageContainer {
-  flex-shrink: 0;
-}
-
 .programImage {
-  width: 898px;
-  height: 520px;
+  width: 100%;
+  height: 560px;
   border-radius: 10px;
   border: 1px solid #00000080;
-  object-fit: cover;
+  /* object-fit: co; */
 }
 
 .programInfo {
@@ -106,7 +102,7 @@
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
-  color: #FFBB15;
+  color: #ffbb15;
   /* width: 235px; */
   height: 24px;
 }
@@ -117,7 +113,7 @@
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
-  color: #0A211F;
+  color: #0a211f;
   /* width: 80px; */
   height: 24px;
 }
@@ -135,7 +131,7 @@
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
-  color: #0A211F;
+  color: #0a211f;
   /* margin: 0 0 15px 0; */
   flex-grow: 1;
 }
@@ -154,13 +150,13 @@
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
-  color: #FFBB15;
+  color: #ffbb15;
   /* width: 113px; */
   height: 24px;
 }
 
 .readMoreArrow {
-  color: #FFBB15;
+  color: #ffbb15;
   font-size: 30px;
   font-weight: bold;
   transition: transform 0.3s ease;
@@ -183,8 +179,8 @@
   width: 215px;
   height: 52px;
   border-radius: 5px;
-  border: 1px solid #FFBB15;
-  background: #FFBB15;
+  border: 1px solid #ffbb15;
+  background: #ffbb15;
   padding: 17px 72px;
   /* gap: 10px; */
   /* margin-top: 30px; */
@@ -195,7 +191,7 @@
   font-size: 15px;
   line-height: 100%;
   letter-spacing: 0%;
-  color: #0A211F;
+  color: #0a211f;
   transition: background-color 0.3s ease;
   flex-shrink: 0;
 }
@@ -214,8 +210,8 @@
 
 .sectionContent {
   /* Match the header content positioning */
-  padding: 0 56px; /* 40px base + 16px from headerContent padding */
-  max-width: none; /* Remove max-width constraint */
+  padding: 0 56px;
+  max-width: none;
   margin: 0; /* Remove auto centering */
 }
 
@@ -243,7 +239,7 @@
   font-size: 20px;
   line-height: 120%;
   letter-spacing: 0%;
-  color: #0A211F;
+  color: #0a211f;
   margin-bottom: 15px;
   padding-left: 20px;
   position: relative;
@@ -253,7 +249,7 @@
   content: "•";
   position: absolute;
   left: 0;
-  color: #0A211F;
+  color: #0a211f;
   font-weight: bold;
 }
 
@@ -272,7 +268,7 @@
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
-  color: #0A211F;
+  color: #0a211f;
 }
 
 /* Learning Outcomes Grid */
@@ -295,7 +291,7 @@
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
-  color: #0A211F;
+  color: #0a211f;
   margin: 0;
 }
 
@@ -305,7 +301,7 @@
   font-size: 20px;
   line-height: 120%;
   letter-spacing: 0%;
-  color: #0A211F80;
+  color: #0a211f80;
   margin: 0;
   max-width: 778px;
 }
@@ -331,7 +327,7 @@
   width: 105px;
   height: 105px;
   border-radius: 17.5px;
-  background: #FEE50280;
+  background: #fee50280;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -365,21 +361,21 @@
     align-items: center;
     text-align: center;
   }
-  
+
   .programImage {
     width: 100%;
     max-width: 600px;
     height: auto;
   }
-  
+
   .programTitle {
     font-size: 40px;
   }
-  
+
   .learningGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .sectionContent {
     padding: 0 40px; /* Adjust for mobile */
   }
@@ -390,11 +386,11 @@
   .toolsContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    gap: 30px;
     justify-items: center;
     align-items: start;
   }
-  
+
   .toolItem {
     display: flex;
     flex-direction: column;
@@ -402,63 +398,66 @@
     text-align: center;
     margin-bottom: 30px;
   }
-  
+
   .toolName {
     font-size: 26px;
   }
 }
 
 @media (max-width: 768px) {
+  .headerContent {
+    gap: 4px;
+  }
   .headerSection {
     height: auto;
     padding: 20px;
   }
-  
+
   .sectionContent {
     padding: 0 20px;
   }
-  
+
   .programTitle {
     font-size: 32px;
     text-align: center;
   }
-  
+
   .durationContainer {
     justify-content: center;
     flex-wrap: wrap;
     text-align: center;
   }
-  
+
   .durationLabel,
   .durationValue {
     font-size: 18px;
   }
-  
+
   .description {
     font-size: 16px;
     line-height: 140%;
     text-align: center;
     margin-bottom: 15px;
   }
-  
+
   .readMoreContainer {
     justify-content: center;
     margin-top: 15px;
     margin-bottom: 25px;
     align-items: center;
   }
-  
+
   .readMoreText {
     font-size: 16px;
     line-height: 1.2;
   }
-  
+
   .readMoreArrow {
     font-size: 20px;
     width: 20px;
     height: 20px;
   }
-  
+
   .buyNowButton {
     width: 100%;
     max-width: 280px;
@@ -468,14 +467,14 @@
     padding: 16px 20px;
     height: auto;
   }
-  
+
   .listItem,
   .materialItem,
   .learningTitle,
   .learningDescription {
     font-size: 18px;
   }
-  
+
   /* Mobile responsiveness for tools section - 2x2 Grid */
   .toolsContainer {
     display: grid;
@@ -485,7 +484,7 @@
     align-items: start;
     margin-left: 0;
   }
-  
+
   .toolItem {
     display: flex;
     flex-direction: column;
@@ -494,18 +493,18 @@
     margin-bottom: 20px;
     width: 100%;
   }
-  
+
   .toolIconContainer {
     width: 80px;
     height: 80px;
     border-radius: 15px;
   }
-  
+
   .toolIcon {
     width: 45px;
     height: 45px;
   }
-  
+
   .toolName {
     font-size: 18px;
     white-space: normal;
@@ -519,48 +518,48 @@
   .programTitle {
     font-size: 28px;
   }
-  
+
   .durationLabel,
   .durationValue {
     font-size: 16px;
   }
-  
+
   .description {
     font-size: 15px;
     line-height: 145%;
   }
-  
+
   .readMoreText {
     font-size: 15px;
     line-height: 1.2;
   }
-  
+
   .readMoreArrow {
     font-size: 18px;
     width: 18px;
     height: 18px;
   }
-  
+
   .buyNowButton {
     font-size: 15px;
     padding: 14px 20px;
   }
-  
+
   .toolsContainer {
     gap: 25px 15px;
   }
-  
+
   .toolIconContainer {
     width: 70px;
     height: 70px;
     border-radius: 12px;
   }
-  
+
   .toolIcon {
     width: 40px;
     height: 40px;
   }
-  
+
   .toolName {
     font-size: 16px;
   }

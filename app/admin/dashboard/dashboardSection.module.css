@@ -43,8 +43,7 @@
 }
 
 .see_courses_btn {
-  width: 158px;
-  height: 42px;
+  padding: 1rem;
   border-radius: 5px;
   background: #ffbb15;
   border: none;
@@ -523,8 +522,9 @@
   }
 
   .see_courses_btn {
-    width: 140px;
-    height: 38px;
+    /* width: 140px; */
+    /* height: 38px; */
+    padding: 1rem;
     font-size: 14px;
   }
 }
@@ -567,8 +567,9 @@
   }
 
   .see_courses_btn {
-    width: 120px;
-    height: 36px;
+    /* width: 120px; */
+    /* height: 36px; */
+    padding: 1rem;
     font-size: 13px;
   }
 }

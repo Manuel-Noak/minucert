@@ -7,6 +7,7 @@ import { ResponseCodes } from "../../(model)/data";
 // Styles
 import styles from "./checkoutSection.module.css";
 import { toast } from "react-toastify";
+import Loader from "@/app/(components)/(loading)/loader";
 
 export default function CheckoutSection() {
   const router = useRouter();
@@ -23,7 +24,7 @@ export default function CheckoutSection() {
     email: "",
     phone: "",
   });
-
+  const [loading, setLoading] = useState(false);
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -35,12 +36,7 @@ export default function CheckoutSection() {
     const { email, phone, firstName, lastName, address } = formData;
     const { id } = courseInfo;
 
-    if (
-      courseInfo.amount <= 0 ||
-      courseInfo.title.length === 0 ||
-      courseInfo.category.length === 0 ||
-      id <= 0
-    ) {
+    if (courseInfo.amount <= 0 || courseInfo.title.length === 0 || id <= 0) {
       return router.replace("/");
     }
 
@@ -54,6 +50,8 @@ export default function CheckoutSection() {
     }
 
     try {
+      setLoading(true);
+
       const res = await fetch("/api/addOrder", {
         method: "POST",
         body: JSON.stringify({
@@ -66,18 +64,19 @@ export default function CheckoutSection() {
         }),
       });
       const data = await res.json();
-
+      setLoading(false);
       if (!data.success) {
         return toast.error(data.message);
       }
 
-      if (ResponseCodes.SUCCESS === data.code) {
+      if (ResponseCodes.VERIFIED_TRANSACTION === data.code) {
         //It verified existing transaction with completed
         return toast.info("Order is already completed");
       }
 
       router.push(data.authorizedUrl);
     } catch (error) {
+      setLoading(false);
       toast.error(error.message);
     }
   };
@@ -94,6 +93,10 @@ export default function CheckoutSection() {
       })
       .catch(() => router.replace("/"));
   }, [router]);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section className={styles.checkoutSection}>

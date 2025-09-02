@@ -1,5 +1,5 @@
 .programsBody {
-  background: #FAFFEF;
+  background: #faffef;
   padding: 80px 20px;
   display: flex;
   flex-direction: column;
@@ -22,29 +22,24 @@
 }
 
 .someText {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 35px;
   /* background: #FFBB15; */
-  color: #FFBB15;
+  color: #ffbb15;
   /* padding: 5px 10px; */
   border-radius: 3px;
 }
 
 .programsText {
-  font-family: 'Monotype Corsiva', cursive, 'Georgia', serif;
+  font-family: "Monotype Corsiva", cursive, "Georgia", serif;
   font-weight: 400;
   font-style: italic;
   font-size: 50px;
-  color: #0A211F;
+  color: #0a211f;
   margin-left: 10px;
 }
 
-/* width: 491;
-height: 48;
-angle: 0 deg;
-opacity: 1;
- */
 .programsSubtitle {
   width: 491px;
   font-weight: 500;
@@ -65,10 +60,10 @@ opacity: 1;
 }
 
 .courseCard {
-  width: 433px;
-  height: 446px;
-  background: #FFFFFF;
-  border: 1px solid #D9D9D9;
+  width: 453px;
+  max-height: 600px;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
   border-radius: 5px;
   overflow: hidden;
   display: flex;
@@ -83,8 +78,8 @@ opacity: 1;
 
 .courseImage {
   width: 100%;
-  height: 297px;
-  background: #0000001A;
+  /* height: 500px; */
+  background: #0000001a;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   overflow: hidden;
@@ -109,7 +104,7 @@ opacity: 1;
 }
 
 .courseTitle {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-size: 30px;
   line-height: 100%;
@@ -121,7 +116,7 @@ opacity: 1;
 .seeProgramBtn {
   width: 246px;
   height: 52px;
-  border: 1px solid #FFBB15;
+  border: 1px solid #ffbb15;
   border-radius: 5px;
   background: transparent;
   display: flex;
@@ -133,7 +128,7 @@ opacity: 1;
 }
 
 .seeProgramBtn:hover {
-  background: #FFBB15;
+  background: #ffbb15;
 }
 
 .seeProgramBtn:hover .seeProgramText {
@@ -141,11 +136,11 @@ opacity: 1;
 }
 
 .seeProgramText {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 700;
   font-size: 15px;
   line-height: 100%;
-  color: #FFBB15;
+  color: #ffbb15;
   transition: color 0.3s ease;
 }
 
@@ -154,7 +149,7 @@ opacity: 1;
   .coursesGrid {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   }
-  
+
   .courseCard {
     width: 100%;
     max-width: 433px;
@@ -165,46 +160,46 @@ opacity: 1;
   .programsBody {
     padding: 60px 15px;
   }
-  
+
   .programsTitle {
     flex-direction: column;
     gap: 10px;
   }
-  
+
   .someText {
     font-size: 28px;
   }
-  
+
   .programsText {
     font-size: 40px;
     margin-left: 0;
   }
-  
+
   .programsSubtitle {
     font-size: 18px;
     width: 100%;
   }
-  
+
   .coursesGrid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  
+
   .courseCard {
     width: 100%;
     max-width: 400px;
     height: auto;
     min-height: 400px;
   }
-  
+
   .courseImage {
     height: 250px;
   }
-  
+
   .courseTitle {
     font-size: 24px;
   }
-  
+
   .seeProgramBtn {
     width: 200px;
     height: 48px;
@@ -216,28 +211,28 @@ opacity: 1;
   .someText {
     font-size: 24px;
   }
-  
+
   .programsText {
     font-size: 32px;
   }
-  
+
   .programsSubtitle {
     font-size: 16px;
   }
-  
+
   .courseCard {
     max-width: 320px;
   }
-  
+
   .courseTitle {
     font-size: 20px;
   }
-  
+
   .seeProgramBtn {
     width: 180px;
     padding: 12px 40px;
   }
-  
+
   .seeProgramText {
     font-size: 14px;
   }
