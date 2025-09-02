@@ -13,6 +13,8 @@
   gap: 30px;
 }
 
+
+
 .backButton {
   display: flex;
   align-items: center;
@@ -229,14 +231,15 @@
 
 /* Prerequisites and Modules Lists */
 .bulletList {
-  list-style: none;
-  padding: 0;
+  list-style-type: none;
+  padding-left: 40px;
   margin: 0;
-  margin-left: 30px;
 }
 
+
 .listItem {
-  font-family: Montserrat, sans-serif;
+  /* font-family: Montserrat, sans-serif; */
+  position: relative;
   font-weight: 600;
   font-size: 20px;
   line-height: 120%;
@@ -272,6 +275,20 @@
   letter-spacing: 0%;
   color: #0a211f;
 }
+
+.moduleDescription{
+  margin-top: 15px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: #0a211f80;
+  /* margin: 0; */
+  list-style-type: disc;
+  max-width: 778px;
+}
+
 
 /* Learning Outcomes Grid */
 .learningGrid {
@@ -345,14 +362,15 @@
 .toolName {
   /* font-family: Montserrat, sans-serif; */
   font-weight: 600;
-  font-size: 30px;
+  font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #000000;
   text-align: left;
   margin: 0; /* Remove any margins */
   padding: 0; /* Remove any padding */
-  width: auto; /* Let it size naturally */
+  margin-top: 15px;
+  /* width: auto; */
   white-space: nowrap; /* Prevent text wrapping */
 }
 

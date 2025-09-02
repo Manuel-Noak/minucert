@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import styles from "./manageCoursesSection.module.css";
 import Image from "next/image";
 import Add_icon from "../../../assets/img/Admin/Add_icon.png";
+import yellow_add_btn from "../../../assets/img/Admin/yellow_add_btn.png";
 import AddCourseModal, {
   AddAdminModal,
   AddProviderModal,
@@ -13,7 +14,7 @@ import AddCourseModal, {
 } from "@/app/(components)/(common)/popupModal/popupModels";
 import { toast } from "react-toastify";
 import { useAppContext } from "@/app/(state)/state";
-import Loader from "@/app/(components)/(loading)/loader";
+import ManageCoursesSkeletonLoader from "../../../(components)/(loading)/manageCoursesSkeletonLoader/manageCoursesSkeletonLoader";
 
 interface CourseFormsData {
   courseName: string;
@@ -261,7 +262,7 @@ export default function ManageCoursesSection() {
   };
 
   if (loading) {
-    return <Loader />;
+    return <ManageCoursesSkeletonLoader />;
   }
 
   return (
@@ -282,12 +283,12 @@ export default function ManageCoursesSection() {
             <Image src={Add_icon} alt="Add icon" width={16} height={16} />
             <span>New course</span>
           </button>
-          <button className={styles.new_course_btn} onClick={handleNewProvider}>
-            <Image src={Add_icon} alt="Add icon" width={16} height={16} />
+          <button className={styles.new_provider_btn} onClick={handleNewProvider}>
+            <Image src={yellow_add_btn} alt="Add icon" width={16} height={16} />
             <span>New Provider</span>
           </button>
-          <button className={styles.new_course_btn} onClick={handleNewAdmin}>
-            <Image src={Add_icon} alt="Add icon" width={16} height={16} />
+          <button className={styles.new_admin_btn} onClick={handleNewAdmin}>
+            <Image src={yellow_add_btn} alt="Add icon" width={16} height={16} />
             <span>New Admin</span>
           </button>
         </div>
