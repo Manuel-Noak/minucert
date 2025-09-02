@@ -6,15 +6,25 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const { form, courseExists } = await request.json();
+
     if (courseExists) {
-      return NextResponse.json({
-        success: false,
-        message: "Course Id and it provider already exists",
-      });
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Course Id and it provider already exists",
+        },
+        { status: 400 }
+      );
     }
+    console.log(form);
+
     if (!form) {
-      return NextResponse.json({ success: false, message: "No form found" });
+      return NextResponse.json(
+        { success: false, message: "No form found" },
+        { status: 400 }
+      );
     }
+    console.log("ss2");
     const {
       courseCode,
       courseName,
@@ -34,6 +44,8 @@ export async function POST(request: Request) {
     //   category
     // );
 
+    console.log("ss3");
+    console.log(provider);
     const [providerId] = await db
       .select({ id: certificationProvider.id })
       .from(certificationProvider)
@@ -44,7 +56,6 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    console.log(providerId);
 
     const price = Number(coursePrice.replace(",", "")) * 100;
     const course_id = Number(courseCode);

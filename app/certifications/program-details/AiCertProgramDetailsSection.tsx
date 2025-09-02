@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import black_back_arrow from "@/public/assets/black_back_arrow.png";
 import program_img from "@/app/assets/img/aiCloud.jpg";
 import styles from "./aiCertProgramDetails.module.css";
+import { useAppContext } from "@/app/(state)/state";
 import Loader from "@/app/(components)/(loading)/loader";
 
 interface CourseDetail {
@@ -45,8 +46,8 @@ export default function AiProgramDetailsSection() {
   const page = params.get("id")?.toString();
 
   const [detailData, setDetailData] = useState<CourseDetail | null>(null);
-  const [courseInfo, setCourseInfo] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [courseInfo, setCourseInfo] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   useEffect(() => {
@@ -66,16 +67,15 @@ export default function AiProgramDetailsSection() {
 
         setCourseInfo(data.info);
 
-        const courseId = data.info.courseId;
-        if (!courseId) return;
+        const { courseId, api } = data.info;
+        if (!courseId || !api) return;
 
-        const wpRes = await fetch(
-          `https://www.aicerts.ai/wp-json/wp/v2/courses/${courseId}`
-        );
+        const wpRes = await fetch(api + courseId);
+
         const wpData = await wpRes.json();
 
         setDetailData(wpData);
-      } catch (err) {
+      } catch (_) {
         toast.error("Something went wrong, please check your connection");
       } finally {
         setLoading(false);
@@ -84,29 +84,13 @@ export default function AiProgramDetailsSection() {
 
     fetchData();
   }, [page]);
+  if (loading) {
+    return <Loader />;
+  }
 
   const handleBackClick = () => router.back();
   const toggleDescription = () =>
     setIsDescriptionExpanded(!isDescriptionExpanded);
-
-  if (loading) {
-    return (
-      <section className={styles.container}>
-        <div className={styles.headerSection}>
-          <div className={styles.backButton} onClick={handleBackClick}>
-            <Image
-              src={black_back_arrow}
-              alt="Back"
-              className={styles.backArrow}
-            />
-            <span className={styles.backText}>Back</span>
-          </div>
-
-          <Loader />
-        </div>
-      </section>
-    );
-  }
 
   if (!detailData || !courseInfo) {
     return (

@@ -14,10 +14,10 @@
 
 /* Spinner */
 .spinner {
-  width: 100px; /* bigger */
-  height: 100px;
-  border: 10px solid rgba(255, 255, 255, 0.2); /* faint background ring */
-  border-top: 10px solid #faffef; /* highlight color */
+  width: 80px; /* bigger */
+  height: 80px;
+  border: 10px solid #ffbb15;
+  border-top: 10px solid #faffef;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

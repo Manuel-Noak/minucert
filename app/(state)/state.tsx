@@ -8,6 +8,7 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
+import Loader from "../(components)/(loading)/loader";
 
 interface CourseSyntax {
   title: string;
@@ -29,8 +30,9 @@ interface AppContextType {
 
   currentPage: number;
   setCurrentPage: (lastIndex: number) => void;
-  loading: boolean;
-  setLoading: (loading: boolean) => void;
+
+  providerRoute: string;
+  setProviderRoute: (providerRoute: string) => void;
 }
 
 // 2. Create context with default empty values
@@ -45,7 +47,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [firstIndex, setFirstIndex] = useState<number>(0);
   const [lastIndex, setLastIndex] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [providerRoute, setProviderRoute] = useState<string>("");
   course = CoursesInfo;
   setCourse = setCoursesInfo;
   return (
@@ -59,8 +61,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setLastIndex,
         currentPage,
         setCurrentPage,
-        loading,
-        setLoading,
+
+        providerRoute,
+        setProviderRoute,
       }}
     >
       {children}

@@ -5,8 +5,9 @@ import Image from "next/image";
 import ai_cert_icon from "../../assets/img/Admin/ai_cert_icon.png";
 import arrow_icon from "../../assets/img/Admin/arrow_icon.png";
 import { toast } from "react-toastify";
-import Loader from "@/app/(components)/(loading)/loader";
 import { useRouter } from "next/navigation";
+import { useAppContext } from "@/app/(state)/state";
+import Loader from "@/app/(components)/(loading)/loader";
 
 interface CustomerType {
   id: number;
@@ -15,6 +16,10 @@ interface CustomerType {
   program: string;
   status: string;
   date: string;
+}
+interface CustomersOrder {
+  providerName: string;
+  courseOrders: Array<CustomerType>;
 }
 interface CertificationType {
   name: string;
@@ -26,46 +31,45 @@ export default function DashboardSection() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isCertificationsExpanded, setIsCertificationsExpanded] =
     useState(true);
-  // const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const [customers, setCustomers] = useState<CustomerType[]>([]);
+  const [customers, setCustomers] = useState<CustomersOrder[]>([]);
   const [certifications, setCertifications] = useState<CertificationType[]>([]);
   const [loading, setLoading] = useState(false);
 
   const pageSize = 10;
-  const totalPages = Math.ceil(customers.length / pageSize);
+  const activeCustomers =
+    customers.find((order) => order.providerName === activeTab)?.courseOrders ||
+    [];
+  const totalPages = Math.ceil(activeCustomers.length / pageSize);
 
   const fetchCustomersDetails = async () => {
     try {
-      let res = await fetch("/api/getProvidersss");
-      let data = await res.json();
+      const res = await fetch("/api/adminAuth/customersDetails");
+      const data = await res.json();
 
       if (!data.success) {
         return toast.error(data.message);
       }
 
-      setCertifications(data.providers);
-      setActiveTab(data.providers[0].name);
-
-      res = await fetch(
-        "/api/adminAuth/customersDetails/" + data.providers[0].name
+      setCertifications(
+        data.customers.map((order: CustomersOrder) => ({
+          name: order.providerName,
+        }))
       );
-      data = await res.json();
 
-      setLoading(false);
-      if (!data.success) {
-        return toast.error(data.message);
-      }
+      setActiveTab(
+        data.customers.length > 0 ? data.customers[0].providerName : ""
+      );
       setCustomers(data.customers);
-      setCurrentPage(1); // ✅ reset to first page
+      setCurrentPage(1);
     } catch (error: any) {
-      setLoading(false);
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     setLoading(true);
     fetchCustomersDetails();
@@ -79,20 +83,9 @@ export default function DashboardSection() {
     setIsCertificationsExpanded(!isCertificationsExpanded);
   };
 
-  const toggleCertificationsName = async (cert: CertificationType) => {
-    try {
-      const res = await fetch("/api/adminAuth/customersDetails/" + cert.name);
-      const data = await res.json();
-
-      if (!data.success) {
-        return toast.error(data.message);
-      }
-      setCustomers(data.customers);
-      setActiveTab(cert.name);
-      setCurrentPage(1); // ✅ reset page on category switch
-    } catch (err: any) {
-      toast.error(err.message);
-    }
+  const toggleCertificationsName = (cert: CertificationType) => {
+    setActiveTab(cert.name);
+    setCurrentPage(1);
   };
 
   const handleSeeCoursesClick = () => {
@@ -131,7 +124,6 @@ export default function DashboardSection() {
 
   return (
     <section className={styles.dashboard_section}>
-      {/* Header */}
       <div className={styles.header}>
         <div className={styles.header_content}>
           <div className={styles.header_text}>
@@ -157,9 +149,7 @@ export default function DashboardSection() {
         </div>
       </div>
 
-      {/* Table Container */}
       <div className={styles.table_container} ref={dropdownRef}>
-        {/* Sidebar */}
         <div className={styles.sidebar}>
           <div
             className={styles.certifications_header}
@@ -200,9 +190,7 @@ export default function DashboardSection() {
           </div>
         </div>
 
-        {/* Table Content */}
         <div className={styles.table_content}>
-          {/* Table Header */}
           <div className={styles.table_header}>
             <div className={styles.header_cell}>Full Name</div>
             <div className={styles.header_cell}>Email</div>
@@ -211,10 +199,9 @@ export default function DashboardSection() {
             <div className={styles.header_cell}>Date</div>
           </div>
 
-          {/* Table Body */}
           <div className={styles.table_body}>
-            {customers
-              .slice((currentPage - 1) * pageSize, currentPage * pageSize) // ✅ pagination applied
+            {activeCustomers
+              .slice((currentPage - 1) * pageSize, currentPage * pageSize)
               .map((customer, index) => (
                 <div key={index} className={styles.table_row}>
                   <div className={styles.table_cell}>
@@ -263,7 +250,6 @@ export default function DashboardSection() {
               ))}
           </div>
 
-          {/* Pagination */}
           {totalPages > 1 && (
             <div className={styles.pagination}>
               <button

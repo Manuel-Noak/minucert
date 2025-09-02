@@ -1,54 +1,51 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+import { jwtVerify } from "jose";
 
-export function middleware(request: NextRequest) {
+const secret = new TextEncoder().encode("admin@gmail.com201902");
+
+async function verifyToken(token: string) {
+  try {
+    const { payload } = await jwtVerify(token, secret);
+    return payload;
+  } catch {
+    return null;
+  }
+}
+
+export async function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("admin/dashboard")) {
-    try {
-      if (!token) {
-        return NextResponse.redirect(new URL("/admin/sign-in", request.url));
-      }
-
-      const decodeToken = jwt.verify(token, "admin@gmail.com201902");
-      if (!decodeToken?.email || !decodeToken?.role) {
-        return NextResponse.redirect(new URL("/admin/sign-in", request.url));
-      }
-
-      return NextResponse.next();
-    } catch (error) {
+  if (pathname.startsWith("/admin/dashboard")) {
+    if (!token) {
       return NextResponse.redirect(new URL("/admin/sign-in", request.url));
     }
-  } else if (pathname.startsWith("/api/adminAuth/")) {
-    try {
-      if (!token) {
-        return NextResponse.json(
-          { success: false, message: "Unauthorized Request" },
-          { status: 401 }
-        );
-      }
 
-      const decodeToken = jwt.verify(token, "admin@gmail.com201902");
-      if (!decodeToken?.email || !decodeToken?.role) {
-        return NextResponse.json(
-          { success: false, message: "Unauthorized Request" },
-          { status: 401 }
-        );
-      }
-
-      return NextResponse.next();
-    } catch (error) {
-      return NextResponse.json({
-        success: false,
-        message:
-          error instanceof Error
-            ? `message: ${error.message} \n ${
-                error.cause ? `cause: ${error.cause}` : ""
-              }`
-            : "Something went wrong",
-      });
+    const payload = await verifyToken(token);
+    if (!payload?.email || !payload?.role) {
+      return NextResponse.redirect(new URL("/admin/sign-in", request.url));
     }
+
+    return NextResponse.next();
+  }
+
+  if (pathname.startsWith("/api/adminAuth/")) {
+    if (!token) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized Request" },
+        { status: 401 }
+      );
+    }
+
+    const payload = await verifyToken(token);
+    if (!payload?.email || !payload?.role) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized Request" },
+        { status: 401 }
+      );
+    }
+
+    return NextResponse.next();
   }
 }
 

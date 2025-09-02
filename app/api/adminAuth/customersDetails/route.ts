@@ -8,15 +8,11 @@ import {
 import { eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-export async function GET(
-  _: Request,
-  context: { params: Promise<{ name: number }> }
-) {
+export async function GET(_: Request) {
   try {
-    const { name } = await context.params;
-
-    const result = await db
+    const rows = await db
       .select({
+        providerName: certificationProvider.name,
         id: customer.id,
         fullname: sql<string>`CONCAT(${customer.firstName}, ' ', ${customer.lastName})`,
         email: customer.email,
@@ -25,23 +21,45 @@ export async function GET(
         date: customerCertificationOrders.createdOn,
       })
       .from(customerCertificationOrders)
-      .innerJoin(
+      .leftJoin(
         customer,
         eq(customerCertificationOrders.customerId, customer.id)
       )
-      .innerJoin(
+      .leftJoin(
         certification,
         eq(customerCertificationOrders.certificationId, certification.id)
       )
-      .innerJoin(
+      .leftJoin(
         certificationProvider,
         eq(certification.providerId, certificationProvider.id)
-      )
-      .where(eq(certificationProvider.name, name)); // ✅ filter by category
+      );
+
+    const grouped = rows.reduce((acc, row) => {
+      const existing = acc.find((p) => p.providerName === row.providerName);
+      const orderInfo = {
+        id: row.id,
+        fullname: row.fullname,
+        email: row.email,
+        program: row.program,
+        status: row.status,
+        date: row.date,
+      };
+
+      if (existing) {
+        existing.courseOrders.push(orderInfo);
+      } else {
+        acc.push({
+          providerName: row.providerName!,
+          courseOrders: [orderInfo],
+        });
+      }
+
+      return acc;
+    }, [] as { providerName: string; courseOrders: any[] }[]);
 
     return NextResponse.json({
       success: true,
-      customers: result,
+      customers: grouped,
     });
   } catch (err) {
     return NextResponse.json(

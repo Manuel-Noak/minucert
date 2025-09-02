@@ -3,6 +3,7 @@ import styles from "./navbar.module.css";
 import Logo_img from "../../assets/img/Home/logo_img.png";
 import signout_icon from "../../assets/img/Admin/signout_icon.png";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface DashboardNavbarProps {
   backgroundColor?: string;
@@ -20,13 +21,13 @@ export default function DashboardNavbar({
 
   return (
     <nav className={styles.dashboard_navbar} style={{ backgroundColor }}>
-      <div className={styles.logo}>
+      <Link href="/" className={styles.logo}>
         <img
           src={Logo_img.src}
           alt="MinuCert Logo"
           className={styles.logo_img}
         />
-      </div>
+      </Link>
 
       {/* Sign Out Button */}
       <button

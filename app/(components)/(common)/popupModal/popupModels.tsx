@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import styles from "./addCourseModal.module.css";
+import styles from "./popupModels.module.css";
+import Image from "next/image";
+import checkImg from "@/app/assets/img/check.png";
 
 interface AddCourseModalProps {
   isOpen: boolean;
@@ -35,8 +37,9 @@ export interface ProviderData {
 export interface MessageProps {
   isOpen: boolean;
   onClose: () => void;
-  message: string;
+  header: string;
   status: boolean;
+  moreDetails?: string;
 }
 export interface AdminData {
   firstName: string;
@@ -52,17 +55,17 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
   onClose,
   onCourseSubmit,
 }) => {
+  const [selectProviders, setProviders] = useState<ProviderData[]>([]);
   const [formData, setFormData] = useState<CourseFormData>({
     courseName: "",
     courseCode: "",
     coursePrice: "",
     thumbnailLink: "",
-    provider: "",
+    provider: selectProviders[0]?.name,
     currency: "",
-    category: "",
+    category: "All Course",
   });
   const [selectCategories, setCategories] = useState<{ name: string }[]>([]);
-  const [selectProviders, setProviders] = useState<ProviderData[]>([]);
   // const [toggleCategoryInput, setToggleCategoryInput] = useState(false);
 
   const currency = [
@@ -72,9 +75,8 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
     },
   ];
 
-  const tempCategories = [{ name: "All course" }];
-
   useEffect(() => {
+    const tempCategories = [{ name: "All course" }];
     fetch("/api/getProviders")
       .then((res) => res.json())
       .then((data) => {
@@ -90,6 +92,7 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -406,8 +409,9 @@ export const AddProviderModal: React.FC<AddProviderModalProps> = ({
 export const MessageModal: React.FC<MessageProps> = ({
   isOpen,
   onClose,
-  message,
+  header,
   status,
+  moreDetails,
 }) => {
   const handleClose = () => {
     onClose();
@@ -416,13 +420,25 @@ export const MessageModal: React.FC<MessageProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className={styles.modal_overlay}>
+    <div onClick={handleClose} className={styles.modal_overlay}>
       <div className={styles.message_modal}>
-        <div className={styles.success}>
-          <span>X</span>
+        <div className={status ? styles.success : styles.failed}>
+          <div>
+            {status ? (
+              <Image height={50} width={50} src={checkImg} alt="Check" />
+            ) : (
+              <span>X</span>
+            )}
+          </div>
         </div>
-        <h2>You have successfully the course </h2>
-        <button onClick={handleClose}>Continue</button>
+        <h2>{header} </h2>
+        {moreDetails && <p>{moreDetails}</p>}
+        <button
+          className={status ? styles.buttonSuccess : styles.buttonFailed}
+          onClick={handleClose}
+        >
+          Continue
+        </button>
       </div>
     </div>
   );

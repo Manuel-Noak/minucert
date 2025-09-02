@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import styles from "./navbar.module.css";
 import Logo_img from "../../assets/img/Home/logo_img.png";
 import { useRouter, usePathname } from "next/navigation";
+import { useAppContext } from "@/app/(state)/state";
 
 export default function Navbar({
   backgroundColor = "white",
@@ -24,6 +25,7 @@ export default function Navbar({
 
   const router = useRouter();
   const pathname = usePathname();
+  const { setProviderRoute } = useAppContext();
 
   const changeRoute = () => {
     router.push("/admin/sign-in");
@@ -48,6 +50,7 @@ export default function Navbar({
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          setProviderRoute(data.providers[0]?.name);
           setProviders(data.providers);
         }
       })
@@ -77,7 +80,7 @@ export default function Navbar({
       window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("click", handleOutsideClick);
     };
-  }, [hideSubLink, isMenuOpen]);
+  }, [hideSubLink, isMenuOpen, setProviderRoute]);
 
   useEffect(() => {
     if (dropdownRef.current) {
@@ -96,13 +99,13 @@ export default function Navbar({
         backgroundColor: isScrolled ? "transparent" : backgroundColor,
       }}
     >
-      <div className={styles.logo}>
+      <Link href={"/"} className={styles.logo}>
         <img
           src={Logo_img.src}
           alt="MinuCert Logo"
           className={styles.logo_img}
         />
-      </div>
+      </Link>
 
       {/* Desktop Navigation */}
       <div className={styles.nav_links}>

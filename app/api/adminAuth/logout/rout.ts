@@ -1,7 +1,14 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  (await cookies()).delete("token");
-  return NextResponse.json({ success: true });
+  const response = NextResponse.json({ success: true });
+
+  response.cookies.set("token", "", {
+    httpOnly: true,
+    path: "/",
+    sameSite: "lax",
+    maxAge: 0,
+  });
+
+  return response;
 }
