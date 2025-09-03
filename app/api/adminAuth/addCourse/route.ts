@@ -16,7 +16,6 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    console.log(form);
 
     if (!form) {
       return NextResponse.json(
@@ -24,7 +23,18 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    console.log("ss2");
+
+    const emptyValue = Object.entries(form).forEach((key, value) => {
+      if (String(key) !== "thumbnailLink" && value.toString().length === 0) {
+        return true;
+      }
+    });
+    if (emptyValue) {
+      return NextResponse.json(
+        { success: false, message: "Data except the thumbnailLink is empty" },
+        { status: 400 }
+      );
+    }
     const {
       courseCode,
       courseName,

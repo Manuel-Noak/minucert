@@ -12,16 +12,17 @@ import AddCourseModal, {
   ProviderData,
 } from "@/app/(components)/(common)/popupModal/popupModels";
 import { toast } from "react-toastify";
-import { useAppContext } from "@/app/(state)/state";
 import Loader from "@/app/(components)/(loading)/loader";
 
-interface CourseFormsData {
+export interface CourseFormsData {
   courseName: string;
   courseCode: string;
   coursePrice: string;
   provider: string;
   currency: string;
   id: number;
+  thumbnailLink: string;
+  category: string;
 }
 
 export default function ManageCoursesSection() {
@@ -37,6 +38,7 @@ export default function ManageCoursesSection() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(false);
   const [courses, setCourses] = useState<CourseFormsData[]>([]);
+  const [editCourse, setEditCourse] = useState<CourseFormsData>();
   const coursesPerPage = 5;
 
   const fetchCourseDetails = async () => {
@@ -94,6 +96,16 @@ export default function ManageCoursesSection() {
     setActiveDropdown(activeDropdown === courseId ? null : courseId);
   };
 
+  const handleEditDetail = async (courseId: number) => {
+    setIsModalOpen(true);
+    const targetedCourse = courses.find((course) => course.id === courseId);
+    if (!targetedCourse) {
+      return toast.error("No course found with the id");
+    }
+    console.log(targetedCourse);
+
+    setEditCourse(targetedCourse);
+  };
   const handleDeleteDetail = async (courseId: number) => {
     setActiveDropdown(null);
     try {
@@ -137,31 +149,36 @@ export default function ManageCoursesSection() {
       setMessageDetail(undefined);
       setLoading(true);
 
-      const res = await fetch("/api/adminAuth/addCourse", {
-        method: "POST",
-        body: JSON.stringify({
-          form: formData,
-          courseExists: courses.find(
-            (course) =>
-              String(course.courseCode) === String(formData.courseCode) &&
-              course.provider === formData.provider
-          ),
-        }),
-      });
+      const res = await fetch(
+        editCourse ? "/api/adminAuth/editCourse" : "/api/adminAuth/addCourse",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            form: formData,
+            courseExists: courses.find(
+              (course) =>
+                String(course.courseCode) === String(formData.courseCode) &&
+                course.provider === formData.provider
+            ),
+          }),
+        }
+      );
       const data = await res.json();
       setLoading(false);
       setStatus(data.success);
       if (data.success) {
-        setMessage("Successfully added the Course");
+        setMessage(
+          `Successfully ${editCourse ? "edited" : "added"} the Course`
+        );
         fetchCourseDetails(); // refresh list
         return;
       }
-      setMessage("Couldn't add the new course");
+      setMessage(`Couldn't ${editCourse ? "edit" : "add"} the new course`);
       setMessageDetail(data.message || "Something went wrong");
     } catch (err) {
       setLoading(false);
       setStatus(false);
-      setMessage("Couldn't add the new course");
+      setMessage(`Couldn't ${editCourse ? "edit" : "add"} the new course`);
       setMessageDetail(
         err instanceof Error
           ? err.message
@@ -359,6 +376,12 @@ export default function ManageCoursesSection() {
                         >
                           Delete Course
                         </button>
+                        <button
+                          className={styles.edit_course_btn}
+                          onClick={() => handleEditDetail(course.id)}
+                        >
+                          Edit Course
+                        </button>
                       </div>
                     )}
                   </div>
@@ -393,6 +416,7 @@ export default function ManageCoursesSection() {
         isOpen={isModalOpen}
         onClose={handleModalClose}
         onCourseSubmit={handleCourseSubmit}
+        editCourseValues={editCourse}
       />
       <AddProviderModal
         isOpen={isModalProviderOpen}

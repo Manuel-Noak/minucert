@@ -14,6 +14,7 @@ export async function GET() {
         provider: certificationProvider.name,
         currency: certification.currencyCode,
         category: certification.category,
+        thumbnailLink: certification.thumbnailLink,
       })
       .from(certification)
       .innerJoin(

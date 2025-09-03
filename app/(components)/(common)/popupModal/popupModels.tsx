@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./popupModels.module.css";
 import Image from "next/image";
 import checkImg from "@/app/assets/img/check.png";
+import { CourseFormsData } from "@/app/admin/dashboard/manage-courses/ManageCoursesSection";
 
 interface AddCourseModalProps {
   isOpen: boolean;
   onClose: () => void;
   onCourseSubmit?: (formData: CourseFormData) => void;
+  editCourseValues?: CourseFormsData;
 }
 interface AddProviderModalProps {
   isOpen: boolean;
@@ -54,6 +56,7 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
   isOpen,
   onClose,
   onCourseSubmit,
+  editCourseValues,
 }) => {
   const [selectProviders, setProviders] = useState<ProviderData[]>([]);
   const [formData, setFormData] = useState<CourseFormData>({
@@ -77,6 +80,17 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
 
   useEffect(() => {
     const tempCategories = [{ name: "All course" }];
+    if (editCourseValues) {
+      setFormData({
+        category: editCourseValues.category,
+        courseCode: editCourseValues.courseCode,
+        thumbnailLink: editCourseValues.thumbnailLink,
+        coursePrice: editCourseValues.coursePrice,
+        courseName: editCourseValues.courseName,
+        currency: editCourseValues.currency,
+        provider: editCourseValues.provider,
+      });
+    }
     fetch("/api/getProviders")
       .then((res) => res.json())
       .then((data) => {
@@ -86,7 +100,7 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
         }
       })
       .catch(() => {});
-  }, []);
+  }, [editCourseValues]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -162,7 +176,10 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.modal_header}>
-          <h2 className={styles.modal_title}>Add Course</h2>
+          <h2 className={styles.modal_title}>
+            {" "}
+            {editCourseValues ? "Edit Course" : "Add Course"}
+          </h2>
           <button
             type="button"
             className={styles.close_button}
@@ -294,7 +311,7 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
           </div>
 
           <button type="submit" className={styles.submit_button}>
-            Add Course
+            {editCourseValues ? "Edit Course" : "Add Course"}
           </button>
         </form>
       </div>
