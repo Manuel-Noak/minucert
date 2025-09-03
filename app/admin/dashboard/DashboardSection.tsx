@@ -7,7 +7,7 @@ import arrow_icon from "../../assets/img/Admin/arrow_icon.png";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "@/app/(state)/state";
-import Loader from "@/app/(components)/(loading)/loader";
+import SkeletonLoader from "../../(components)/(loading)/shimmer/SkeletonLoader";
 
 interface CustomerType {
   id: number;
@@ -119,7 +119,7 @@ export default function DashboardSection() {
   };
 
   if (loading) {
-    return <Loader />;
+    return <SkeletonLoader />;
   }
 
   return (
@@ -139,7 +139,7 @@ export default function DashboardSection() {
             See Courses
           </button>
           <button
-            className={styles.see_courses_btn}
+            className={styles.download_trans_btn}
             onClick={() => {
               window.location.href = "/api/adminAuth/downloadTransactions";
             }}
@@ -228,7 +228,7 @@ export default function DashboardSection() {
                   <div className={styles.table_cell}>
                     <span
                       className={`${styles.status_badge} ${
-                        customer.status === "Completed"
+                        customer.status === "COMPLETED"
                           ? styles.fulfilled
                           : styles.unfulfilled
                       }`}

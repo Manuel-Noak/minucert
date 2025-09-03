@@ -25,6 +25,8 @@ export default function CheckoutSection() {
     phone: "",
   });
   const [loading, setLoading] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -50,7 +52,7 @@ export default function CheckoutSection() {
     }
 
     try {
-      setLoading(true);
+      setCheckoutLoading(true);
 
       const res = await fetch("/api/addOrder", {
         method: "POST",
@@ -64,7 +66,7 @@ export default function CheckoutSection() {
         }),
       });
       const data = await res.json();
-      setLoading(false);
+      setCheckoutLoading(false);
       if (!data.success) {
         return toast.error(data.message);
       }
@@ -76,7 +78,7 @@ export default function CheckoutSection() {
 
       router.push(data.authorizedUrl);
     } catch (error) {
-      setLoading(false);
+      setCheckoutLoading(false);
       toast.error(error.message);
     }
   };
@@ -181,10 +183,15 @@ export default function CheckoutSection() {
             </div>
 
             <button
-              className={styles.completeCheckoutButton}
+              className={`${styles.completeCheckoutButton} ${checkoutLoading ? styles.loadingButton : ''}`}
               onClick={handleCompleteCheckout}
+              disabled={checkoutLoading}
             >
-              <span className={styles.buttonText}>Complete Checkout</span>
+              {checkoutLoading ? (
+                <div className={styles.loadingSpinner}></div>
+              ) : (
+                <span className={styles.buttonText}>Complete Checkout</span>
+              )}
             </button>
           </div>
         </div>

@@ -10,15 +10,42 @@ import Loader from "@/app/(components)/(loading)/loader";
 export default function Signin() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [errors, setErrors] = useState({ email: "", password: "" });
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const validateFields = () => {
+    const newErrors = { email: "", password: "" };
+    let isValid = true;
+
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email.trim())) {
+      newErrors.email = "Please enter a valid email address";
+      isValid = false;
+    }
+
+    if (!password.trim()) {
+      newErrors.password = "Password is required";
+      isValid = false;
+    } else if (password.trim().length < 4) {
+      newErrors.password = "Password must be at least 4 characters";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const logAdminIn = async () => {
-    if (password.trim().length < 1 || email.trim().length < 1) {
+    if (!validateFields()) {
       return;
     }
 
     try {
+      setIsSubmitting(true);
       setLoading(true);
       const res = await fetch("/api/admin", {
         method: "POST",
@@ -35,11 +62,28 @@ export default function Signin() {
       return toast.error(error.message);
     } finally {
       setLoading(false);
+      setIsSubmitting(false);
     }
   };
-  if (loading) {
+
+  const handleEmailChange = (evt) => {
+    setEmail(evt.target.value);
+    if (errors.email) {
+      setErrors(prev => ({ ...prev, email: "" }));
+    }
+  };
+
+  const handlePasswordChange = (evt) => {
+    setPassword(evt.target.value);
+    if (errors.password) {
+      setErrors(prev => ({ ...prev, password: "" }));
+    }
+  };
+
+  if (loading && !isSubmitting) {
     return <Loader />;
   }
+
   return (
     <div className={styles.signinBody}>
       <div className={styles.heroSection}>
@@ -67,12 +111,13 @@ export default function Signin() {
             <input
               type="email"
               id="email"
-              className={styles.textField}
+              className={`${styles.textField} ${errors.email ? styles.errorField : ''}`}
               value={email}
-              onChange={(evt) => setEmail(evt.target.value)}
+              onChange={handleEmailChange}
               placeholder="Enter email"
               required
             />
+            {errors.email && <span className={styles.errorText}>{errors.email}</span>}
           </div>
 
           <div className={styles.inputGroup}>
@@ -82,16 +127,25 @@ export default function Signin() {
             <input
               type="password"
               id="password"
-              className={styles.textField}
+              className={`${styles.textField} ${errors.password ? styles.errorField : ''}`}
               value={password}
-              onChange={(evt) => setPassword(evt.target.value)}
+              onChange={handlePasswordChange}
               placeholder="••••••••"
               required
             />
+            {errors.password && <span className={styles.errorText}>{errors.password}</span>}
           </div>
 
-          <button onClick={logAdminIn} className={styles.loginButton}>
-            Login
+          <button 
+            onClick={logAdminIn} 
+            className={`${styles.loginButton} ${isSubmitting ? styles.loadingButton : ''}`}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <div className={styles.loadingSpinner}></div>
+            ) : (
+              "Login"
+            )}
           </button>
         </div>
       </div>

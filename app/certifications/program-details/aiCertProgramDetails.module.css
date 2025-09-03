@@ -13,6 +13,8 @@
   gap: 30px;
 }
 
+
+
 .backButton {
   display: flex;
   align-items: center;
@@ -59,7 +61,8 @@
   display: flex;
   gap: 40px;
   flex: 1;
-  align-items: flex-start;
+  align-items: center; /* Changed from flex-start to center */
+  justify-content: center; /* Added to center the content */
   padding-left: 16px;
   padding-right: 16px;
 }
@@ -79,6 +82,7 @@
   gap: 20px;
   padding-top: 60px;
   min-height: 0;
+  max-width: 600px; /* Added to prevent text from stretching too wide */
 }
 
 .programTitle {
@@ -227,14 +231,15 @@
 
 /* Prerequisites and Modules Lists */
 .bulletList {
-  list-style: none;
-  padding: 0;
+  list-style-type: none;
+  padding-left: 40px;
   margin: 0;
-  margin-left: 30px;
 }
 
+
 .listItem {
-  font-family: Montserrat, sans-serif;
+  /* font-family: Montserrat, sans-serif; */
+  position: relative;
   font-weight: 600;
   font-size: 20px;
   line-height: 120%;
@@ -270,6 +275,20 @@
   letter-spacing: 0%;
   color: #0a211f;
 }
+
+.moduleDescription{
+  margin-top: 15px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: #0a211f80;
+  /* margin: 0; */
+  list-style-type: disc;
+  max-width: 778px;
+}
+
 
 /* Learning Outcomes Grid */
 .learningGrid {
@@ -343,15 +362,177 @@
 .toolName {
   /* font-family: Montserrat, sans-serif; */
   font-weight: 600;
-  font-size: 30px;
+  font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #000000;
   text-align: left;
   margin: 0; /* Remove any margins */
   padding: 0; /* Remove any padding */
-  width: auto; /* Let it size naturally */
+  margin-top: 15px;
+  /* width: auto; */
   white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Loading Skeleton Styles */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Header Skeleton Styles */
+.skeletonBackArrow {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.skeletonBackText {
+  width: 60px;
+  height: 20px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeletonImage {
+  width: 520px;
+  height: 520px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 10px;
+  border: 1px solid #00000020;
+}
+
+.skeletonTitle {
+  width: 80%;
+  height: 50px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.skeletonTitleSecond {
+  width: 60%;
+  height: 50px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.skeletonDurationLabel {
+  width: 200px;
+  height: 24px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeletonDurationValue {
+  width: 120px;
+  height: 24px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeletonDescription {
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.skeletonDescriptionSecond {
+  width: 90%;
+  height: 20px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.skeletonDescriptionThird {
+  width: 75%;
+  height: 20px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.skeletonButton {
+  width: 215px;
+  height: 52px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* Section Skeleton Styles */
+.skeletonSectionTitle {
+  width: 300px;
+  height: 30px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.skeletonSectionContent {
+  margin-left: 30px;
+}
+
+.skeletonListItem {
+  width: calc(100% - 60px);
+  height: 20px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.skeletonListItem:last-child {
+  width: 70%;
+}
+
+.skeletonListItem:nth-child(2) {
+  width: 85%;
+}
+
+.skeletonListItem:nth-child(3) {
+  width: 60%;
 }
 
 /* Responsive Design */
@@ -364,7 +545,7 @@
 
   .programImage {
     width: 100%;
-    max-width: 600px;
+    max-width: 520px; /* Changed from 600px to 520px */
     height: auto;
   }
 
@@ -378,6 +559,25 @@
 
   .sectionContent {
     padding: 0 40px; /* Adjust for mobile */
+  }
+
+  /* Responsive Skeleton Styles */
+  .skeletonImage {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    aspect-ratio: 1;
+  }
+  
+  .skeletonTitle,
+  .skeletonTitleSecond {
+    width: 100%;
+  }
+  
+  .skeletonDescription,
+  .skeletonDescriptionSecond,
+  .skeletonDescriptionThird {
+    width: 100%;
   }
 }
 
@@ -510,6 +710,39 @@
     white-space: normal;
     text-align: center;
     line-height: 110%;
+  }
+
+  /* Skeleton Mobile Styles */
+  .skeletonTitle {
+    height: 40px;
+  }
+  
+  .skeletonTitleSecond {
+    height: 40px;
+  }
+  
+  .skeletonDurationLabel,
+  .skeletonDurationValue {
+    height: 18px;
+  }
+  
+  .skeletonDurationLabel {
+    width: 180px;
+  }
+  
+  .skeletonDurationValue {
+    width: 100px;
+  }
+  
+  .skeletonButton {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .skeletonDescription,
+  .skeletonDescriptionSecond,
+  .skeletonDescriptionThird {
+    height: 16px;
   }
 }
 

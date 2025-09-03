@@ -1,5 +1,6 @@
 "use client";
 import { useAppContext } from "@/app/(state)/state";
+import { useEffect } from "react";
 import styles from "./[name]/aiCert.module.css";
 
 export default function Pagination() {
@@ -16,7 +17,16 @@ export default function Pagination() {
     CoursesInfo.length > 0
       ? Math.ceil(CoursesInfo.length / programsPerPage)
       : 1;
-  setLastIndex(programsPerPage);
+
+  // Move the setState call to useEffect to avoid setState during render
+  useEffect(() => {
+    setLastIndex(programsPerPage);
+  }, [setLastIndex]);
+
+  // Don't render pagination if there's only one page or no courses
+  if (CoursesInfo.length <= programsPerPage) {
+    return null;
+  }
 
   const handlePageChange = (page: number) => {
     const newFirstIndex = (page - 1) * programsPerPage;

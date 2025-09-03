@@ -4,13 +4,10 @@ import styles from "./manageCoursesSection.module.css";
 import Image from "next/image";
 import Add_icon from "../../../assets/img/Admin/Add_icon.png";
 import AddCourseModal, {
-  AddAdminModal,
   AddProviderModal,
-  AdminData,
   CourseFormData,
-  MessageModal,
   ProviderData,
-} from "@/app/(components)/(common)/popupModal/popupModels";
+} from "@/app/(components)/(common)/popupModal/addCourseModal";
 import { toast } from "react-toastify";
 import Loader from "@/app/(components)/(loading)/loader";
 
@@ -30,30 +27,23 @@ export default function ManageCoursesSection() {
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalProviderOpen, setModalProviderOpen] = useState(false);
-  const [isModalAdminOpen, setModalAdminOpen] = useState(false);
-  const [isMessageModalOpen, setMessageModalOpen] = useState(false);
-  const [status, setStatus] = useState(false);
-  const [message, setMessage] = useState("");
-  const [messageDetail, setMessageDetail] = useState<string | undefined>();
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [loading, setLoading] = useState(false);
+
   const [courses, setCourses] = useState<CourseFormsData[]>([]);
   const [editCourse, setEditCourse] = useState<CourseFormsData>();
   const coursesPerPage = 5;
 
   const fetchCourseDetails = async () => {
     try {
-      setLoading(true);
-      const res = await fetch(`/api/adminAuth/getAllCourse`);
+      const res = await fetch(`/api/getAllCourse`);
       const data = await res.json();
 
-      setLoading(false);
       if (!data.success) {
         return toast.error(data.message);
       }
       setCourses(data.courses);
+      toast.success("Successfully added the course");
     } catch (err: any) {
-      setLoading(false);
       toast.error(err.message);
     }
   };
@@ -109,45 +99,34 @@ export default function ManageCoursesSection() {
   const handleDeleteDetail = async (courseId: number) => {
     setActiveDropdown(null);
     try {
-      const res = await fetch("/api/adminAuth/removeCourse", {
+      const res = await fetch("/api/removeCourse", {
         method: "DELETE",
         headers: {
           courseId: courseId.toString(),
         },
       });
-      const { success, message } = await res.json();
-      setStatus(success);
+      const { success } = await res.json();
       if (success) {
-        setMessage("Successfully deleted the course");
+        toast.success("Successfully deleted");
         return setCourses((prev) =>
           [...prev].filter((course) => course.id !== courseId)
         );
       }
-
-      setMessage("Unable able to delete Course");
-      setMessageDetail(message);
+      toast.error("Something went wrong");
     } catch (error) {
-      setMessage("Unable able to delete Course");
-      setMessageDetail(
-        error instanceof Error
-          ? error.message
-          : "Could be your internet connection"
-      );
+      toast.error(error.message || "Something went wrong");
     }
   };
 
   const handleNewCourseClick = () => setIsModalOpen(true);
   const handleNewProvider = () => setModalProviderOpen(true);
-  const handleNewAdmin = () => setModalAdminOpen(true);
   const handleModalClose = () => setIsModalOpen(false);
   const handleModalProviderClose = () => setModalProviderOpen(false);
-  const handleModalAdminClose = () => setModalAdminOpen(false);
-  const handleMessageModalClose = () => setMessageModalOpen(false);
 
   const handleCourseSubmit = async (formData: CourseFormData) => {
     try {
-      setMessageDetail(undefined);
-      setLoading(true);
+      // setMessageDetail(undefined);
+      // setLoading(true);
 
       const res = await fetch(
         editCourse ? "/api/adminAuth/editCourse" : "/api/adminAuth/addCourse",
@@ -164,91 +143,29 @@ export default function ManageCoursesSection() {
         }
       );
       const data = await res.json();
-      setLoading(false);
-      setStatus(data.success);
       if (data.success) {
-        setMessage(
-          `Successfully ${editCourse ? "edited" : "added"} the Course`
-        );
         fetchCourseDetails(); // refresh list
-        return;
       }
-      setMessage(`Couldn't ${editCourse ? "edit" : "add"} the new course`);
-      setMessageDetail(data.message || "Something went wrong");
-    } catch (err) {
-      setLoading(false);
-      setStatus(false);
-      setMessage(`Couldn't ${editCourse ? "edit" : "add"} the new course`);
-      setMessageDetail(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong, please check your connection or try again"
-      );
-    }
-    setMessageModalOpen(true);
+    } catch {}
     setIsModalOpen(false);
   };
 
   const handleProviderSubmit = async (formData: ProviderData) => {
-    setLoading(true);
     try {
-      setMessageDetail(undefined);
-      const res = await fetch("/api/adminAuth/addProvider", {
+      const res = await fetch("/api/addProvider", {
         method: "POST",
         body: JSON.stringify(formData),
       });
 
       const { success } = await res.json();
-      setLoading(false);
-      setStatus(success);
       if (!success) {
-        setMessage("Couldn't add the new Provider");
-        setMessageDetail(success.message || null);
+        toast.error("Something went wrong");
         return;
       }
-      setMessage("Successfully added the Provider");
-    } catch (err) {
-      setLoading(false);
-      setStatus(false);
-      setMessage("Couldn't add the new Provider");
-      setMessageDetail(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong, please check your connection or try again"
-      );
+      toast.success("Successfully added the provider");
+    } catch {
+      toast.error("Something went wrong");
     }
-    setMessageModalOpen(true);
-    setModalProviderOpen(false);
-  };
-  const handleAdminSubmit = async (formData: AdminData) => {
-    try {
-      setLoading(true);
-      setMessageDetail(undefined);
-      const res = await fetch("/api/adminAuth/addAdmin", {
-        method: "POST",
-        body: JSON.stringify(formData),
-      });
-      const { success } = await res.json();
-      setLoading(false);
-      setStatus(success);
-      if (!success) {
-        setMessage("Couldn't add the new admin");
-        setMessageDetail(success.message || null);
-        return;
-      }
-      setMessage("Successfully added the Admin");
-    } catch (err) {
-      setLoading(false);
-      setStatus(false);
-      setMessage("Couldn't add the new admin");
-      setMessageDetail(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong, please check your connection or try again"
-      );
-    }
-    setMessageModalOpen(true);
-    setModalAdminOpen(false);
   };
 
   const renderPaginationNumbers = () => {
@@ -277,10 +194,6 @@ export default function ManageCoursesSection() {
     return pages;
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <section className={styles.manage_courses_section}>
       {/* Header */}
@@ -302,10 +215,6 @@ export default function ManageCoursesSection() {
           <button className={styles.new_course_btn} onClick={handleNewProvider}>
             <Image src={Add_icon} alt="Add icon" width={16} height={16} />
             <span>New Provider</span>
-          </button>
-          <button className={styles.new_course_btn} onClick={handleNewAdmin}>
-            <Image src={Add_icon} alt="Add icon" width={16} height={16} />
-            <span>New Admin</span>
           </button>
         </div>
       </div>
@@ -422,18 +331,6 @@ export default function ManageCoursesSection() {
         isOpen={isModalProviderOpen}
         onClose={handleModalProviderClose}
         onSubmit={handleProviderSubmit}
-      />
-      <AddAdminModal
-        isOpen={isModalAdminOpen}
-        onClose={handleModalAdminClose}
-        onSubmit={handleAdminSubmit}
-      />
-      <MessageModal
-        isOpen={isMessageModalOpen}
-        onClose={handleMessageModalClose}
-        status={status}
-        header={message}
-        moreDetails={messageDetail}
       />
     </section>
   );
