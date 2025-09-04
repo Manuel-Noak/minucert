@@ -13,6 +13,7 @@ import AddCourseModal, {
 } from "@/app/(components)/(common)/popupModal/popupModels";
 import { toast } from "react-toastify";
 import Loader from "./(skeletonLoader)/skeleton";
+import Button from "../../../(components)/button/Button";
 
 export interface CourseFormsData {
   courseName: string;
@@ -298,21 +299,18 @@ export default function ManageCoursesSection() {
               See current courses or add more courses
             </p>
           </div>
-          <button
-            className={styles.new_course_btn}
-            onClick={handleNewCourseClick}
-          >
+          <Button onClick={handleNewCourseClick}>
             <Image src={Add_icon} alt="Add icon" width={16} height={16} />
             <span>New course</span>
-          </button>
-          <button className={styles.new_course_btn} onClick={handleNewProvider}>
+          </Button>
+          <Button onClick={handleNewProvider}>
             <Image src={Add_icon} alt="Add icon" width={16} height={16} />
             <span>New Provider</span>
-          </button>
-          <button className={styles.new_course_btn} onClick={handleNewAdmin}>
+          </Button>
+          <Button onClick={handleNewAdmin}>
             <Image src={Add_icon} alt="Add icon" width={16} height={16} />
             <span>New Admin</span>
-          </button>
+          </Button>
         </div>
       </div>
 

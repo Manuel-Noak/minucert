@@ -7,6 +7,7 @@ import arrow_icon from "../../assets/img/Admin/arrow_icon.png";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import SkeletonLoader from "../../(components)/(loading)/shimmer/SkeletonLoader";
+import Button from "../../(components)/button/Button";
 
 interface CustomerType {
   id: number;
@@ -242,14 +243,14 @@ export default function DashboardSection() {
             </p>
           </div>
           <div className={styles.button_group}>
-            <button
-              className={styles.see_courses_btn}
+            <Button
+              // className={styles.see_courses_btn}
               onClick={handleSeeCoursesClick}
             >
               See Courses
-            </button>
+            </Button>
             <div className={styles.filter_container} ref={filterDropdownRef}>
-              <button
+              <Button
                 className={`${styles.filter_btn} ${
                   dateFilter || statusFilter ? styles.filter_active : ""
                 }`}
@@ -259,7 +260,7 @@ export default function DashboardSection() {
                 {(dateFilter || statusFilter) && (
                   <span className={styles.filter_indicator}></span>
                 )}
-              </button>
+              </Button>
               {showFilterDropdown && (
                 <div className={styles.filter_dropdown}>
                   <h4 className={styles.filter_title}>Filter Customers</h4>
@@ -293,19 +294,14 @@ export default function DashboardSection() {
                   </div>
 
                   {(dateFilter || statusFilter) && (
-                    <button
-                      className={styles.clear_filters_btn}
-                      onClick={clearFilters}
-                    >
-                      Clear Filters
-                    </button>
+                    <Button onClick={clearFilters}>Clear Filters</Button>
                   )}
                 </div>
               )}
             </div>
-            <button className={styles.download_trans_btn} onClick={downloadCSV}>
-              Export Transactions
-            </button>
+            <Button bg="transparent" onClick={downloadCSV}>
+              Export
+            </Button>
           </div>
         </div>
       </div>
@@ -407,7 +403,7 @@ export default function DashboardSection() {
                             : styles.unfulfilled
                         }`}
                       >
-                        {customer.status}
+                        {customer.status?.toLowerCase()}
                       </span>
                     </div>
                     <div

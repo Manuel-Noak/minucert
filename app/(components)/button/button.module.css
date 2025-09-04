@@ -1,0 +1,59 @@
+.button {
+  padding: 0.8rem;
+  border-radius: 10px;
+  background: #ffbb15;
+  border: none;
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 18px;
+  color: #000000;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-decoration: none;
+  gap: 8px;
+}
+
+.button:hover {
+  background: #e6a612;
+  transform: translateY(-1px);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.transparent_button {
+  padding: 0.8rem;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid #ffbb15;
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 18px;
+  color: #ffbb15;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.transparent_button:hover {
+  background: #ffbb15;
+  color: #000000;
+  transform: translateY(-1px);
+}
+
+.transparent_button:active {
+  transform: translateY(0);
+}
