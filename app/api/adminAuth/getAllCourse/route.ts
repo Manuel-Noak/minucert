@@ -9,7 +9,7 @@ export async function GET() {
       .select({
         id: certification.id,
         courseName: certification.title,
-        coursePrice: certification.price,
+        coursePrice: certification.price, // Keep as number
         courseCode: certification.courseId,
         provider: certificationProvider.name,
         currency: certification.currencyCode,
@@ -22,9 +22,13 @@ export async function GET() {
         eq(certificationProvider.id, certification.providerId)
       );
 
+    const courses = result.map((course) => ({
+      ...course,
+      coursePrice: String(course.coursePrice! / 100), // Convert to string
+    }));
     return NextResponse.json({
       success: true,
-      courses: result,
+      courses,
     });
   } catch (err) {
     return NextResponse.json(

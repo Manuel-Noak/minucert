@@ -18,8 +18,47 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MinuCert",
-  description: "The world trusted AI course to get",
+  title: "MinuCert | Trusted AI Certification & Training Platform",
+  description:
+    "Discover and enroll in top AI courses with MinuCert, the trusted platform partnered with leading AI providers worldwide. Get certified and advance your career in artificial intelligence.",
+  keywords: [
+    "AI courses",
+    "artificial intelligence certification",
+    "online AI training",
+    "AI learning platform",
+    "machine learning courses",
+    "MinuCert",
+    "AI providers",
+    "AI education",
+  ],
+  openGraph: {
+    title: "MinuCert | Trusted AI Certification & Training Platform",
+    description:
+      "Advance your career with AI certifications from MinuCert. Learn from top providers, access cutting-edge AI courses, and get globally recognized credentials.",
+    url: "https://www.minucert.com", // update with your real domain
+    siteName: "MinuCert",
+    images: [
+      {
+        url: "/logo.png", // update with your OG image path
+        width: 1200,
+        height: 630,
+        alt: "MinuCert - AI Courses and Certifications",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MinuCert | Trusted AI Certification & Training Platform",
+    description:
+      "Learn AI online with MinuCert. Access top courses, certifications, and training from global providers.",
+    images: ["/logo.png"],
+    creator: "@minucert",
+  },
+  alternates: {
+    canonical: "https://www.minucert.com",
+  },
 };
 
 export default function RootLayout({

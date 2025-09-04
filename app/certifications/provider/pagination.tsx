@@ -20,7 +20,7 @@ export default function Pagination() {
 
   // Move the setState call to useEffect to avoid setState during render
   useEffect(() => {
-    setLastIndex(programsPerPage);
+    setLastIndex(programsPerPage - 1);
   }, [setLastIndex]);
 
   // Don't render pagination if there's only one page or no courses

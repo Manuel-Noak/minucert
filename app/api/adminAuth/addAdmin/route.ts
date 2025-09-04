@@ -1,9 +1,5 @@
 import { db } from "@/db";
-import {
-  certification,
-  certificationProvider,
-  internalUser,
-} from "@/db/schema";
+import { internalUser } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
@@ -39,16 +35,14 @@ export async function POST(request: Request) {
     }
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(password, salt);
-    await db
-      .insert(internalUser)
-      .values({
-        email,
-        firstName,
-        lastName,
-        roles: role,
-        username,
-        password: hashPassword,
-      });
+    await db.insert(internalUser).values({
+      email,
+      firstName,
+      lastName,
+      roles: role,
+      username,
+      password: hashPassword,
+    });
 
     return NextResponse.json({ success: true });
   } catch (err) {

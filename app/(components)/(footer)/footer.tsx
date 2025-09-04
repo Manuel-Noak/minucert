@@ -14,9 +14,9 @@ export default function Footer() {
     <footer className={styles.footer}>
       {/* Section 1: Logo and Social Icons */}
       <div className={styles.topSection}>
-        <div className={styles.logoContainer}>
+        <Link href={"/"} className={styles.logoContainer}>
           <Image src={logo} alt="MinuCert logo" className={styles.logo} />
-        </div>
+        </Link>
 
         <div className={styles.socialIcons}>
           <div className={styles.socialIcon}>
@@ -43,7 +43,6 @@ export default function Footer() {
           <div className={styles.usefulLinks}>
             <h3>Useful Links</h3>
             <Link href="/">Home</Link>
-            <Link href="/aiCertification">Certification</Link>
             <Link href="/contact">Contact</Link>
           </div>
 
