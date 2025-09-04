@@ -208,7 +208,7 @@
   }
 
   .glassContainerSmall {
-    max-width: 12rem;
+    max-width: 102rem;
     flex-direction: row;
   }
 }
