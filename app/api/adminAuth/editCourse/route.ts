@@ -1,45 +1,24 @@
 import { db } from "@/db";
 import { certification, certificationProvider } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq } from "drizzle-orm"; // Import and function
 import { NextResponse } from "next/server";
+
+function isValidUrl(string: string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
 
 export async function POST(request: Request) {
   try {
-    const { form, courseExists } = await request.json();
-
-    if (courseExists) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Course Id and it provider already exists",
-        },
-        { status: 400 }
-      );
-    }
+    const { form } = await request.json();
 
     if (!form) {
       return NextResponse.json(
         { success: false, message: "No form found" },
-        { status: 400 }
-      );
-    }
-
-    const hasEmptyValue = Object.entries(form).some(([key, value]) => {
-      if (
-        key !== "thumbnailLink" &&
-        (!value || value.toString().trim().length === 0)
-      ) {
-        return true;
-      }
-      return false;
-    });
-
-    if (hasEmptyValue) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "All fields except thumbnailLink are required",
-        },
         { status: 400 }
       );
     }
@@ -52,7 +31,18 @@ export async function POST(request: Request) {
       provider,
       currency,
       category,
+      mainId,
     } = form;
+
+    if (!isValidUrl(thumbnailLink)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "ThumbnailLink is invalid",
+        },
+        { status: 400 }
+      );
+    }
 
     const [providerId] = await db
       .select({ id: certificationProvider.id })
@@ -79,19 +69,30 @@ export async function POST(request: Request) {
       );
     }
 
-    await db.insert(certification).values({
-      title: courseName,
-      courseId: course_id,
-      price,
-      category,
-      currencyCode: currency,
-      thumbnailLink,
-      providerId: providerId.id,
-    });
+    // Use and() function to combine multiple conditions
+    const [result] = await db
+      .update(certification)
+      .set({
+        title: courseName,
+        courseId: course_id,
+        price,
+        category,
+        currencyCode: currency,
+        thumbnailLink,
+        providerId: providerId.id,
+      })
+      .where(eq(certification.id, mainId));
+
+    if (result.affectedRows < 1) {
+      return NextResponse.json({
+        success: false,
+        message: "No data was changed",
+      });
+    }
 
     return NextResponse.json({
       success: true,
-      message: `The ${courseName} course has been successfully added`,
+      message: `Successfully edited ${courseName}`,
     });
   } catch (err) {
     return NextResponse.json(

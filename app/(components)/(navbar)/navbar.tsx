@@ -285,14 +285,14 @@ export default function Navbar({
                     className={`${styles.mobile_nav_link} ${styles.mobile_subLinks}`}
                     style={{
                       color: isActivePage(
-                        `/certifications/certifications/${encodeURIComponent(
+                        `/certifications/provider/${encodeURIComponent(
                           provider.name
                         )}`
                       )
                         ? activeTextColor
                         : textColor,
                     }}
-                    href={`/certifications/certification/${encodeURIComponent(
+                    href={`/certifications/provider/${encodeURIComponent(
                       provider.name
                     )}`}
                     onClick={closeMenu}

@@ -1,9 +1,10 @@
 /* manageCoursesSection.module.css */
 .manage_courses_section {
-  background-color: #FAFFEF;
+  background-color: #faffef;
   min-height: 100vh;
   padding: 40px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
 }
 
 .header {
@@ -44,7 +45,7 @@
 .new_course_btn {
   height: 42px;
   border-radius: 5px;
-  background: #FFBB15;
+  background: #ffbb15;
   border: none;
   font-weight: 700;
   font-size: 16px;
@@ -64,11 +65,11 @@
   height: 42px;
   border-radius: 5px;
   background: transparent;
-  border: 1px solid #FFBB15;
+  border: 1px solid #ffbb15;
   font-weight: 700;
   font-size: 16px;
   line-height: 18px;
-  color: #FFBB15;
+  color: #ffbb15;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -82,12 +83,12 @@
 .new_admin_btn {
   height: 42px;
   border-radius: 5px;
-  background: #000000CC;
-  border: 1px solid #FFBB15;
+  background: #000000cc;
+  border: 1px solid #ffbb15;
   font-weight: 700;
   font-size: 16px;
   line-height: 18px;
-  color: #FFBB15;
+  color: #ffbb15;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -99,7 +100,7 @@
 }
 
 .new_course_btn:hover {
-  background: #E6A612;
+  background: #e6a612;
   transform: translateY(-1px);
 }
 
@@ -108,7 +109,7 @@
 }
 
 .new_provider_btn:hover {
-  background: #FFBB15;
+  background: #ffbb15;
   color: #000000;
   transform: translateY(-1px);
 }
@@ -118,9 +119,9 @@
 }
 
 .new_admin_btn:hover {
-  background: #FFBB15;
+  background: #ffbb15;
   color: #000000;
-  border-color: #FFBB15;
+  border-color: #ffbb15;
   transform: translateY(-1px);
 }
 
@@ -131,7 +132,7 @@
 /* Icon hover states */
 .new_provider_btn:hover img,
 .new_admin_btn:hover img {
-  content: url('../../../assets/img/Admin/Add_icon.png');
+  content: url("../../../assets/img/Admin/Add_icon.png");
 }
 
 .table_container {
@@ -152,7 +153,7 @@
 .table_header {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr 1.2fr 1fr auto;
-  background-color: #000000CC;
+  background-color: #000000cc;
   color: white;
   font-weight: 600;
   font-size: 14px;
@@ -161,7 +162,7 @@
 
 .header_cell {
   padding: 20px 16px;
-  border-right: 1px solid #9E9EA64D;
+  border-right: 1px solid #9e9ea64d;
   display: flex;
   align-items: center;
 }
@@ -179,7 +180,7 @@
 .table_row {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr 1.2fr 1fr auto;
-  border-bottom: 1px solid #9E9EA64D;
+  border-bottom: 1px solid #9e9ea64d;
   transition: background-color 0.2s ease;
   position: relative;
 }
@@ -222,7 +223,7 @@
   background: none;
   border: none;
   font-size: 20px;
-  color: #5A5C62;
+  color: #5a5c62;
   cursor: pointer;
   padding: 4px 12px;
   border-radius: 4px;
@@ -244,7 +245,7 @@
   top: 100%;
   right: 0;
   width: 200px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 1000;
@@ -260,7 +261,7 @@
   width: 100%;
   height: 40px;
   border-radius: 6px;
-  background: #005EB8;
+  background: #005eb8;
   color: white;
   border: none;
   font-size: 14px;
@@ -281,9 +282,9 @@
   /* color: #000000; */
 
   /* border: none; */
-  border: 1px solid #FFBB15;
-  color: #FFBB15;
-  background-color: #FFBB150D;
+  border: 1px solid #ffbb15;
+  color: #ffbb15;
+  background-color: #ffbb150d;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -291,7 +292,7 @@
 }
 
 .edit_course_btn:hover {
-  background: #E6A612;
+  background: #e6a612;
   transform: translateY(-1px);
 }
 
@@ -302,7 +303,7 @@
   justify-content: center;
   gap: 8px;
   padding: 24px;
-  border-top: 1px solid #E0E0E0;
+  border-top: 1px solid #e0e0e0;
   background: white;
   margin-top: auto;
 }
@@ -310,9 +311,9 @@
 .pagination_arrow {
   width: 36px;
   height: 36px;
-  border: 1px solid #E0E0E0;
+  border: 1px solid #e0e0e0;
   background: white;
-  color: #000000CC;
+  color: #000000cc;
   border-radius: 6px;
   cursor: pointer;
   display: flex;
@@ -326,27 +327,27 @@
 
 /* Create left arrow with CSS */
 .pagination_arrow:first-of-type::after {
-  content: '';
+  content: "";
   width: 0;
   height: 0;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-right: 8px solid #000000CC;
+  border-right: 8px solid #000000cc;
 }
 
 /* Create right arrow with CSS */
 .pagination_arrow:last-of-type::after {
-  content: '';
+  content: "";
   width: 0;
   height: 0;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-left: 8px solid #000000CC;
+  border-left: 8px solid #000000cc;
 }
 
 .pagination_arrow:hover:not(:disabled) {
   background-color: #f5f5f5;
-  border-color: #FFBB15;
+  border-color: #ffbb15;
   color: #000;
 }
 
@@ -369,7 +370,7 @@
 .pagination_number {
   min-width: 36px;
   height: 36px;
-  border: 1px solid #E0E0E0;
+  border: 1px solid #e0e0e0;
   background: white;
   color: #666666;
   border-radius: 6px;
@@ -385,13 +386,13 @@
 
 .pagination_number:hover {
   background-color: #f5f5f5;
-  border-color: #FFBB15;
+  border-color: #ffbb15;
 }
 
 .pagination_number.active {
-  background-color: #FFBB15;
+  background-color: #ffbb15;
   color: #000000;
-  border-color: #FFBB15;
+  border-color: #ffbb15;
   font-weight: 600;
 }
 
@@ -437,25 +438,26 @@
   .manage_courses_section {
     padding: 16px;
   }
-  
+
   .title {
     font-size: 28px;
   }
-  
+
   .subtitle {
     font-size: 16px;
     margin-bottom: 20px;
   }
-  
-  .header_cell, .table_cell {
+
+  .header_cell,
+  .table_cell {
     padding: 12px 8px;
     font-size: 13px;
   }
-  
+
   .header_cell {
     padding: 16px 8px;
   }
-  
+
   /* Hide course code and provider columns on mobile */
   .table_header .header_cell:nth-child(2),
   .table_row .table_cell:nth-child(2),
@@ -463,18 +465,18 @@
   .table_row .table_cell:nth-child(4) {
     display: none;
   }
-  
+
   .table_header,
   .table_row {
     grid-template-columns: 1.5fr 1fr 1fr auto;
   }
-  
+
   .pagination {
     gap: 4px;
     padding: 16px;
     flex-wrap: wrap;
   }
-  
+
   .pagination_arrow,
   .pagination_number {
     width: 32px;
@@ -505,31 +507,31 @@
   .manage_courses_section {
     padding: 12px;
   }
-  
+
   .title {
     font-size: 24px;
   }
-  
+
   .subtitle {
     font-size: 14px;
   }
-  
+
   /* Hide currency column on very small screens */
   .table_header .header_cell:nth-child(5),
   .table_row .table_cell:nth-child(5) {
     display: none;
   }
-  
+
   .table_header,
   .table_row {
     grid-template-columns: 1.5fr 1fr auto;
   }
-  
+
   .action_dropdown {
     width: 160px;
     right: 0;
   }
-  
+
   .table_container {
     border-radius: 12px;
   }

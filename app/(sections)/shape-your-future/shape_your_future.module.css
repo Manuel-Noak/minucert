@@ -283,7 +283,7 @@
 }
 
 .glassContainerSmall:hover .cardTitle {
-  color: #4A9EFF;
+  color: #4a9eff;
 }
 
 .progressBar {
@@ -304,7 +304,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, #4A9EFF 0%, #00D4FF 100%);
+  background: linear-gradient(90deg, #4a9eff 0%, #00d4ff 100%);
   border-radius: 12px;
 }
 
@@ -321,23 +321,23 @@
   .container {
     padding: 50px 80px;
   }
-  
+
   .backgroundWrapper {
     width: 1200px;
     height: 450px;
   }
-  
+
   .contentWrapper {
     left: 60px;
     top: 60%;
   }
-  
+
   .glassContainerLarge {
     width: 450px;
     height: 180px;
     padding: 25px;
   }
-  
+
   .glassContainerSmall {
     width: 180px;
     height: 180px;
@@ -348,13 +348,13 @@
   .container {
     padding: 40px 60px;
   }
-  
+
   .backgroundWrapper {
     width: 100%;
     max-width: 1000px;
     height: 400px;
   }
-  
+
   .contentWrapper {
     left: 50px;
     right: 50px;
@@ -364,7 +364,7 @@
     gap: 15px;
     align-items: flex-start;
   }
-  
+
   .glassContainerLarge {
     width: 100%;
     max-width: 400px;
@@ -372,25 +372,25 @@
     min-height: 140px;
     padding: 20px;
   }
-  
+
   .glassContainerSmall {
     width: 160px;
     height: 160px;
     flex-direction: row;
     gap: 10px;
   }
-  
+
   .title {
     font-size: 16px;
     line-height: 1.2;
   }
-  
+
   .description {
     font-size: 14px;
     line-height: 1.3;
     margin-bottom: 16px;
   }
-  
+
   .icon {
     width: 60px;
     height: 60px;
@@ -401,13 +401,13 @@
   .container {
     padding: 20px 15px;
   }
-  
+
   .backgroundWrapper {
     width: 100%;
     height: 500px;
     max-width: 100%;
   }
-  
+
   .contentWrapper {
     left: 20px;
     right: 20px;
@@ -417,14 +417,14 @@
     gap: 15px;
     align-items: stretch;
   }
-  
+
   .glassContainerLarge {
     width: 100%;
     height: auto;
     min-height: 160px;
     padding: 20px;
   }
-  
+
   .glassContainerSmall {
     width: 100%;
     max-width: 200px;
@@ -434,29 +434,29 @@
     padding: 15px;
     align-self: center;
   }
-  
+
   .title {
     font-size: 16px;
     line-height: 1.2;
     margin-bottom: 10px;
   }
-  
+
   .description {
     font-size: 14px;
     line-height: 1.4;
     margin-bottom: 15px;
   }
-  
+
   .learnButton {
     font-size: 14px;
     padding: 10px 15px;
   }
-  
+
   .icon {
     width: 50px;
     height: 50px;
   }
-  
+
   .cardTitle {
     font-size: 14px;
   }
@@ -465,7 +465,7 @@
   .container.animate .animateSlideUpDelay1 {
     animation-delay: 0.15s;
   }
-  
+
   .container.animate .animateSlideUpDelay2 {
     animation-delay: 0.3s;
   }
@@ -475,48 +475,48 @@
   .container {
     padding: 15px 10px;
   }
-  
+
   .backgroundWrapper {
     height: 600px;
   }
-  
+
   .contentWrapper {
     left: 15px;
     right: 15px;
     top: 25%;
     gap: 20px;
   }
-  
+
   .glassContainerLarge {
     padding: 18px;
     min-height: 180px;
   }
-  
+
   .glassContainerSmall {
     max-width: 180px;
     height: 100px;
     padding: 12px;
   }
-  
+
   .title {
     font-size: 14px;
     line-height: 1.3;
   }
-  
+
   .description {
     font-size: 13px;
     line-height: 1.4;
   }
-  
+
   .icon {
     width: 40px;
     height: 40px;
   }
-  
+
   .cardTitle {
     font-size: 13px;
   }
-  
+
   .learnButton {
     font-size: 13px;
     padding: 8px 12px;
@@ -526,7 +526,7 @@
   .container.animate .animateSlideUpDelay1 {
     animation-delay: 0.1s;
   }
-  
+
   .container.animate .animateSlideUpDelay2 {
     animation-delay: 0.2s;
   }

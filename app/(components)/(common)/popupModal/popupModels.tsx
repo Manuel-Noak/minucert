@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./popupModels.module.css";
 import Image from "next/image";
 import checkImg from "@/app/assets/img/check.png";
+import { CourseFormsData } from "@/app/admin/dashboard/manage-courses/ManageCoursesSection";
 
 interface AddCourseModalProps {
   isOpen: boolean;
   onClose: () => void;
   onCourseSubmit?: (formData: CourseFormData) => void;
+  editCourseValues?: CourseFormsData;
 }
 interface AddProviderModalProps {
   isOpen: boolean;
@@ -54,6 +56,7 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
   isOpen,
   onClose,
   onCourseSubmit,
+  editCourseValues,
 }) => {
   const [selectProviders, setProviders] = useState<ProviderData[]>([]);
   const [formData, setFormData] = useState<CourseFormData>({
@@ -61,12 +64,11 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
     courseCode: "",
     coursePrice: "",
     thumbnailLink: "",
-    provider: selectProviders[0]?.name,
+    provider: "",
     currency: "",
     category: "All Course",
   });
   const [selectCategories, setCategories] = useState<{ name: string }[]>([]);
-  // const [toggleCategoryInput, setToggleCategoryInput] = useState(false);
 
   const currency = [
     {
@@ -77,22 +79,39 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
 
   useEffect(() => {
     const tempCategories = [{ name: "All course" }];
+    if (editCourseValues) {
+      setFormData({
+        category: editCourseValues.category,
+        courseCode: editCourseValues.courseCode,
+        thumbnailLink: editCourseValues.thumbnailLink,
+        coursePrice: editCourseValues.coursePrice,
+        courseName: editCourseValues.courseName,
+        currency: editCourseValues.currency,
+        provider: editCourseValues.provider,
+      });
+    }
     fetch("/api/getProviders")
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           setCategories(tempCategories);
           setProviders(data.providers);
+          // Set default provider if not in edit mode
+          if (!editCourseValues && data.providers.length > 0) {
+            setFormData((prev) => ({
+              ...prev,
+              provider: data.providers[0].name,
+            }));
+          }
         }
       })
       .catch(() => {});
-  }, []);
+  }, [editCourseValues]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -108,19 +127,12 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
     }));
   };
 
-  // Special handler for course price input
   const handleCoursePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
-
-    // Remove all non-numeric characters (except for the ₦ symbol and commas)
     value = value.replace(/[^\d,]/g, "");
-
-    // Remove any existing commas to work with raw numbers
     const numericValue = value.replace(/,/g, "");
 
-    // Only proceed if the value is numeric or empty
     if (numericValue === "" || /^\d+$/.test(numericValue)) {
-      // Add commas for thousands separator
       const formattedValue = numericValue
         ? parseInt(numericValue).toLocaleString()
         : "";
@@ -162,7 +174,9 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.modal_header}>
-          <h2 className={styles.modal_title}>Add Course</h2>
+          <h2 className={styles.modal_title}>
+            {editCourseValues ? "Edit Course" : "Add Course"}
+          </h2>
           <button
             type="button"
             className={styles.close_button}
@@ -231,38 +245,42 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
 
           <div className={styles.form_group}>
             <label className={styles.form_label}>Provider</label>
-            <select
-              name="provider"
-              value={formData.provider}
-              onChange={handleInputChange}
-              className={styles.form_select}
-              required
-            >
-              {selectProviders.map((provider, index) => (
-                <option key={index} value={provider.name}>
-                  {provider.name}
-                </option>
-              ))}
-            </select>
+            <div className={styles.select_container}>
+              <select
+                name="provider"
+                value={formData.provider}
+                onChange={handleInputChange}
+                className={styles.form_select}
+                required
+              >
+                {selectProviders.map((provider, index) => (
+                  <option key={index} value={provider.name}>
+                    {provider.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           <div className={styles.form_group}>
             <label className={styles.form_label}>Currency</label>
             {currency?.length > 0 ? (
-              <select
-                name="currency"
-                value={formData.currency}
-                onChange={handleCurrencyChange}
-                className={styles.form_select}
-                required
-              >
-                <option value="input">Choose Currency</option>
-                {currency.map((currency, index) => (
-                  <option value={currency.name} key={index}>
-                    {currency.name}
-                  </option>
-                ))}
-              </select>
+              <div className={styles.select_container}>
+                <select
+                  name="currency"
+                  value={formData.currency}
+                  onChange={handleCurrencyChange}
+                  className={styles.form_select}
+                  required
+                >
+                  <option value="">Choose Currency</option>
+                  {currency.map((currency, index) => (
+                    <option value={currency.name} key={index}>
+                      {currency.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             ) : (
               <input
                 type="text"
@@ -278,23 +296,25 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
 
           <div className={styles.form_group}>
             <label className={styles.form_label}>Category</label>
-            <select
-              name="category"
-              value={formData.category}
-              onChange={handleInputChange}
-              className={styles.form_select}
-              required
-            >
-              {selectCategories.map((category, index) => (
-                <option value={category.name} key={index}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
+            <div className={styles.select_container}>
+              <select
+                name="category"
+                value={formData.category}
+                onChange={handleInputChange}
+                className={styles.form_select}
+                required
+              >
+                {selectCategories.map((category, index) => (
+                  <option value={category.name} key={index}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           <button type="submit" className={styles.submit_button}>
-            Add Course
+            {editCourseValues ? "Edit Course" : "Add Course"}
           </button>
         </form>
       </div>
@@ -303,6 +323,7 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({
 };
 
 export default AddCourseModal;
+
 export const AddProviderModal: React.FC<AddProviderModalProps> = ({
   isOpen,
   onClose,
@@ -406,6 +427,15 @@ export const AddProviderModal: React.FC<AddProviderModalProps> = ({
     </div>
   );
 };
+
+export interface MessageProps {
+  isOpen: boolean;
+  onClose: () => void;
+  header: string;
+  status: boolean;
+  moreDetails?: string;
+}
+
 export const MessageModal: React.FC<MessageProps> = ({
   isOpen,
   onClose,
@@ -421,28 +451,56 @@ export const MessageModal: React.FC<MessageProps> = ({
 
   return (
     <div onClick={handleClose} className={styles.modal_overlay}>
-      <div className={styles.message_modal}>
-        <div className={status ? styles.success : styles.failed}>
-          <div>
-            {status ? (
-              <Image height={50} width={50} src={checkImg} alt="Check" />
-            ) : (
-              <span>X</span>
-            )}
+      {/* Modal Container */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className={styles.modal_container}
+      >
+        {/* First Circle (Outermost) */}
+        <div
+          className={`${styles.circle_outer} ${
+            status ? styles.success : styles.error
+          }`}
+        />
+
+        {/* Second Circle (Middle) */}
+        <div
+          className={`${styles.circle_middle} ${
+            status ? styles.success : styles.error
+          }`}
+        />
+
+        {/* Third Circle (Innermost) */}
+        <div
+          className={`${styles.circle_inner} ${
+            status ? styles.success : styles.error
+          }`}
+        />
+
+        {/* Check/Cross Icon */}
+        <div className={styles.icon}>{status ? "✓" : "✕"}</div>
+
+        {/* Message Title */}
+        <h2 className={styles.message_title}>{header}</h2>
+
+        {/* Message Description */}
+        {moreDetails && (
+          <div className={styles.message_details}>
+            <span className={styles.message_details_text}>
+              <span className={styles.message_details_bold}>{moreDetails}</span>
+            </span>
           </div>
-        </div>
-        <h2>{header} </h2>
-        {moreDetails && <p>{moreDetails}</p>}
-        <button
-          className={status ? styles.buttonSuccess : styles.buttonFailed}
-          onClick={handleClose}
-        >
-          Continue
+        )}
+
+        {/* Continue Button */}
+        <button onClick={handleClose} className={styles.continue_button}>
+          <span className={styles.button_text}>Continue</span>
         </button>
       </div>
     </div>
   );
 };
+
 export const AddAdminModal: React.FC<AddAdminModalProps> = ({
   isOpen,
   onClose,

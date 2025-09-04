@@ -3,10 +3,42 @@ import { certificationProvider } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
+function isValidUrl(string: string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
 export async function POST(request: Request) {
   try {
-    // const cookies = new coo
     const { apiBaseUrl, website, name } = await request.json();
+
+    if (
+      !apiBaseUrl ||
+      apiBaseUrl.length < 1 ||
+      !website ||
+      website.length < 1 ||
+      !name ||
+      name.length < 1
+    ) {
+      return NextResponse.json(
+        { success: false, message: "All fields but be inserted" },
+        { status: 400 }
+      );
+    }
+
+    if (!isValidUrl(apiBaseUrl)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Api is invalid",
+        },
+        { status: 400 }
+      );
+    }
+
     const [providerExist] = await db
       .select()
       .from(certificationProvider)
@@ -21,7 +53,10 @@ export async function POST(request: Request) {
       .insert(certificationProvider)
       .values({ apiBaseUrl, website, name });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      message: `The ${name} provider has been successfully added`,
+    });
   } catch (err) {
     return NextResponse.json(
       {
