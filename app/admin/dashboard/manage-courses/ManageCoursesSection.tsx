@@ -438,11 +438,7 @@ export default function ManageCoursesSection() {
         onClose={handleMessageModalClose}
         status={status}
         header={message}
-        moreDetails={
-          status
-            ? "You have successfully added a new course. Customers can now purchase the added course."
-            : "Unable to add the course. Please check your connection and try again."
-        }
+        moreDetails={messageDetail}
       />
     </section>
   );

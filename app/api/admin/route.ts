@@ -38,7 +38,7 @@ export async function POST(request: Request) {
 
     const token = jwt.sign(
       { email: res.email, role: res.roles },
-      "admin@gmail.com201902",
+      process.env.PASS_SECRET,
       { expiresIn: "1d" }
     );
 
