@@ -450,191 +450,51 @@ export const MessageModal: React.FC<MessageProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div
-      onClick={handleClose}
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 9999,
-        backdropFilter: "blur(4px)",
-      }}
-    >
-      {/* Modal Container - Using absolute positioning as per design specs */}
+    <div onClick={handleClose} className={styles.modal_overlay}>
+      {/* Modal Container */}
       <div
         onClick={(e) => e.stopPropagation()}
-        style={{
-          width: "706px",
-          height: "517px",
-          background: "#FFFFFF",
-          border: "0.94px solid #EFEFEF",
-          borderRadius: "10px",
-          position: "relative",
-          opacity: 1,
-        }}
+        className={styles.modal_container}
       >
-        {/* First Circle (Outermost) - positioned as per specs */}
+        {/* First Circle (Outermost) */}
         <div
-          style={{
-            width: "134px",
-            height: "134px",
-            background: status ? "#BBE8BF" : "#FFCCCB",
-            borderRadius: "50%",
-            position: "absolute",
-            top: "30px", // Adjusted from original 330px to fit within modal
-            left: "286px", // Centered: (706-134)/2 = 286px
-            opacity: 1,
-          }}
+          className={`${styles.circle_outer} ${
+            status ? styles.success : styles.error
+          }`}
         />
 
-        {/* Second Circle (Middle) - positioned as per specs */}
+        {/* Second Circle (Middle) */}
         <div
-          style={{
-            width: "118.925px",
-            height: "118.925px",
-            background: status ? "#1EB12D" : "#FF6B6B",
-            borderRadius: "50%",
-            position: "absolute",
-            top: "37.54px", // 30 + 7.54
-            left: "293.54px", // 286 + 7.54
-            opacity: 1,
-          }}
+          className={`${styles.circle_middle} ${
+            status ? styles.success : styles.error
+          }`}
         />
 
-        {/* Third Circle (Innermost) - positioned as per specs */}
+        {/* Third Circle (Innermost) */}
         <div
-          style={{
-            width: "96.3125px",
-            height: "96.3125px",
-            background: status ? "#18902C" : "#FF4444",
-            borderRadius: "50%",
-            position: "absolute",
-            top: "48.43px", // 30 + 18.43
-            left: "304.43px", // 286 + 18.43
-            opacity: 1,
-          }}
+          className={`${styles.circle_inner} ${
+            status ? styles.success : styles.error
+          }`}
         />
 
-        {/* Check Icon - positioned as per specs */}
-        <div
-          style={{
-            width: "48px",
-            height: "34.65px",
-            position: "absolute",
-            top: "79px", // 30 + 49
-            left: "329px", // 286 + 43
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#FFFFFF",
-            fontSize: "48px",
-            fontWeight: "bold",
-            opacity: 1,
-          }}
-        >
-          {status ? "✓" : "✕"}
-        </div>
+        {/* Check/Cross Icon */}
+        <div className={styles.icon}>{status ? "✓" : "✕"}</div>
 
-        {/* Message Title - positioned as per specs */}
-        <h2
-          style={{
-            fontFamily:
-              'Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-            fontWeight: 700,
-            fontStyle: "normal",
-            fontSize: "35px",
-            lineHeight: "100%",
-            letterSpacing: "0%",
-            color: "#000000B2",
-            width: "488px",
-            height: "44px",
-            position: "absolute",
-            top: "194px", // Adjusted from original 494px to fit within modal
-            left: "109px", // (706-488)/2 = 109px
-            margin: 0,
-            textAlign: "center",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            opacity: 1,
-          }}
-        >
-          {header}
-        </h2>
+        {/* Message Title */}
+        <h2 className={styles.message_title}>{header}</h2>
 
-        {/* Message Description - positioned below title */}
+        {/* Message Description */}
         {moreDetails && (
-          <div
-            style={{
-              position: "absolute",
-              top: "260px",
-              left: "50px",
-              maxWidth: "606px", // Modal width - padding
-              textAlign: "center",
-            }}
-          >
-            <span
-              style={{
-                fontFamily:
-                  'Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                fontWeight: 400,
-                fontSize: "20px", // Slightly smaller to fit better
-                lineHeight: "140%", // Added line height for readability
-                letterSpacing: "0%",
-                textAlign: "center",
-                color: "#001A32",
-                display: "block",
-              }}
-            >
-              <span style={{ fontWeight: 600 }}>{moreDetails}</span>
+          <div className={styles.message_details}>
+            <span className={styles.message_details_text}>
+              <span className={styles.message_details_bold}>{moreDetails}</span>
             </span>
           </div>
         )}
 
-        {/* Continue Button - positioned as per specs */}
-        <button
-          onClick={handleClose}
-          style={{
-            width: "400px",
-            height: "54px",
-            position: "absolute",
-            top: "420px", // Near bottom of modal
-            left: "153px", // (706-400)/2 = 153px
-            borderRadius: "50px",
-            paddingTop: "17px",
-            paddingRight: "72px",
-            paddingBottom: "17px",
-            paddingLeft: "72px",
-            background: "#000000CC",
-            border: "none",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "10px",
-            opacity: 1,
-          }}
-        >
-          <span
-            style={{
-              fontFamily:
-                'Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-              fontWeight: 600,
-              fontStyle: "normal",
-              fontSize: "16px",
-              lineHeight: "100%",
-              letterSpacing: "0%",
-              color: "#FFBB15",
-            }}
-          >
-            Continue
-          </span>
+        {/* Continue Button */}
+        <button onClick={handleClose} className={styles.continue_button}>
+          <span className={styles.button_text}>Continue</span>
         </button>
       </div>
     </div>
