@@ -75,8 +75,8 @@ export default function DashboardSection() {
       );
       setCustomers(data.customers);
       setCurrentPage(1);
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error) {
+      toast.error(error instanceof Error && error.message);
     } finally {
       setLoading(false);
     }

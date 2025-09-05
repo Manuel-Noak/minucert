@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { certification, customerCertificationOrders } from "@/db/schema";
+import { certification } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -20,11 +20,14 @@ export async function DELETE(request: Request) {
       success: true,
       message: "Successfully deleted the course, along with its orders",
     });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
       {
         success: false,
-        message: err.message || "Something went wrong, refresh page",
+        message:
+          err instanceof Error
+            ? err.message
+            : "Something went wrong, refresh page",
       },
       { status: 500 }
     );
