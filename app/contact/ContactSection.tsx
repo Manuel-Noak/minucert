@@ -57,7 +57,7 @@ export default function ContactSection() {
 
       return toast.success(message);
     } catch (error) {
-      return toast.error(error.message);
+      return toast.error("Couldn't proceed with the message");
     } finally {
       setLoading(false);
     }
