@@ -115,6 +115,8 @@ export default function ManageCoursesSection() {
         },
       });
       const { success, message } = await res.json();
+      setMessageModalOpen(true);
+      setMessageDetail(message);
       setStatus(success);
       if (success) {
         setMessage("Successfully deleted the course");
@@ -124,7 +126,6 @@ export default function ManageCoursesSection() {
       }
 
       setMessage("Unable able to delete Course");
-      setMessageDetail(message);
     } catch (error) {
       setMessage("Unable able to delete Course");
       setMessageDetail(
@@ -169,6 +170,7 @@ export default function ManageCoursesSection() {
       const data = await res.json();
       setLoading(false);
       setMessageModalOpen(true);
+      setMessageDetail(data.message || "Something went wrong");
       setStatus(data.success);
       if (data.success) {
         setMessage(
@@ -178,7 +180,6 @@ export default function ManageCoursesSection() {
         return;
       }
       setMessage(`Couldn't ${editCourse ? "edit" : "add"} the new course`);
-      setMessageDetail(data.message || "Something went wrong");
     } catch (err) {
       setLoading(false);
       setStatus(false);
@@ -202,12 +203,12 @@ export default function ManageCoursesSection() {
         body: JSON.stringify(formData),
       });
 
-      const { success } = await res.json();
+      const { success, message } = await res.json();
       setLoading(false);
       setStatus(success);
+      setMessageDetail(message || null);
       if (!success) {
         setMessage("Couldn't add the new Provider");
-        setMessageDetail(success.message || null);
         return;
       }
       setMessage("Successfully added the Provider");
@@ -233,12 +234,12 @@ export default function ManageCoursesSection() {
         method: "POST",
         body: JSON.stringify(formData),
       });
-      const { success } = await res.json();
+      const { success, message } = await res.json();
       setLoading(false);
+      setMessageDetail(message);
       setStatus(success);
       if (!success) {
         setMessage("Couldn't add the new admin");
-        setMessageDetail(success.message || null);
         return;
       }
       setMessage("Successfully added the Admin");

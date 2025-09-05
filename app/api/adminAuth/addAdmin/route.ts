@@ -44,7 +44,10 @@ export async function POST(request: Request) {
       password: hashPassword,
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      message: `Successfully created the admin`,
+    });
   } catch (err) {
     return NextResponse.json(
       {

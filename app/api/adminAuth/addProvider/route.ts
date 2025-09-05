@@ -53,7 +53,10 @@ export async function POST(request: Request) {
       .insert(certificationProvider)
       .values({ apiBaseUrl, website, name });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      message: `The ${name} provider has been successfully added`,
+    });
   } catch (err) {
     return NextResponse.json(
       {

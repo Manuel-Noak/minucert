@@ -9,7 +9,10 @@ export async function DELETE(request: Request) {
 
     await db.delete(certification).where(eq(certification.id, Number(id)));
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      message: "Successfully deleted the course",
+    });
   } catch (err) {
     return NextResponse.json(
       {

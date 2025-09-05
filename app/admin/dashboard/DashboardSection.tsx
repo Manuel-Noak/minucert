@@ -304,7 +304,7 @@ export default function DashboardSection() {
               )}
             </div>
             <button className={styles.download_trans_btn} onClick={downloadCSV}>
-              Download Customer&apos;s Transactions
+              Export Transactions
             </button>
           </div>
         </div>

@@ -89,7 +89,10 @@ export async function POST(request: Request) {
       providerId: providerId.id,
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      message: `The ${courseName} course has been successfully added`,
+    });
   } catch (err) {
     return NextResponse.json(
       {

@@ -206,12 +206,13 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-x: auto;
+  min-width: 0; /* Allow flex item to shrink */
+  overflow: hidden; /* Prevent overflow */
 }
 
 .table_header {
   display: grid;
-  grid-template-columns: 1.5fr 2fr 1fr 1fr auto;
+  grid-template-columns: 1.9fr 1.8fr 1.5fr 1fr 1fr;
   background-color: #000000cc;
   color: white;
   font-weight: 600;
@@ -234,11 +235,12 @@
 .table_body {
   flex: 1;
   min-width: 800px;
+  overflow-x: auto; /* Add horizontal scroll */
 }
 
 .table_row {
   display: grid;
-  grid-template-columns: 1.5fr 2fr 1fr 1fr auto;
+  grid-template-columns: 1.9fr 1.8fr 1.5fr 1fr 1fr;
   border-bottom: 1px solid #9e9ea64d;
   transition: background-color 0.2s ease;
   position: relative;
@@ -279,14 +281,14 @@
 }
 
 .status_badge {
-  padding: 6px 12px;
-  border-radius: 5px;
+  padding: 7px 12px;
   font-size: 12px;
   font-weight: 600;
   text-transform: capitalize;
   display: inline-block;
   min-width: 90px;
   text-align: center;
+  border-radius: 100px;
 }
 
 .fulfilled {
@@ -444,7 +446,7 @@
 }
 
 .filter_btn {
-  padding: 10px 20px;
+  padding: 15px 20px;
   background-color: #ffbb15;
   border: none;
   border-radius: 6px;
@@ -609,7 +611,6 @@
   background-color: #e6a612;
 }
 
-/* Responsive Design - UPDATED FOR MOBILE */
 @media (max-width: 1200px) {
   .dashboard_section {
     padding: 24px;
@@ -633,6 +634,7 @@
 
   .table_container {
     flex-direction: column;
+    overflow-x: auto; /* Add horizontal scroll to container */
   }
 
   .sidebar {
@@ -640,6 +642,16 @@
     border-radius: 20px 20px 0 0;
     border-right: none;
     border-bottom: 1px solid #9e9ea64d;
+  }
+
+  .table_content {
+    overflow-x: auto; /* Enable horizontal scroll */
+  }
+
+  .table_header,
+  .table_body,
+  .table_row {
+    min-width: 800px; /* Maintain minimum width for desktop layout */
   }
 
   .certification_tab {
@@ -702,25 +714,62 @@
     width: 100%;
   }
 
-  .header_cell,
-  .table_cell {
-    padding: 12px 8px;
-    font-size: 13px;
+  /* Switch to card layout for mobile */
+  .table_header {
+    display: none; /* Hide desktop header on mobile */
   }
 
-  .header_cell {
-    padding: 16px 8px;
+  .table_body {
+    min-width: auto; /* Remove minimum width constraint */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
   }
 
-  /* Hide email column on mobile */
-  .table_header .header_cell:nth-child(2),
-  .table_row .table_cell:nth-child(2) {
-    display: none;
-  }
-
-  .table_header,
   .table_row {
-    grid-template-columns: 1.5fr 1fr 1fr auto;
+    display: flex;
+    flex-direction: column;
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 16px;
+    border-bottom: none;
+    gap: 8px;
+    min-width: auto; /* Remove minimum width constraint */
+  }
+
+  .table_row:hover {
+    background-color: #f5f5f5;
+  }
+
+  .table_cell {
+    padding: 8px 0;
+    border-right: none;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .table_cell:before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #666;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .table_cell_text {
+    white-space: normal;
+    text-align: left;
+    width: 100%;
+  }
+
+  .actions_cell {
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 
   .pagination {
@@ -739,7 +788,7 @@
   .status_badge {
     min-width: 80px;
     font-size: 11px;
-    padding: 4px 8px;
+    padding: 6px 8px;
   }
 }
 
@@ -765,17 +814,6 @@
   .filter_btn {
     padding: 10px;
     font-size: 14px;
-  }
-
-  /* Hide program column on very small screens */
-  .table_header .header_cell:nth-child(3),
-  .table_row .table_cell:nth-child(3) {
-    display: none;
-  }
-
-  .table_header,
-  .table_row {
-    grid-template-columns: 1.5fr 1fr auto;
   }
 
   .sidebar {
@@ -814,16 +852,23 @@
     font-size: 13px;
   }
 
-  /* Adjust table for very small screens */
-  .table_header,
-  .table_row {
-    min-width: 100%;
+  .table_body {
+    padding: 12px;
+    gap: 10px;
   }
 
-  .header_cell,
+  .table_row {
+    padding: 12px;
+  }
+
   .table_cell {
-    padding: 10px 6px;
-    font-size: 12px;
+    padding: 6px 0;
+    font-size: 13px;
+  }
+
+  .table_cell:before {
+    font-size: 11px;
+    min-width: 80px;
   }
 
   .status_badge {
@@ -857,17 +902,6 @@
     font-size: 13px;
   }
 
-  /* Hide date column on very small screens */
-  .table_header .header_cell:nth-child(5),
-  .table_row .table_cell:nth-child(5) {
-    display: none;
-  }
-
-  .table_header,
-  .table_row {
-    grid-template-columns: 1.5fr 1fr;
-  }
-
   .button_group {
     gap: 8px;
   }
@@ -877,5 +911,22 @@
   .filter_btn {
     padding: 8px;
     font-size: 13px;
+  }
+
+  .table_body {
+    padding: 8px;
+  }
+
+  .table_row {
+    padding: 10px;
+  }
+
+  .table_cell:before {
+    min-width: 70px;
+    font-size: 10px;
+  }
+
+  .table_cell_text {
+    font-size: 12px;
   }
 }
