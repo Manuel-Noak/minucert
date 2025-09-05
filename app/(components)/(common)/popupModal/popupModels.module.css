@@ -240,78 +240,401 @@
   transform: translateY(0);
 }
 
-.modal_overlay .message_modal {
-  width: 600px;
-  padding: 1rem;
+/* modal.module.css */
+.modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
-  min-height: 300px;
-  flex-direction: column;
-  gap: 1.7rem;
-  background-color: #ffffff;
-  color: #000000;
-}
-
-.success,
-.failed {
-  width: 8rem;
-  height: 8rem;
-  display: flex;
   justify-content: center;
-  align-items: center;
-  color: white;
-  font-weight: 600;
-  font-size: 3rem;
-  border-radius: 50%;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+  padding: 20px;
 }
 
-.failed > div,
-.success > div {
+.modal_container {
+  width: 706px;
+  height: 517px;
+  background: #ffffff;
+  border: 0.94px solid #efefef;
+  border-radius: 10px;
+  position: relative;
+  opacity: 1;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+/* Circle Styles */
+.circle_outer {
+  width: 134px;
+  height: 134px;
   border-radius: 50%;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+}
+
+.circle_outer.success {
+  background: #bbe8bf;
+}
+
+.circle_outer.error {
+  background: #ffcccb;
+}
+
+.circle_middle {
+  width: 118.925px;
+  height: 118.925px;
+  border-radius: 50%;
+  position: absolute;
+  top: 37.54px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+}
+
+.circle_middle.success {
+  background: #1eb12d;
+}
+
+.circle_middle.error {
+  background: #ff6b6b;
+}
+
+.circle_inner {
+  width: 96.3125px;
+  height: 96.3125px;
+  border-radius: 50%;
+  position: absolute;
+  top: 48.43px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+}
+
+.circle_inner.success {
+  background: #18902c;
+}
+
+.circle_inner.error {
+  background: #ff4444;
+}
+
+.icon {
+  width: 48px;
+  height: 34.65px;
+  position: absolute;
+  top: 79px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 7rem;
-  height: 7rem;
-}
-
-.success {
-  background-color: #22f044;
-}
-
-.success > div {
-  background-color: #18902c;
-}
-
-.failed {
-  background-color: #fc0f0f;
-}
-
-.failed > div {
-  background-color: #d81313;
-}
-
-.message_modal button {
-  width: 180px;
-  height: 54px;
+  justify-content: center;
   color: #ffffff;
-  border-radius: 20px;
+  font-size: 48px;
+  font-weight: bold;
+  opacity: 1;
 }
 
-.buttonFailed {
-  background-color: #fc0f0f;
-}
-
-.buttonSuccess {
-  background-color: #18902c;
-}
-
-.message_modal h2 {
-  font-family: "Montserrat";
-  font-style: normal;
+.message_title {
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
   font-weight: 700;
+  font-style: normal;
   font-size: 35px;
-  color: rgba(0, 0, 0, 0.7);
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000b2;
+  width: 488px;
+  height: 44px;
+  position: absolute;
+  top: 194px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  max-width: calc(100% - 40px);
+}
+
+.message_details {
+  position: absolute;
+  top: 260px;
+  left: 50px;
+  right: 50px;
+  text-align: center;
+}
+
+.message_details_text {
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  text-align: center;
+  color: #001a32;
+}
+
+.message_details_bold {
+  font-weight: 600;
+}
+
+.continue_button {
+  width: 400px;
+  height: 54px;
+  position: absolute;
+  top: 420px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50px;
+  padding: 17px 72px;
+  background: #000000cc;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  opacity: 1;
+  max-width: calc(100% - 40px);
+  transition: all 0.2s ease;
+}
+
+.continue_button:hover {
+  background: #000000dd;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.continue_button:active {
+  transform: translateX(-50%) translateY(0);
+}
+
+.button_text {
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #ffbb15;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modal_overlay {
+    padding: 16px;
+  }
+
+  .modal_container {
+    width: 100%;
+    height: auto;
+    min-height: 450px;
+    padding-bottom: 20px;
+  }
+
+  /* Adjust circle sizes for mobile */
+  .circle_outer {
+    width: 100px;
+    height: 100px;
+    top: 25px;
+  }
+
+  .circle_middle {
+    width: 88px;
+    height: 88px;
+    top: 31px;
+  }
+
+  .circle_inner {
+    width: 72px;
+    height: 72px;
+    top: 39px;
+  }
+
+  .icon {
+    width: 36px;
+    height: 26px;
+    top: 61px;
+    font-size: 36px;
+  }
+
+  .message_title {
+    font-size: 28px;
+    width: calc(100% - 40px);
+    height: auto;
+    top: 150px;
+    padding: 0 20px;
+  }
+
+  .message_details {
+    top: 200px;
+    left: 20px;
+    right: 20px;
+  }
+
+  .message_details_text {
+    font-size: 18px;
+  }
+
+  .continue_button {
+    width: calc(100% - 40px);
+    top: 350px;
+    padding: 15px 20px;
+  }
+
+  .button_text {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal_overlay {
+    padding: 12px;
+  }
+
+  .modal_container {
+    min-height: 400px;
+  }
+
+  /* Further reduce circle sizes */
+  .circle_outer {
+    width: 80px;
+    height: 80px;
+    top: 20px;
+  }
+
+  .circle_middle {
+    width: 70px;
+    height: 70px;
+    top: 25px;
+  }
+
+  .circle_inner {
+    width: 58px;
+    height: 58px;
+    top: 31px;
+  }
+
+  .icon {
+    width: 28px;
+    height: 20px;
+    top: 51px;
+    font-size: 28px;
+  }
+
+  .message_title {
+    font-size: 24px;
+    top: 120px;
+  }
+
+  .message_details {
+    top: 170px;
+  }
+
+  .message_details_text {
+    font-size: 16px;
+  }
+
+  .continue_button {
+    top: 300px;
+    height: 48px;
+    padding: 12px 16px;
+  }
+
+  .button_text {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .modal_container {
+    min-height: 380px;
+  }
+
+  .message_title {
+    font-size: 22px;
+    top: 110px;
+  }
+
+  .message_details {
+    top: 160px;
+  }
+
+  .message_details_text {
+    font-size: 15px;
+  }
+
+  .continue_button {
+    top: 280px;
+  }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+  .modal_container {
+    height: auto;
+    min-height: 350px;
+    overflow-y: auto;
+  }
+
+  .circle_outer {
+    width: 60px;
+    height: 60px;
+    top: 15px;
+  }
+
+  .circle_middle {
+    width: 52px;
+    height: 52px;
+    top: 19px;
+  }
+
+  .circle_inner {
+    width: 42px;
+    height: 42px;
+    top: 24px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 15px;
+    top: 39px;
+    font-size: 20px;
+  }
+
+  .message_title {
+    font-size: 20px;
+    top: 90px;
+  }
+
+  .message_details {
+    top: 130px;
+  }
+
+  .message_details_text {
+    font-size: 14px;
+  }
+
+  .continue_button {
+    top: 250px;
+    height: 44px;
+  }
+
+  .button_text {
+    font-size: 13px;
+  }
 }
 
 /* Responsive Design */
