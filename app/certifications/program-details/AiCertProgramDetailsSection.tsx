@@ -6,7 +6,7 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 
 import black_back_arrow from "@/public/assets/black_back_arrow.png";
-import program_img from "@/app/assets/img/aiCloud.jpg";
+// import program_img from "@/app/assets/img/aiCloud.jpg";
 import styles from "./aiCertProgramDetails.module.css";
 
 interface CourseDetail {
@@ -225,7 +225,7 @@ export default function AiProgramDetailsSection() {
         <div className={styles.headerContent}>
           <div className={styles.programImageContainer}>
             <img
-              src={courseInfo?.thumbnailLink || program_img}
+              src={courseInfo?.thumbnailLink}
               alt={programTitle}
               className={styles.programImage}
             />
