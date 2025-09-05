@@ -1,8 +1,7 @@
 "use client";
 import styles from "./someprograms.module.css";
 
-import type { StaticImageData } from "next/image";
-import defaultImage from "@/app/assets/img/aiSales.jpg";
+// import defaultImage from "@/app/assets/img/aiSales.jpg";
 import { useEffect, useState } from "react";
 import fetchCourses from "../courses/fetchCourse";
 import { useAppContext } from "@/app/(state)/state";
@@ -21,7 +20,7 @@ const Courses = ({ src, title, id, price, currencyCode }: CoursesProps) => {
   return (
     <div className={styles.courseCard}>
       <div className={styles.courseImage}>
-        <img src={src || defaultImage} alt={title} />
+        <img src={src} alt={title} />
       </div>
       <div className={styles.courseContent}>
         <p className={styles.courseTitle}>{title}</p>

@@ -8,7 +8,6 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import Loader from "../(components)/(loading)/loader";
 
 interface CourseSyntax {
   title: string;
