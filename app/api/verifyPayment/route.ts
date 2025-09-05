@@ -17,15 +17,18 @@ export async function POST(request: Request) {
 
     return await verifyTransaction(reference);
   } catch (error) {
-    console.error(`Something went wrong`, error);
     return NextResponse.json(
-      { success: false, message: "Server error" },
+      {
+        success: false,
+        message: error instanceof Error ? error.message : "Server error",
+      },
       { status: 500 }
     );
   }
 }
 
-export async function verifyTransaction(reference: string) {
+// Remove the 'export' keyword - make it a regular function
+async function verifyTransaction(reference: string) {
   if (!reference) {
     return NextResponse.json(
       { success: false, message: "Transaction reference is required" },
@@ -62,14 +65,11 @@ export async function verifyTransaction(reference: string) {
       }
     );
   } catch (error) {
-    console.error(
-      `Error trying to verify transaction ${reference} on paystack`,
-      error
-    );
     return NextResponse.json(
       {
         success: false,
-        message: "Error on payment gateway",
+        message:
+          error instanceof Error ? error.message : "Error on payment gateway",
       },
       { status: 500 }
     );
@@ -134,15 +134,11 @@ export async function verifyTransaction(reference: string) {
       );
     }
   } catch (error) {
-    console.error(
-      `Error trying to update record for transaction ${reference}`,
-      error
-    );
-
     return NextResponse.json(
       {
         success: false,
-        message: "Error on updating records",
+        message:
+          error instanceof Error ? error.message : "Error on updating records",
       },
       { status: 500 }
     );
