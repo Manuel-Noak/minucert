@@ -10,25 +10,8 @@ import { CertificationPurchaseTransaction } from "@/app/(model)/dto/EntityDtos";
 import { PaystackVerifyTransactionResponseDto } from "@/app/(model)/transaction/dto/PaystackDto";
 import { ResponseCodes } from "@/app/(model)/data";
 
-export async function POST(request: Request) {
-  try {
-    // Parse request body
-    const { reference } = await request.json();
-
-    return await verifyTransaction(reference);
-  } catch (error) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: error instanceof Error ? error.message : "Server error",
-      },
-      { status: 500 }
-    );
-  }
-}
-
-// Remove the 'export' keyword - make it a regular function
-async function verifyTransaction(reference: string) {
+// Export this function for use in other routes
+export async function verifyTransaction(reference: string) {
   if (!reference) {
     return NextResponse.json(
       { success: false, message: "Transaction reference is required" },
@@ -59,7 +42,7 @@ async function verifyTransaction(reference: string) {
       `${process.env.PAYSTACK_VERIFY_TRANSACTION_URL}/${reference}`,
       {
         headers: {
-          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`, // Use secret key (not public key)
+          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
           "Content-Type": "application/json",
         },
       }
@@ -134,11 +117,31 @@ async function verifyTransaction(reference: string) {
       );
     }
   } catch (error) {
+    console.error(
+      `Error trying to update record for transaction ${reference}`,
+      error
+    );
+
     return NextResponse.json(
       {
         success: false,
-        message:
-          error instanceof Error ? error.message : "Error on updating records",
+        message: "Error on updating records",
+      },
+      { status: 500 }
+    );
+  }
+}
+
+// The POST handler for this route
+export async function POST(request: Request) {
+  try {
+    const { reference } = await request.json();
+    return await verifyTransaction(reference);
+  } catch (error) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: error instanceof Error ? error.message : "Server error",
       },
       { status: 500 }
     );

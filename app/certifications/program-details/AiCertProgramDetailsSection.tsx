@@ -225,7 +225,7 @@ export default function AiProgramDetailsSection() {
         <div className={styles.headerContent}>
           <div className={styles.programImageContainer}>
             <img
-              src={courseInfo?.thumbnailLink || program_img.src}
+              src={courseInfo?.thumbnailLink || program_img}
               alt={programTitle}
               className={styles.programImage}
             />

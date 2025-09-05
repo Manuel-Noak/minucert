@@ -9,7 +9,7 @@ import { useAppContext } from "@/app/(state)/state";
 import { useRouter } from "next/navigation";
 
 type CoursesProps = {
-  src: string | StaticImageData;
+  src: string;
   title: string;
   price: number;
   id: number;
@@ -131,7 +131,9 @@ export default function SomePrograms() {
           </p>
         </div>
         <div className={styles.coursesGrid}>
-          <p className={styles.noCoursesMessage}>No courses available at the moment.</p>
+          <p className={styles.noCoursesMessage}>
+            No courses available at the moment.
+          </p>
         </div>
       </section>
     );
