@@ -4,6 +4,7 @@ import Logo_img from "../../assets/img/Home/logo_img.png";
 import signout_icon from "../../assets/img/Admin/signout_icon.png";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 interface DashboardNavbarProps {
   backgroundColor?: string;
@@ -15,8 +16,11 @@ export default function DashboardNavbar({
   const router = useRouter();
   const handleSignOut = () => {
     fetch("/api/adminAuth/logout")
+      .then((res) => res.json())
       .then(() => router.replace("/"))
-      .catch(() => router.replace("/"));
+      .catch(() => {
+        toast.error("Something wrong");
+      });
   };
 
   return (
