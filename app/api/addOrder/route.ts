@@ -21,7 +21,7 @@ import {
   PaystackInitializeTransactionResponseDto,
 } from "@/app/(model)/transaction/dto/PaystackDto";
 import { postRequest } from "@/app/(components)/(common)/network/PostRequest";
-import { verifyTransaction } from "../verifyPayment/route";
+import { verifyTransaction } from "@/lib/verifyTransaction";
 import { ResponseCodes } from "@/app/(model)/data";
 
 export async function POST(request: Request) {
