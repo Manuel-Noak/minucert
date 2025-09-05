@@ -38,6 +38,17 @@ interface CourseDetail {
   };
 }
 
+interface CourseInfo {
+  id: number;
+  category: string;
+  courseId: number;
+  price: number;
+  thumbnailLink: string;
+  title: string;
+  providerId: number;
+  api: string;
+}
+
 // Loading Skeleton Component
 const LoadingSkeleton = () => {
   return (
@@ -105,7 +116,7 @@ export default function AiProgramDetailsSection() {
   const page = params.get("id")?.toString();
 
   const [detailData, setDetailData] = useState<CourseDetail | null>(null);
-  const [courseInfo, setCourseInfo] = useState(null);
+  const [courseInfo, setCourseInfo] = useState<CourseInfo>();
 
   useEffect(() => {
     if (!page) return;
