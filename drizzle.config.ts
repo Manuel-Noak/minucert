@@ -3,13 +3,13 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 export default {
-  schema: "./db/schema.ts", // path to your schema
-  out: "./drizzle", // folder for migration files
-  dialect: "mysql", // MySQL driver
+  schema: "./db/schema.ts",
+  out: "./drizzle",
+  dialect: "mysql",
   dbCredentials: {
     host: process.env.DB_URL,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
   },
-} satisfies Config;
+} as Config;

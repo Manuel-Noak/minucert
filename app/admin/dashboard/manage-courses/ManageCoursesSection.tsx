@@ -53,9 +53,9 @@ export default function ManageCoursesSection() {
         return toast.error(data.message);
       }
       setCourses(data.courses);
-    } catch (err: any) {
+    } catch (err) {
       setLoading(false);
-      toast.error(err.message);
+      toast.error(err instanceof Error ? err.message : "Something went wrong");
     }
   };
 

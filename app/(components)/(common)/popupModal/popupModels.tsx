@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./popupModels.module.css";
-import Image from "next/image";
-import checkImg from "@/app/assets/img/check.png";
 import { CourseFormsData } from "@/app/admin/dashboard/manage-courses/ManageCoursesSection";
 
 interface AddCourseModalProps {

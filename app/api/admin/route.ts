@@ -38,7 +38,7 @@ export async function POST(request: Request) {
 
     const token = jwt.sign(
       { email: res.email, role: res.roles },
-      process.env.PASS_SECRET,
+      process.env.PASS_SECRET!,
       { expiresIn: "1d" }
     );
 
@@ -53,7 +53,10 @@ export async function POST(request: Request) {
     return response;
   } catch (err) {
     return NextResponse.json(
-      { success: false, message: err.message || "Something went wrong" },
+      {
+        success: false,
+        message: err instanceof Error ? err.message : "Something went wrong",
+      },
       { status: 500 }
     );
   }

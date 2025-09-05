@@ -81,7 +81,7 @@ export default function Footer() {
       <div className={styles.bottomSection}>
         <div className={styles.divider}></div>
         <p className={styles.copyright}>
-          All rights reserved - 2025 Minu Cert Incorporated
+          All rights reserved - 2025 MinuCert Incorporated
         </p>
       </div>
     </footer>

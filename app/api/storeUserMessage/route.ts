@@ -45,7 +45,13 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     return NextResponse.json(
-      { success: false, message: "Please check your connection" },
+      {
+        success: false,
+        message:
+          error instanceof Error
+            ? error.message
+            : "Please check your connection",
+      },
       { status: 500 }
     );
   }

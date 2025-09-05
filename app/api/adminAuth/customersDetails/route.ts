@@ -8,7 +8,15 @@ import {
 import { eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-export async function GET(_: Request) {
+interface OrderInfo {
+  id: number | null;
+  fullname: string;
+  email: string | null;
+  program: string | null;
+  status: string | null;
+  date: Date | null;
+}
+export async function GET() {
   try {
     const rows = await db
       .select({
@@ -36,7 +44,7 @@ export async function GET(_: Request) {
 
     const grouped = rows.reduce((acc, row) => {
       const existing = acc.find((p) => p.providerName === row.providerName);
-      const orderInfo = {
+      const orderInfo: OrderInfo = {
         id: row.id,
         fullname: row.fullname,
         email: row.email,
@@ -55,7 +63,7 @@ export async function GET(_: Request) {
       }
 
       return acc;
-    }, [] as { providerName: string; courseOrders: any[] }[]);
+    }, [] as { providerName: string; courseOrders: OrderInfo[] }[]);
 
     return NextResponse.json({
       success: true,
@@ -63,7 +71,10 @@ export async function GET(_: Request) {
     });
   } catch (err) {
     return NextResponse.json(
-      { success: false, message: err.message },
+      {
+        success: false,
+        message: err instanceof Error ? err.message : "Connectivity Issue",
+      },
       { status: 500 }
     );
   }

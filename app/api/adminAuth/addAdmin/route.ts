@@ -52,7 +52,10 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: false,
-        message: "Something went wrong, refresh page",
+        message:
+          err instanceof Error
+            ? err.message
+            : "Something went wrong, refresh page",
       },
       { status: 500 }
     );
