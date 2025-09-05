@@ -7,7 +7,6 @@ import { ResponseCodes } from "../../(model)/data";
 // Styles
 import styles from "./checkoutSection.module.css";
 import { toast } from "react-toastify";
-import Loader from "@/app/(components)/(loading)/loader";
 
 export default function CheckoutSection() {
   const router = useRouter();
@@ -24,9 +23,8 @@ export default function CheckoutSection() {
     email: "",
     phone: "",
   });
-  const [loading, setLoading] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
-  
+
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -79,7 +77,7 @@ export default function CheckoutSection() {
       router.push(data.authorizedUrl);
     } catch (error) {
       setCheckoutLoading(false);
-      toast.error(error.message);
+      toast.error("Couldn't proceed with the payment");
     }
   };
 
@@ -96,19 +94,13 @@ export default function CheckoutSection() {
       .catch(() => router.replace("/"));
   }, [router]);
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <section className={styles.checkoutSection}>
-      {/* Header Section('Checkout' text) */}
       <div className={styles.headerSection}>
         <h1 className={styles.checkoutTitle}>Checkout</h1>
       </div>
 
       <div className={styles.checkoutContent}>
-        {/* Billing Address Section('Billing Address' text, the 2 by 2 grid text fields, order note text field) */}
         <div className={styles.billingSection}>
           <h2 className={styles.billingTitle}>Billing Address</h2>
 
@@ -183,7 +175,9 @@ export default function CheckoutSection() {
             </div>
 
             <button
-              className={`${styles.completeCheckoutButton} ${checkoutLoading ? styles.loadingButton : ''}`}
+              className={`${styles.completeCheckoutButton} ${
+                checkoutLoading ? styles.loadingButton : ""
+              }`}
               onClick={handleCompleteCheckout}
               disabled={checkoutLoading}
             >
