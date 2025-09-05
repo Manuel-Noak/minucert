@@ -59,24 +59,25 @@ export default function Signin() {
       }
       router.push("/admin/dashboard");
     } catch (error) {
-      return toast.error(error.message);
+      return toast.error("Something went wrong");
     } finally {
       setLoading(false);
       setIsSubmitting(false);
     }
   };
 
-  const handleEmailChange = (evt) => {
+  const handleEmailChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(evt.target.value);
+
     if (errors.email) {
-      setErrors(prev => ({ ...prev, email: "" }));
+      setErrors((prev) => ({ ...prev, email: "" }));
     }
   };
 
-  const handlePasswordChange = (evt) => {
+  const handlePasswordChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(evt.target.value);
     if (errors.password) {
-      setErrors(prev => ({ ...prev, password: "" }));
+      setErrors((prev) => ({ ...prev, password: "" }));
     }
   };
 
@@ -111,13 +112,17 @@ export default function Signin() {
             <input
               type="email"
               id="email"
-              className={`${styles.textField} ${errors.email ? styles.errorField : ''}`}
+              className={`${styles.textField} ${
+                errors.email ? styles.errorField : ""
+              }`}
               value={email}
               onChange={handleEmailChange}
               placeholder="Enter email"
               required
             />
-            {errors.email && <span className={styles.errorText}>{errors.email}</span>}
+            {errors.email && (
+              <span className={styles.errorText}>{errors.email}</span>
+            )}
           </div>
 
           <div className={styles.inputGroup}>
@@ -127,18 +132,24 @@ export default function Signin() {
             <input
               type="password"
               id="password"
-              className={`${styles.textField} ${errors.password ? styles.errorField : ''}`}
+              className={`${styles.textField} ${
+                errors.password ? styles.errorField : ""
+              }`}
               value={password}
               onChange={handlePasswordChange}
               placeholder="••••••••"
               required
             />
-            {errors.password && <span className={styles.errorText}>{errors.password}</span>}
+            {errors.password && (
+              <span className={styles.errorText}>{errors.password}</span>
+            )}
           </div>
 
-          <button 
-            onClick={logAdminIn} 
-            className={`${styles.loginButton} ${isSubmitting ? styles.loadingButton : ''}`}
+          <button
+            onClick={logAdminIn}
+            className={`${styles.loginButton} ${
+              isSubmitting ? styles.loadingButton : ""
+            }`}
             disabled={isSubmitting}
           >
             {isSubmitting ? (
