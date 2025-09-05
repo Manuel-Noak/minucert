@@ -27,9 +27,9 @@ export async function GET(
       .from(certification)
       .innerJoin(
         certificationProvider,
-        eq(certificationProvider.id, providerId)
+        eq(certificationProvider.id, Number(providerId))
       )
-      .where(eq(certification.id, paramId));
+      .where(eq(certification.id, Number(paramId)));
 
     if (!course) {
       return NextResponse.json({ success: false }, { status: 400 });
@@ -54,7 +54,7 @@ export async function GET(
     return response;
   } catch (error) {
     return NextResponse.json(
-      { success: false, message: error.message || "Something went wrong" },
+      { success: false, message: "Something went wrong" },
       { status: 500 }
     );
   }
