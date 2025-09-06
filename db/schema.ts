@@ -1,4 +1,3 @@
-// lib/db/schema.ts
 import {
   bigint,
   timestamp,

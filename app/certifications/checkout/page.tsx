@@ -1,13 +1,14 @@
 "use client";
+
 import Navbar from "@/app/(components)/(navbar)/navbar";
 import CheckoutSection from "./CheckoutSection";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { MessageModal } from "@/app/(components)/(common)/popupModal/popupModels";
 import Loader from "@/app/(components)/(loading)/loader";
 
-export default function Checkout() {
+function CheckoutContent() {
   const [isMessageModalOpen, setMessageModalOpen] = useState(false);
   const [messageDetail, setMessageDetail] = useState<string | undefined>();
   const [status, setStatus] = useState(false);
@@ -21,7 +22,7 @@ export default function Checkout() {
     if (reference) {
       verifyPayment(reference);
     }
-  }, []);
+  }, [searchParams]);
 
   const verifyPayment = async (reference: string) => {
     try {
@@ -49,7 +50,6 @@ export default function Checkout() {
         );
       }
     } catch (error) {
-      console.error("Something went wrong", error);
       toast.error("Something went wrong");
       handleModalMessageContent(
         "Payment Failed",
@@ -81,7 +81,6 @@ export default function Checkout() {
 
   return (
     <>
-      {/* Navbar */}
       <Navbar backgroundColor="#FAFFEF" />
 
       <MessageModal
@@ -91,8 +90,16 @@ export default function Checkout() {
         header={message}
         moreDetails={messageDetail}
       />
-      {/* Checkout Section */}
+
       <CheckoutSection />
     </>
+  );
+}
+
+export default function Checkout() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <CheckoutContent />
+    </Suspense>
   );
 }
