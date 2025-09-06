@@ -19,9 +19,9 @@ const CourseCardSkeleton = () => {
         <div className={styles.program_title_section}>
           <div className={styles.skeleton_title}></div>
         </div>
-        
+
         <div className={styles.skeleton_price}></div>
-        
+
         <div className={styles.skeleton_button}></div>
       </div>
     </div>
@@ -29,14 +29,23 @@ const CourseCardSkeleton = () => {
 };
 
 // Loading Skeleton for the entire programs section
-const ProgramsSectionSkeleton = ({ providerName }: { providerName: string }) => {
+const ProgramsSectionSkeleton = ({
+  providerName,
+}: {
+  providerName: string;
+}) => {
   return (
     <section className={styles.programs_section}>
       {/* Title Section */}
       <div className={styles.header_section}>
-        <h1 className={styles.section_title}>{decodeURIComponent(providerName)}</h1>
+        <h1 className={styles.section_title}>
+          {decodeURIComponent(providerName)}
+        </h1>
         {/* Skeleton for results text */}
-        <div className={styles.skeleton_title} style={{ width: '200px', height: '22px', margin: '0 auto' }}></div>
+        <div
+          className={styles.skeleton_title}
+          style={{ width: "200px", height: "22px", margin: "0 auto" }}
+        ></div>
       </div>
 
       {/* Skeleton Programs Grid */}
@@ -70,7 +79,7 @@ export default function ProgramsSection() {
       setIsLoading(true);
       try {
         const result = await fetchCourses(`/api/courses/provider/${name}`);
-        
+
         if (!result.success || result.info.length === 0) {
           setIsLoading(false);
           return;
@@ -113,7 +122,9 @@ export default function ProgramsSection() {
       {/* Title and Results Count */}
       <div className={styles.header_section}>
         <h1 className={styles.section_title}>{decodeURIComponent(name)}</h1>
-        <p className={styles.results_text}>Showing {CoursesInfo.length} results</p>
+        <p className={styles.results_text}>
+          Showing {CoursesInfo.length} results
+        </p>
       </div>
 
       {/* Programs Grid */}

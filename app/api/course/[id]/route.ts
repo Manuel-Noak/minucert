@@ -10,24 +10,21 @@ export async function GET(
   try {
     const { id: paramId } = await context.params;
 
-    const { id, category, courseId, price, thumbnailLink, title, providerId } =
-      certification;
-    const { apiBaseUrl } = certificationProvider;
     const [course] = await db
       .select({
-        id,
-        category,
-        courseId,
-        price,
-        thumbnailLink,
-        title,
-        providerId,
-        api: apiBaseUrl,
+        id: certification.id,
+        category: certification.category,
+        courseId: certification.courseId,
+        price: certification.price,
+        thumbnailLink: certification.thumbnailLink,
+        title: certification.title,
+        providerId: certification.providerId,
+        api: certificationProvider.apiBaseUrl,
       })
       .from(certification)
       .innerJoin(
         certificationProvider,
-        eq(certificationProvider.id, Number(providerId))
+        eq(certificationProvider.id, certification.providerId) // ✅ correct join
       )
       .where(eq(certification.id, Number(paramId)));
 
